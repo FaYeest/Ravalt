@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 data class AuthUiState(
     val isLoginTab: Boolean = true,
+    val isOfflineMode: Boolean = false,
     val email: String = "",
     val masterPassword: String = "",
     val confirmPassword: String = "",
@@ -29,6 +30,14 @@ class AuthViewModel(
     fun setTab(isLogin: Boolean) {
         _uiState.value = _uiState.value.copy(
             isLoginTab = isLogin,
+            isOfflineMode = false,
+            errorMessage = null
+        )
+    }
+
+    fun setOfflineMode(enabled: Boolean) {
+        _uiState.value = _uiState.value.copy(
+            isOfflineMode = enabled,
             errorMessage = null
         )
     }
@@ -86,6 +95,34 @@ class AuthViewModel(
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         errorMessage = error.localizedMessage ?: "Terjadi kesalahan autentikasi"
+                    )
+                }
+            )
+        }
+    }
+
+    fun submitOffline() {
+        val state = _uiState.value
+        if (state.masterPassword.length < 8) {
+            _uiState.value = state.copy(errorMessage = "Master password minimal 8 karakter")
+            return
+        }
+        if (state.masterPassword != state.confirmPassword) {
+            _uiState.value = state.copy(errorMessage = "Konfirmasi password tidak cocok")
+            return
+        }
+
+        viewModelScope.launch {
+            _uiState.value = state.copy(isLoading = true, errorMessage = null)
+            val result = authRepository.createLocalVault(state.masterPassword)
+            result.fold(
+                onSuccess = {
+                    _uiState.value = _uiState.value.copy(isLoading = false, isSuccess = true)
+                },
+                onFailure = { error ->
+                    _uiState.value = _uiState.value.copy(
+                        isLoading = false,
+                        errorMessage = error.localizedMessage ?: "Gagal membuat brankas offline"
                     )
                 }
             )

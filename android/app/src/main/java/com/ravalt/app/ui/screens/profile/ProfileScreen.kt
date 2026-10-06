@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ravalt.app.ui.components.NotionPropertyRow
@@ -40,6 +41,9 @@ fun ProfileScreen(
     val isLoggedOut by viewModel.isLoggedOut.collectAsState()
     val context = LocalContext.current
     var showDeleteConfirm by remember { mutableStateOf(false) }
+    var showLinkCloudDialog by remember { mutableStateOf(false) }
+    var linkEmail by remember { mutableStateOf("") }
+    var linkPassword by remember { mutableStateOf("") }
 
     LaunchedEffect(isLoggedOut) {
         if (isLoggedOut) {
@@ -106,7 +110,7 @@ fun ProfileScreen(
                         Column {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 Text(
-                                    text = state.email,
+                                    text = if (state.isCloudConnected) state.email else "Brankas Lokal (Offline)",
                                     style = MaterialTheme.typography.bodyMedium,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White
@@ -114,14 +118,19 @@ fun ProfileScreen(
                                 Box(
                                     modifier = Modifier
                                         .clip(RoundedCornerShape(4.dp))
-                                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                                        .background(if (state.isCloudConnected) MaterialTheme.colorScheme.surfaceVariant else EmeraldPrimary.copy(alpha = 0.2f))
                                         .padding(horizontal = 6.dp, vertical = 2.dp)
                                 ) {
-                                    Text(text = "v1.0.0", fontSize = 9.sp, fontFamily = FontFamily.Monospace, color = TextMuted)
+                                    Text(
+                                        text = if (state.isCloudConnected) "Cloud" else "Offline",
+                                        fontSize = 9.sp,
+                                        fontFamily = FontFamily.Monospace,
+                                        color = if (state.isCloudConnected) TextMuted else EmeraldPrimary
+                                    )
                                 }
                             }
                             Text(
-                                text = "Brankas Mandiri (Zero-Knowledge)",
+                                text = if (state.isCloudConnected) "Brankas Mandiri (Zero-Knowledge)" else "Penyimpanan 100% di Perangkat",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = TextMuted
                             )
@@ -195,9 +204,9 @@ fun ProfileScreen(
                     )
                     HorizontalDivider(color = ObsidianBorder, thickness = 0.5.dp)
                     NotionPropertyRow(
-                        icon = Icons.Default.Cloud,
+                        icon = if (state.isCloudConnected) Icons.Default.Cloud else Icons.Default.PhoneAndroid,
                         label = "Host Backend",
-                        value = "PostgreSQL 16 (Connected)",
+                        value = if (state.isCloudConnected) "PostgreSQL 16 (Connected)" else "Lokal (Offline Mode)",
                         isMono = true
                     )
                 }
@@ -261,23 +270,42 @@ fun ProfileScreen(
                 border = androidx.compose.foundation.BorderStroke(1.dp, ObsidianBorder)
             ) {
                 Column(modifier = Modifier.fillMaxWidth().padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Button(
-                        onClick = { viewModel.syncNow() },
-                        modifier = Modifier.fillMaxWidth().height(44.dp),
-                        enabled = !state.isSyncing,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        if (state.isSyncing) {
-                            CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp, color = EmeraldPrimary)
-                        } else {
+                    if (state.isCloudConnected) {
+                        Button(
+                            onClick = { viewModel.syncNow() },
+                            modifier = Modifier.fillMaxWidth().height(44.dp),
+                            enabled = !state.isSyncing,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            if (state.isSyncing) {
+                                CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp, color = EmeraldPrimary)
+                            } else {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(imageVector = Icons.Default.Sync, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(16.dp))
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(text = "Sinkronkan Sekarang", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                }
+                            }
+                        }
+                    } else {
+                        Button(
+                            onClick = { showLinkCloudDialog = true },
+                            modifier = Modifier.fillMaxWidth().height(44.dp),
+                            enabled = !state.isSyncing,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = EmeraldPrimary,
+                                contentColor = Color.Black
+                            ),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(imageVector = Icons.Default.Sync, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(16.dp))
+                                Icon(imageVector = Icons.Default.Cloud, contentDescription = null, tint = Color.Black, modifier = Modifier.size(16.dp))
                                 Spacer(modifier = Modifier.width(8.dp))
-                                Text(text = "Sinkronkan Sekarang", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                Text(text = "Hubungkan ke Cloud Ravalt", fontWeight = FontWeight.Bold, fontSize = 12.sp)
                             }
                         }
                     }
@@ -304,7 +332,7 @@ fun ProfileScreen(
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)
                     ) {
-                        Text(text = "Keluar dari Akun", fontSize = 12.sp)
+                        Text(text = if (state.isCloudConnected) "Keluar dari Akun Cloud" else "Tutup / Reset Brankas Lokal", fontSize = 12.sp)
                     }
 
                     Button(
@@ -320,12 +348,86 @@ fun ProfileScreen(
                         if (state.isDeleting) {
                             CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp, color = DangerRed)
                         } else {
-                            Text(text = "Hapus Akun & Seluruh Data Brankas", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            Text(text = if (state.isCloudConnected) "Hapus Akun & Seluruh Data Brankas" else "Hapus Seluruh Data Brankas Lokal", fontWeight = FontWeight.Bold, fontSize = 12.sp)
                         }
                     }
                 }
             }
         }
+    }
+
+    if (showLinkCloudDialog) {
+        AlertDialog(
+            onDismissRequest = { showLinkCloudDialog = false },
+            containerColor = ObsidianSurface,
+            title = {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(imageVector = Icons.Default.Cloud, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(20.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "Hubungkan ke Cloud", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                }
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(
+                        text = "Data brankas lokal Anda akan disinkronkan secara aman (Zero-Knowledge) ke server Ravalt.",
+                        color = TextMuted,
+                        fontSize = 12.sp,
+                        lineHeight = 16.sp
+                    )
+
+                    OutlinedTextField(
+                        value = linkEmail,
+                        onValueChange = { linkEmail = it },
+                        label = { Text("Email Cloud") },
+                        placeholder = { Text("nama@email.com") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = EmeraldPrimary,
+                            unfocusedBorderColor = ObsidianBorder
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+
+                    OutlinedTextField(
+                        value = linkPassword,
+                        onValueChange = { linkPassword = it },
+                        label = { Text("Master Password") },
+                        singleLine = true,
+                        visualTransformation = PasswordVisualTransformation(),
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = EmeraldPrimary,
+                            unfocusedBorderColor = ObsidianBorder
+                        ),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        if (linkEmail.isNotBlank() && linkPassword.isNotBlank()) {
+                            viewModel.linkCloudAccount(linkEmail, linkPassword) { success ->
+                                if (success) {
+                                    showLinkCloudDialog = false
+                                }
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = EmeraldPrimary, contentColor = Color.Black),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text("Hubungkan & Sinkronkan", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showLinkCloudDialog = false }) {
+                    Text("Batal", color = TextMuted)
+                }
+            }
+        )
     }
 
     if (showDeleteConfirm) {

@@ -9,10 +9,12 @@ import com.ravalt.app.core.session.SessionManager
 import com.ravalt.app.data.local.dao.UserProfileDao
 import com.ravalt.app.data.local.dao.VaultDao
 import com.ravalt.app.data.local.entity.UserProfileEntity
+import com.ravalt.app.data.local.entity.VaultEntity
 import com.ravalt.app.domain.model.UserSession
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class AuthRepository(
     private val apiClient: ApiClient,
@@ -21,6 +23,66 @@ class AuthRepository(
 ) {
 
     val userProfile: Flow<UserProfileEntity?> = userProfileDao.getProfile()
+
+    private suspend fun saveCanary(vaultKey: ByteArray) {
+        try {
+            val canaryPlaintext = "RAVALT_VERIFIED_KEY".toByteArray(Charsets.UTF_8)
+            val encryptedCanary = CryptoUtils.encryptAesGcm(canaryPlaintext, vaultKey)
+            vaultDao.insertOrUpdate(
+                VaultEntity(
+                    id = "__master_canary__",
+                    type = "CANARY",
+                    encryptedData = encryptedCanary.encryptedDataBase64,
+                    nonce = encryptedCanary.nonceBase64,
+                    version = 1,
+                    updatedAt = System.currentTimeMillis(),
+                    isDirty = false,
+                    isDeleted = false
+                )
+            )
+        } catch (_: Exception) {}
+    }
+
+    suspend fun createLocalVault(masterPassword: String): Result<UserSession> = withContext(Dispatchers.IO) {
+        try {
+            val saltBytes = CryptoUtils.generateSalt(32)
+            val saltBase64 = CryptoUtils.toBase64(saltBytes)
+
+            val masterKey = CryptoUtils.deriveMasterKey(masterPassword, saltBytes)
+            val keys = CryptoUtils.deriveSubKeys(masterKey)
+
+            saveCanary(keys.vaultKey)
+
+            val localUserId = "local_" + UUID.randomUUID().toString().replace("-", "").take(8)
+            val profile = UserProfileEntity(
+                userId = localUserId,
+                email = "Brankas Lokal (Offline)",
+                userSalt = saltBase64,
+                authToken = ""
+            )
+            userProfileDao.clear()
+            userProfileDao.insertOrUpdate(profile)
+
+            SessionManager.setSession(
+                userId = localUserId,
+                email = profile.email,
+                token = "",
+                userSalt = saltBase64,
+                vaultKey = keys.vaultKey
+            )
+
+            Result.success(
+                UserSession(
+                    userId = localUserId,
+                    email = profile.email,
+                    token = "",
+                    userSalt = saltBase64
+                )
+            )
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 
     suspend fun register(email: String, masterPassword: String): Result<UserSession> = withContext(Dispatchers.IO) {
         try {
@@ -64,6 +126,7 @@ class AuthRepository(
                 userSalt = saltBase64,
                 authToken = authBody.token
             )
+            userProfileDao.clear()
             userProfileDao.insertOrUpdate(profile)
 
             SessionManager.setSession(
@@ -73,6 +136,8 @@ class AuthRepository(
                 userSalt = saltBase64,
                 vaultKey = keys.vaultKey
             )
+
+            saveCanary(keys.vaultKey)
 
             Result.success(
                 UserSession(
@@ -125,6 +190,7 @@ class AuthRepository(
                 autoLockTimeoutSeconds = existing?.autoLockTimeoutSeconds ?: 0,
                 backgroundAuditEnabled = existing?.backgroundAuditEnabled ?: true
             )
+            userProfileDao.clear()
             userProfileDao.insertOrUpdate(profile)
 
             SessionManager.setSession(
@@ -134,6 +200,8 @@ class AuthRepository(
                 userSalt = saltBase64,
                 vaultKey = keys.vaultKey
             )
+
+            saveCanary(keys.vaultKey)
 
             Result.success(
                 UserSession(
@@ -151,13 +219,29 @@ class AuthRepository(
     suspend fun unlockWithMasterPassword(masterPassword: String): Result<Unit> = withContext(Dispatchers.IO) {
         try {
             val profile = userProfileDao.getProfileSync()
-                ?: return@withContext Result.failure(Exception("Tidak ada akun tersimpan. Silakan login terlebih dahulu."))
+                ?: return@withContext Result.failure(Exception("Tidak ada akun tersimpan. Silakan setup brankas terlebih dahulu."))
 
             val saltBytes = CryptoUtils.fromBase64(profile.userSalt)
             val masterKey = CryptoUtils.deriveMasterKey(masterPassword, saltBytes)
             val keys = CryptoUtils.deriveSubKeys(masterKey)
 
-            // Verify with server login or local check
+            // Verify with canary if present
+            val canary = vaultDao.getById("__master_canary__")
+            if (canary != null) {
+                try {
+                    val decrypted = CryptoUtils.decryptAesGcm(
+                        ciphertextBase64 = canary.encryptedData,
+                        nonceBase64 = canary.nonce,
+                        key = keys.vaultKey
+                    )
+                    if (String(decrypted, Charsets.UTF_8) != "RAVALT_VERIFIED_KEY") {
+                        return@withContext Result.failure(Exception("Master password salah"))
+                    }
+                } catch (_: Exception) {
+                    return@withContext Result.failure(Exception("Master password salah"))
+                }
+            }
+
             SessionManager.setSession(
                 userId = profile.userId,
                 email = profile.email,
@@ -165,6 +249,56 @@ class AuthRepository(
                 userSalt = profile.userSalt,
                 vaultKey = keys.vaultKey
             )
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun linkCloudAccount(email: String, masterPassword: String): Result<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val cleanEmail = email.trim().lowercase()
+            val profile = userProfileDao.getProfileSync()
+                ?: return@withContext Result.failure(Exception("Profil lokal tidak ditemukan"))
+
+            val saltBytes = CryptoUtils.fromBase64(profile.userSalt)
+            val masterKey = CryptoUtils.deriveMasterKey(masterPassword, saltBytes)
+            val keys = CryptoUtils.deriveSubKeys(masterKey)
+
+            // Try register first in case user doesn't exist yet on server
+            apiClient.authService.register(
+                RegisterRequest(
+                    email = cleanEmail,
+                    salt = profile.userSalt,
+                    authHash = keys.authHash
+                )
+            )
+
+            // Login to obtain valid JWT token
+            val loginResp = apiClient.authService.login(
+                LoginRequest(email = cleanEmail, authHash = keys.authHash)
+            )
+
+            if (!loginResp.isSuccessful || loginResp.body() == null) {
+                val err = loginResp.errorBody()?.string() ?: "Gagal menghubungkan ke cloud (${loginResp.code()})"
+                return@withContext Result.failure(Exception(err))
+            }
+
+            val authBody = loginResp.body()!!
+            val updatedProfile = profile.copy(
+                userId = authBody.user.id,
+                email = cleanEmail,
+                authToken = authBody.token
+            )
+            userProfileDao.clear()
+            userProfileDao.insertOrUpdate(updatedProfile)
+
+            SessionManager.activeToken = authBody.token
+            SessionManager.activeUserId = authBody.user.id
+            SessionManager.activeEmail = cleanEmail
+
+            saveCanary(keys.vaultKey)
 
             Result.success(Unit)
         } catch (e: Exception) {

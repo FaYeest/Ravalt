@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 data class ProfileUiState(
     val email: String = "",
     val userSalt: String = "",
+    val isCloudConnected: Boolean = true,
     val biometricEnabled: Boolean = true,
     val backgroundAuditEnabled: Boolean = true,
     val autoLockSeconds: Int = 0,
@@ -42,8 +43,9 @@ class ProfileViewModel(
         _toastMessage
     ) { profile, syncing, deleting, toast ->
         ProfileUiState(
-            email = profile?.email ?: "farras@ravalt.id",
+            email = profile?.email ?: "Brankas Lokal",
             userSalt = profile?.userSalt ?: "",
+            isCloudConnected = !profile?.authToken.isNullOrBlank(),
             biometricEnabled = profile?.biometricEnabled ?: true,
             backgroundAuditEnabled = profile?.backgroundAuditEnabled ?: true,
             autoLockSeconds = profile?.autoLockTimeoutSeconds ?: 0,
@@ -53,6 +55,22 @@ class ProfileViewModel(
             toastMessage = toast
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProfileUiState())
+
+    fun linkCloudAccount(email: String, masterPassword: String, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            _isSyncing.value = true
+            val res = authRepository.linkCloudAccount(email, masterPassword)
+            if (res.isSuccess) {
+                vaultRepository.syncWithServer()
+                _toastMessage.value = "Berhasil terhubung ke cloud dan disinkronkan!"
+                onResult(true)
+            } else {
+                _toastMessage.value = res.exceptionOrNull()?.localizedMessage ?: "Gagal menghubungkan ke cloud"
+                onResult(false)
+            }
+            _isSyncing.value = false
+        }
+    }
 
     fun lockVault() {
         SessionManager.lock()

@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
 
                 LaunchedEffect(Unit) {
                     val profile = withContext(Dispatchers.IO) { userProfileDao.getProfileSync() }
-                    startupDestination = if (profile != null && profile.authToken.isNotBlank()) {
+                    startupDestination = if (profile != null) {
                         Screen.Unlock.route
                     } else {
                         Screen.Onboarding.route

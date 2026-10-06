@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface VaultDao {
 
-    @Query("SELECT * FROM vault_items WHERE isDeleted = 0 ORDER BY updatedAt DESC")
+    @Query("SELECT * FROM vault_items WHERE isDeleted = 0 AND id != '__master_canary__' ORDER BY updatedAt DESC")
     fun getAllActive(): Flow<List<VaultEntity>>
 
-    @Query("SELECT * FROM vault_items WHERE isDirty = 1")
+    @Query("SELECT * FROM vault_items WHERE isDirty = 1 AND id != '__master_canary__'")
     suspend fun getDirtyItems(): List<VaultEntity>
 
-    @Query("SELECT id FROM vault_items WHERE isDeleted = 1")
+    @Query("SELECT id FROM vault_items WHERE isDeleted = 1 AND id != '__master_canary__'")
     suspend fun getDeletedIds(): List<String>
 
     @Query("SELECT * FROM vault_items WHERE id = :id LIMIT 1")
