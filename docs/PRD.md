@@ -31,14 +31,16 @@ Salah satu fokus utama Ravalt adalah fitur **Breach Checker** proaktif yang memu
 ### Fase 1: MVP (Fokus Saat Ini)
 - **Zero-Knowledge Auth**: Registrasi, Login, Salt Generation, Key Derivation (Argon2id + HKDF).
 - **Brankas Kredensial**: CRUD item login (Title, Username, Password, URL, Notes) dengan enkripsi AES-256-GCM di Android.
-- **Sinkronisasi Cloud**: Go Backend + PostgreSQL untuk sync encrypted data antar perangkat.
+- **2FA Authenticator (TOTP)**: Generator kode OTP 6-digit real-time (RFC 6238) dengan scanner QR kamera dan input setup key manual.
+- **Server & SSH Keys Management**: Penyimpanan kredensial server, generator keypair Ed25519 & RSA-4096 lokal, 1-klik salin public key & perintah SSH terminal, serta penyimpanan private key terenkripsi.
 - **Client-Side Breach Checker**: Integrasi HaveIBeenPwned API dengan k-Anonymity (5-char SHA-1 prefix).
+- **Design & UI System**: Gaya utilitarian Notion & Obsidian mobile, Dark & Light Mode, dukungan bilingual (ID/EN), onboarding berbasis animasi, dan logo resmi Monolith R-Vault (Konsep 3).
+- **Sinkronisasi Cloud**: Go Backend + PostgreSQL untuk sync encrypted data (ciphertext) antar perangkat.
 - **Web Landing Page**: Website perkenalan aplikasi dengan HTML + JS + Tailwind CSS.
 
-### Fase 2: Peningkatan Platform & Keamanan
+### Fase 2: Peningkatan Platform Lanjutan
 - **Android Biometric Unlock**: Akses cepat dengan sidik jari / face recognition memanfaatkan Android Keystore.
 - **Android Autofill Framework**: Pengisian otomatis di browser dan aplikasi Android lain.
-- **Two-Factor Authentication (2FA/TOTP)**: Generator kode OTP 6-digit di dalam item vault.
 - **Audit Keamanan Brankas**: Ringkasan kesehatan password (reused passwords, weak passwords, breached passwords).
 
 ---

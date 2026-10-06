@@ -35,6 +35,20 @@ Dokumen ini mendefinisikan kebutuhan fungsional, non-fungsional, spesifikasi kri
 - **FR-BREACH-03 (Client-side Verification)**: Klien menerima daftar hash suffix (35 karakter) beserta jumlah kemunculan breach. Klien mencocokkan secara lokal. Jika ditemukan, sistem menampilkan peringatan *"Password ini telah muncul X kali dalam kebocoran data"*.
 - **FR-BREACH-04 (Privasi)**: Server backend Ravalt tidak pernah dilibatkan dalam proses pengecekan ini, dan HIBP API tidak pernah menerima password asli maupun hash lengkap.
 
+### 1.4 Two-Factor Authenticator (TOTP)
+- **FR-TOTP-01 (RFC 6238 Engine)**: Klien mengimplementasikan generator kode OTP 6-digit dengan interval rotasi 30 detik berbasis algoritma HMAC-SHA1/SHA256.
+- **FR-TOTP-02 (QR Scanner)**: Klien mendukung pemindaian barcode URI format `otpauth://totp/{label}?secret={secret}&issuer={issuer}` menggunakan kamera perangkat.
+- **FR-TOTP-03 (Manual Secret Key)**: Klien mendukung input manual secret key format Base32 dengan penanganan padding standar.
+- **FR-TOTP-04 (Zero-Knowledge Storage)**: Seed/secret key 2FA disimpan dienkripsi secara lokal di dalam payload `encrypted_data` brankas menggunakan `VaultKey`.
+
+### 1.5 Server & SSH Keys Management
+- **FR-SSH-01 (Keypair Generation)**: Klien mendukung pembuatan pasangan kunci kriptografi SSH secara lokal langsung di perangkat:
+  - `Ed25519` (Curve25519, 256-bit, format OpenSSH)
+  - `RSA-4096` (PKCS#8 / OpenSSH format)
+- **FR-SSH-02 (1-Click Deployment)**: Klien menyediakan tombol cepat untuk menyalin Public Key (format baris tunggal `ssh-ed25519 ... user@host`) untuk file `~/.ssh/authorized_keys`.
+- **FR-SSH-03 (Terminal Command Helper)**: Klien memformat dan memungkinkan 1-klik salin perintah koneksi terminal (contoh: `ssh {user}@{host} -p {port}`).
+- **FR-SSH-04 (Zero-Knowledge Private Key)**: Private key disimpan dalam ciphertext AES-256-GCM. Dekripsi hanya dilakukan secara on-demand di memori RAM ketika pengguna melakukan otentikasi.
+
 ---
 
 ## 2. Non-Functional Requirements (NFR)
