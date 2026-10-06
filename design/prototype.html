@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ravalt Mobile - Notion & Obsidian Inspired Design</title>
+  <title>Ravalt Mobile - Notion & Obsidian Aesthetic Prototype</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,9 +18,8 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            // Notion & Obsidian Inspired Palette
             notion: {
-              // Light mode
+              // Light
               bg: '#FFFFFF',
               subtle: '#F7F6F3',
               card: '#FFFFFF',
@@ -29,7 +28,7 @@
               text: '#37352F',
               textMuted: '#787774',
               hover: '#F1F0ED',
-              // Dark mode
+              // Dark
               darkBg: '#191919',
               darkSubtle: '#202020',
               darkCard: '#252525',
@@ -38,7 +37,7 @@
               darkText: '#E6E6E6',
               darkTextMuted: '#8F8F8F',
               darkHover: '#2A2A2A',
-              // Semantic Notion Tag Colors
+              // Tags
               tagRedBg: '#FDEBEC',
               tagRedText: '#EB5757',
               tagRedDarkBg: '#372426',
@@ -57,76 +56,76 @@
       }
     }
   </script>
-  <style>
-    /* Notion style thin hair-lines */
-    .notion-border-b {
-      border-bottom: 1px solid var(--border-color);
-    }
-    .light {
-      --border-color: #E9E9E7;
-    }
-    .dark {
-      --border-color: #2E2E2E;
-    }
-  </style>
 </head>
-<body class="bg-slate-100 dark:bg-[#111111] text-notion-text dark:text-notion-darkText min-h-screen flex flex-col font-sans transition-colors duration-200">
+<body class="bg-slate-100 dark:bg-[#111111] text-[#37352F] dark:text-[#E6E6E6] min-h-screen flex flex-col font-sans transition-colors duration-200">
 
   <!-- Desktop Control Header -->
-  <header class="border-b border-slate-200 dark:border-[#222222] bg-white/90 dark:bg-[#181818]/90 backdrop-blur px-6 py-3 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+  <header class="border-b border-slate-200 dark:border-[#222222] bg-white/95 dark:bg-[#181818]/95 backdrop-blur px-6 py-3 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
     <div class="flex items-center gap-3">
       <div class="w-7 h-7 rounded border border-slate-300 dark:border-[#333333] bg-slate-50 dark:bg-[#202020] flex items-center justify-center font-bold text-xs">
-        R
+        <svg class="w-4 h-4 text-slate-800 dark:text-slate-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
       </div>
       <div>
         <h1 class="text-sm font-semibold tracking-tight flex items-center gap-2">
-          Ravalt Mobile Design
+          Ravalt Design Prototype
           <span class="text-[11px] font-normal px-2 py-0.5 rounded bg-slate-100 dark:bg-[#252525] text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[#333333]">
-            Notion & Obsidian Aesthetic
+            Notion & Obsidian Style
           </span>
         </h1>
-        <p class="text-xs text-slate-500 dark:text-slate-400">Minimalis, zero-slop, berbasis properties & document hierarchy</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Official SVG Icons • Bilingual (ID / EN) • Duolingo-style Sensible Onboarding</p>
       </div>
     </div>
 
-    <!-- Controls: Screen Switcher + Light/Dark Toggle -->
-    <div class="flex items-center gap-3">
+    <!-- Controls: Screen Switcher + Language + Theme Toggle -->
+    <div class="flex items-center gap-2.5">
       <!-- Screen Switcher -->
       <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#141414] p-1 rounded-lg border border-slate-200 dark:border-[#262626] text-xs">
+        <button onclick="setScreen('onboarding')" id="btn-onboarding" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
+          0. Onboarding
+        </button>
         <button onclick="setScreen('unlock')" id="btn-unlock" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
           1. Unlock
         </button>
         <button onclick="setScreen('vault')" id="btn-vault" class="screen-btn px-2.5 py-1.5 rounded transition bg-white dark:bg-[#262626] font-medium shadow-sm text-black dark:text-white">
-          2. Vault Database
+          2. Vault
         </button>
         <button onclick="setScreen('detail')" id="btn-detail" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          3. Item Properties
+          3. Properties
         </button>
         <button onclick="setScreen('breach')" id="btn-breach" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          4. Breach Audit
+          4. Breach
         </button>
         <button onclick="setScreen('generator')" id="btn-generator" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
           5. Generator
         </button>
       </div>
 
-      <!-- Light / Dark Mode Toggle Button -->
+      <!-- Language Selector (ID / EN) -->
+      <div class="flex items-center rounded-lg border border-slate-300 dark:border-[#333333] bg-white dark:bg-[#202020] p-0.5 text-xs font-medium">
+        <button onclick="setLang('id')" id="lang-id" class="px-2.5 py-1 rounded-md bg-slate-200 dark:bg-[#333333] font-semibold text-black dark:text-white transition">ID</button>
+        <button onclick="setLang('en')" id="lang-en" class="px-2.5 py-1 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition">EN</button>
+      </div>
+
+      <!-- Theme Toggle -->
       <button onclick="toggleTheme()" id="theme-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#333333] bg-white dark:bg-[#202020] text-xs font-medium hover:bg-slate-50 dark:hover:bg-[#282828] transition">
-        <span id="theme-icon">☀️ Light Mode</span>
+        <svg id="theme-icon-sun" class="w-3.5 h-3.5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <svg id="theme-icon-moon" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        <span id="theme-label">Light Mode</span>
       </button>
     </div>
   </header>
 
-  <!-- Interactive Mockup Screen Frame -->
+  <!-- Interactive Mobile Frame -->
   <main class="flex-1 flex items-center justify-center p-4 sm:p-8">
 
-    <!-- Phone Frame -->
     <div id="phone-container" class="w-[385px] h-[810px] bg-white dark:bg-[#191919] text-[#37352F] dark:text-[#E6E6E6] rounded-[44px] border-[8px] border-slate-300 dark:border-[#2E2E2E] shadow-2xl relative flex flex-col overflow-hidden ring-1 ring-black/5 dark:ring-white/10 transition-colors duration-200">
       
-      <!-- Phone Top Pill Notch -->
+      <!-- Top Notch Pill -->
       <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-3.5 bg-slate-200 dark:bg-[#262626] rounded-full z-40"></div>
 
-      <!-- Android Top Status Bar -->
+      <!-- Android Status Bar -->
       <div class="px-6 pt-3.5 pb-2 flex justify-between items-center text-[11px] font-mono text-slate-400 dark:text-[#777777] select-none z-30">
         <span>09:41</span>
         <div class="flex items-center gap-1.5">
@@ -136,13 +135,138 @@
       </div>
 
       <!-- ========================================== -->
-      <!-- SCREEN 1: UNLOCK SCREEN (Notion Style)     -->
+      <!-- SCREEN 0: DUOLINGO-STYLE TOUR / ONBOARDING -->
+      <!-- ========================================== -->
+      <div id="screen-onboarding" class="screen-content hidden flex-1 flex flex-col justify-between p-6">
+        
+        <!-- Header & Top Progress Bar (Duolingo Style) -->
+        <div>
+          <div class="flex items-center justify-between text-xs text-slate-400 dark:text-[#777777] mb-3">
+            <button onclick="prevSlide()" id="onboarding-back-btn" class="opacity-0 pointer-events-none hover:text-black dark:hover:text-white transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <span class="font-mono text-[11px]" id="slide-step-indicator">1 / 3</span>
+            <button onclick="setScreen('unlock')" class="hover:text-black dark:hover:text-white transition text-[11px]" data-i18n="skip">
+              Lewati
+            </button>
+          </div>
+
+          <!-- Progress track -->
+          <div class="w-full h-1.5 bg-slate-100 dark:bg-[#262626] rounded-full overflow-hidden">
+            <div id="slide-progress" class="h-full bg-[#37352F] dark:bg-white rounded-full transition-all duration-300 w-1/3"></div>
+          </div>
+        </div>
+
+        <!-- Slide Carousel Container -->
+        <div class="my-auto py-4">
+          
+          <!-- Slide 1: Zero Knowledge -->
+          <div id="slide-1" class="slide-item space-y-5">
+            <div class="w-20 h-20 rounded-2xl bg-slate-50 dark:bg-[#222222] border border-slate-200 dark:border-[#2F2F2F] flex items-center justify-center mx-auto text-[#37352F] dark:text-[#E6E6E6]">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <div class="text-center space-y-2">
+              <h3 class="text-base font-bold text-black dark:text-white tracking-tight" data-i18n="s1_title">
+                Arsitektur Zero-Knowledge Murni
+              </h3>
+              <p class="text-xs text-slate-600 dark:text-[#999999] leading-relaxed" data-i18n="s1_desc">
+                Master password Anda tidak pernah dikirim ke internet. Semua data dienkripsi langsung di perangkat menggunakan Argon2id dan AES-256-GCM.
+              </p>
+            </div>
+            <!-- Technical proof badge -->
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2A2A2A] text-[11px] font-mono text-slate-500 dark:text-[#888888] space-y-1">
+              <div class="flex justify-between">
+                <span>Client-Side KDF</span>
+                <span class="text-black dark:text-white">Argon2id (64MB)</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Server Storage</span>
+                <span class="text-black dark:text-white">Ciphertext Only</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: k-Anonymity Breach Checker -->
+          <div id="slide-2" class="slide-item hidden space-y-5">
+            <div class="w-20 h-20 rounded-2xl bg-slate-50 dark:bg-[#222222] border border-slate-200 dark:border-[#2F2F2F] flex items-center justify-center mx-auto text-[#37352F] dark:text-[#E6E6E6]">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+            </div>
+            <div class="text-center space-y-2">
+              <h3 class="text-base font-bold text-black dark:text-white tracking-tight" data-i18n="s2_title">
+                Audit Kebocoran Tanpa Membocorkan Sandi
+              </h3>
+              <p class="text-xs text-slate-600 dark:text-[#999999] leading-relaxed" data-i18n="s2_desc">
+                Pemeriksaan k-Anonymity hanya mengirimkan 5 karakter pertama dari SHA-1 hash. Pihak ketiga maupun server Ravalt tidak pernah tahu kata sandi asli Anda.
+              </p>
+            </div>
+            <!-- Technical proof badge -->
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2A2A2A] text-[11px] font-mono text-slate-500 dark:text-[#888888] space-y-1">
+              <div class="flex justify-between">
+                <span>Queried to API</span>
+                <span class="text-black dark:text-white">5-char Prefix Only</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Suffix Matching</span>
+                <span class="text-black dark:text-white">Local Device Only</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3: Offline First & Productivity -->
+          <div id="slide-3" class="slide-item hidden space-y-5">
+            <div class="w-20 h-20 rounded-2xl bg-slate-50 dark:bg-[#222222] border border-slate-200 dark:border-[#2F2F2F] flex items-center justify-center mx-auto text-[#37352F] dark:text-[#E6E6E6]">
+              <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/>
+              </svg>
+            </div>
+            <div class="text-center space-y-2">
+              <h3 class="text-base font-bold text-black dark:text-white tracking-tight" data-i18n="s3_title">
+                Akses Offline & Produktivitas Cepat
+              </h3>
+              <p class="text-xs text-slate-600 dark:text-[#999999] leading-relaxed" data-i18n="s3_desc">
+                Brankas tersimpan dalam cache lokal terenkripsi. Anda dapat mengakses akun kapan pun tanpa internet, dilengkapi fitur pembersihan otomatis clipboard.
+              </p>
+            </div>
+            <!-- Technical proof badge -->
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2A2A2A] text-[11px] font-mono text-slate-500 dark:text-[#888888] space-y-1">
+              <div class="flex justify-between">
+                <span>Database Lokal</span>
+                <span class="text-black dark:text-white">SQLCipher / Room</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Clipboard Security</span>
+                <span class="text-black dark:text-white">Auto-Clear in 30s</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Duolingo Style Big Action Button -->
+        <div>
+          <button onclick="nextSlide()" id="onboarding-next-btn" class="w-full bg-[#37352F] hover:bg-black dark:bg-[#E6E6E6] dark:hover:bg-white text-white dark:text-[#191919] font-medium py-3 rounded-xl text-xs transition shadow-sm flex items-center justify-center gap-2">
+            <span id="onboarding-btn-text" data-i18n="continue">Lanjutkan</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 1: UNLOCK SCREEN                    -->
       <!-- ========================================== -->
       <div id="screen-unlock" class="screen-content hidden flex-1 flex flex-col justify-between p-6">
-        <div class="pt-10">
-          <!-- Notion Style Page Icon & Title -->
-          <div class="text-3xl mb-3 select-none">🔒</div>
-          <h2 class="text-xl font-bold tracking-tight text-[#37352F] dark:text-[#F0F0F0]">Ravalt Vault</h2>
+        <div class="pt-8">
+          <div class="w-10 h-10 rounded-xl border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#222222] flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-slate-800 dark:text-slate-200" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold tracking-tight text-black dark:text-white" data-i18n="unlock_title">Ravalt Vault</h2>
           <div class="flex items-center gap-2 mt-1">
             <span class="text-xs text-slate-500 dark:text-[#888888]">farras@ravalt.io</span>
             <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 dark:bg-[#252525] text-slate-600 dark:text-[#999999] border border-slate-200 dark:border-[#333333]">
@@ -153,133 +277,141 @@
 
         <div class="space-y-4 my-auto">
           <div>
-            <label class="block text-xs text-slate-500 dark:text-[#888888] mb-1.5 font-medium">Master Password</label>
+            <label class="block text-xs text-slate-500 dark:text-[#888888] mb-1.5 font-medium" data-i18n="master_pass_label">Master Password</label>
             <div class="relative">
               <input type="password" id="unlock-pass" value="super-strong-master-pass" class="w-full bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] rounded-lg px-3.5 py-2.5 text-xs font-mono text-black dark:text-white focus:outline-none focus:border-slate-400 dark:focus:border-[#555555]">
-              <button onclick="togglePassword('unlock-pass')" class="absolute right-3 top-2.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white text-xs">Intip</button>
+              <button onclick="togglePassword('unlock-pass')" class="absolute right-3 top-2.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white text-xs" data-i18n="reveal">Intip</button>
             </div>
-            <p class="text-[11px] text-slate-400 dark:text-[#666666] mt-1.5">Kunci didekripsi lokal via Argon2id.</p>
+            <p class="text-[11px] text-slate-400 dark:text-[#666666] mt-1.5" data-i18n="unlock_hint">Kunci diderivasi secara lokal melalui Argon2id.</p>
           </div>
 
-          <button onclick="setScreen('vault')" class="w-full bg-[#37352F] hover:bg-[#252420] dark:bg-[#E6E6E6] dark:hover:bg-white text-white dark:text-[#191919] font-medium py-2.5 rounded-lg text-xs transition shadow-sm">
+          <button onclick="setScreen('vault')" class="w-full bg-[#37352F] hover:bg-black dark:bg-[#E6E6E6] dark:hover:bg-white text-white dark:text-[#191919] font-medium py-2.5 rounded-lg text-xs transition shadow-sm" data-i18n="open_vault_btn">
             Buka Brankas
           </button>
         </div>
 
         <div class="text-center pb-2">
-          <p class="text-[11px] text-slate-400 dark:text-[#666666]">Data hanya didekripsi di perangkat ini.</p>
+          <p class="text-[11px] text-slate-400 dark:text-[#666666]" data-i18n="unlock_footer">Data hanya didekripsi di perangkat Anda.</p>
         </div>
       </div>
 
       <!-- ========================================== -->
-      <!-- SCREEN 2: VAULT LIST (Notion Database Table) -->
+      <!-- SCREEN 2: VAULT DATABASE                   -->
       <!-- ========================================== -->
       <div id="screen-vault" class="screen-content flex-1 flex flex-col overflow-hidden">
         
-        <!-- Notion-style Header with Breadcrumbs & Action -->
+        <!-- Header -->
         <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
           <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#888888]">
             <span>Ravalt</span>
             <span>/</span>
-            <span class="font-semibold text-black dark:text-white flex items-center gap-1">
-              <span>🔑</span> Brankas Utama
+            <span class="font-semibold text-black dark:text-white flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+              <span data-i18n="vault_title">Brankas Utama</span>
             </span>
           </div>
-          <button onclick="setScreen('detail')" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-[#252525] dark:hover:bg-[#303030] text-xs font-medium transition text-black dark:text-white border border-slate-200 dark:border-[#333333]">
-            + Baru
+          <button onclick="setScreen('detail')" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-[#252525] dark:hover:bg-[#303030] text-xs font-medium transition text-black dark:text-white border border-slate-200 dark:border-[#333333] flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+            <span data-i18n="new_btn">Baru</span>
           </button>
         </div>
 
-        <!-- Notion Search & View Bar -->
+        <!-- Search Bar -->
         <div class="px-5 py-2.5 border-b border-slate-100 dark:border-[#222222] flex items-center justify-between gap-2">
           <div class="flex items-center gap-2 flex-1 bg-slate-50 dark:bg-[#202020] px-2.5 py-1.5 rounded-md border border-slate-200 dark:border-[#2A2A2A]">
-            <span class="text-xs text-slate-400">🔍</span>
-            <input type="text" placeholder="Cari data atau filter..." class="bg-transparent border-none text-xs text-black dark:text-white placeholder-slate-400 focus:outline-none w-full">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" placeholder="Cari akun atau URL..." data-i18n-placeholder="search_placeholder" class="bg-transparent border-none text-xs text-black dark:text-white placeholder-slate-400 focus:outline-none w-full">
           </div>
           <div class="text-[11px] text-slate-500 dark:text-[#777777] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[#202020]">
             4 items
           </div>
         </div>
 
-        <!-- Database View Selector Tabs (Notion Table View Tab Style) -->
+        <!-- View Tabs -->
         <div class="px-5 pt-2 pb-1 flex gap-3 text-xs border-b border-slate-100 dark:border-[#222222]">
-          <span class="pb-1.5 font-semibold text-black dark:text-white border-b-2 border-black dark:border-white cursor-pointer">
-            Semua Item
+          <span class="pb-1.5 font-semibold text-black dark:text-white border-b-2 border-black dark:border-white cursor-pointer" data-i18n="tab_all">
+            Semua (4)
           </span>
-          <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer">
+          <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer" data-i18n="tab_logins">
             Logins (3)
           </span>
-          <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer">
+          <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer" data-i18n="tab_notes">
             Notes (1)
           </span>
         </div>
 
-        <!-- Notion Database Rows List -->
+        <!-- Items Rows -->
         <div class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-[#242424]">
 
-          <!-- Row 1: GitHub (Breached) -->
+          <!-- Row 1: GitHub -->
           <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <span class="text-base select-none">🐙</span>
+              <div class="w-7 h-7 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-slate-700 dark:text-slate-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+              </div>
               <div>
                 <div class="flex items-center gap-2">
                   <h3 class="text-xs font-semibold text-black dark:text-white">GitHub</h3>
-                  <!-- Notion Red Tag Pill -->
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagRedBg text-notion-tagRedText dark:bg-notion-tagRedDarkBg dark:text-notion-tagRedDarkText font-medium">
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagRedBg text-notion-tagRedText dark:bg-notion-tagRedDarkBg dark:text-notion-tagRedDarkText font-medium" data-i18n="badge_breached">
                     Bocor (14k+)
                   </span>
                 </div>
                 <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">farras@github.com</p>
               </div>
             </div>
-            <button onclick="event.stopPropagation(); copyText('gh', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition">
+            <button onclick="event.stopPropagation(); copyText('gh', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition" data-i18n="copy">
               Salin
             </button>
           </div>
 
-          <!-- Row 2: Google Account (Safe) -->
+          <!-- Row 2: Google Workspace -->
           <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <span class="text-base select-none">🌐</span>
+              <div class="w-7 h-7 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-slate-700 dark:text-slate-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+              </div>
               <div>
                 <div class="flex items-center gap-2">
                   <h3 class="text-xs font-semibold text-black dark:text-white">Google Workspace</h3>
-                  <!-- Notion Green Tag Pill -->
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGreenBg text-notion-tagGreenText dark:bg-notion-tagGreenDarkBg dark:text-notion-tagGreenDarkText font-medium">
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGreenBg text-notion-tagGreenText dark:bg-notion-tagGreenDarkBg dark:text-notion-tagGreenDarkText font-medium" data-i18n="badge_safe">
                     Aman
                   </span>
                 </div>
                 <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">farras@gmail.com</p>
               </div>
             </div>
-            <button onclick="event.stopPropagation(); copyText('go', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition">
+            <button onclick="event.stopPropagation(); copyText('go', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition" data-i18n="copy">
               Salin
             </button>
           </div>
 
-          <!-- Row 3: AWS Console (Safe) -->
+          <!-- Row 3: AWS Console -->
           <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <span class="text-base select-none">☁️</span>
+              <div class="w-7 h-7 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-slate-700 dark:text-slate-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+              </div>
               <div>
                 <div class="flex items-center gap-2">
                   <h3 class="text-xs font-semibold text-black dark:text-white">AWS Console</h3>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGreenBg text-notion-tagGreenText dark:bg-notion-tagGreenDarkBg dark:text-notion-tagGreenDarkText font-medium">
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGreenBg text-notion-tagGreenText dark:bg-notion-tagGreenDarkBg dark:text-notion-tagGreenDarkText font-medium" data-i18n="badge_safe">
                     Aman
                   </span>
                 </div>
                 <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">admin@ravalt.io</p>
               </div>
             </div>
-            <button onclick="event.stopPropagation(); copyText('aw', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition">
+            <button onclick="event.stopPropagation(); copyText('aw', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition" data-i18n="copy">
               Salin
             </button>
           </div>
 
-          <!-- Row 4: Server Key (Secure Note) -->
+          <!-- Row 4: Server Key Note -->
           <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <span class="text-base select-none">📝</span>
+              <div class="w-7 h-7 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-slate-700 dark:text-slate-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
               <div>
                 <div class="flex items-center gap-2">
                   <h3 class="text-xs font-semibold text-black dark:text-white">Server Recovery Key</h3>
@@ -290,94 +422,99 @@
                 <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">SSH & WireGuard Ed25519</p>
               </div>
             </div>
-            <span class="text-xs text-slate-400">›</span>
+            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </div>
 
         </div>
 
-        <!-- Notion Style Bottom Navigation Bar -->
+        <!-- Bottom Navigation -->
         <div class="border-t border-slate-200 dark:border-[#2A2A2A] bg-white/95 dark:bg-[#191919]/95 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
           <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
-            <span class="text-sm">🔑</span>
-            <span>Brankas</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span data-i18n="nav_vault">Brankas</span>
           </button>
           <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
-            <span class="text-sm">🎲</span>
-            <span>Generator</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span data-i18n="nav_generator">Generator</span>
           </button>
           <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white relative">
             <span class="absolute top-0 right-2 w-1.5 h-1.5 rounded-full bg-red-500"></span>
-            <span class="text-sm">🛡️</span>
-            <span>Breach</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span data-i18n="nav_breach">Breach</span>
           </button>
         </div>
       </div>
 
       <!-- ========================================== -->
-      <!-- SCREEN 3: ITEM PROPERTIES & OBSIDIAN NOTE  -->
+      <!-- SCREEN 3: ITEM PROPERTIES TABLE            -->
       <!-- ========================================== -->
       <div id="screen-detail" class="screen-content hidden flex-1 flex flex-col overflow-hidden">
         
-        <!-- Header -->
         <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
-          <button onclick="setScreen('vault')" class="text-xs text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white">
-            ← Kembali
+          <button onclick="setScreen('vault')" class="text-xs text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+            <span data-i18n="back">Kembali</span>
           </button>
-          <span class="text-xs font-semibold text-black dark:text-white">Item Properties</span>
-          <button onclick="setScreen('vault')" class="text-xs font-medium text-blue-600 dark:text-blue-400">
+          <span class="text-xs font-semibold text-black dark:text-white" data-i18n="properties_title">Properties</span>
+          <button onclick="setScreen('vault')" class="text-xs font-medium text-blue-600 dark:text-blue-400" data-i18n="done">
             Selesai
           </button>
         </div>
 
         <div class="flex-1 overflow-y-auto p-5 space-y-4">
           
-          <!-- Notion Page Title & Icon -->
-          <div>
-            <span class="text-3xl select-none">🐙</span>
-            <h2 class="text-lg font-bold text-black dark:text-white mt-1">GitHub</h2>
+          <!-- Item Title with official SVG icon -->
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg border border-slate-200 dark:border-[#333333] flex items-center justify-center text-slate-700 dark:text-slate-300">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            </div>
+            <h2 class="text-base font-bold text-black dark:text-white">GitHub</h2>
           </div>
 
-          <!-- Breach Warning Callout (Notion Callout Box Style) -->
+          <!-- Breach Callout -->
           <div class="p-3 rounded-lg bg-notion-tagRedBg/60 dark:bg-notion-tagRedDarkBg/70 border border-red-200 dark:border-red-900/60 text-xs flex gap-2.5 items-start">
-            <span class="text-sm">⚠️</span>
+            <svg class="w-4 h-4 text-notion-tagRedText dark:text-notion-tagRedDarkText mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
             <div>
-              <p class="font-semibold text-notion-tagRedText dark:text-notion-tagRedDarkText">Password Pernah Bocor</p>
-              <p class="text-[11px] text-slate-600 dark:text-[#BB8888] mt-0.5 leading-relaxed">
-                k-Anonymity audit mendeteksi kemunculan <strong>14.218 kali</strong> di kebocoran HaveIBeenPwned.
+              <p class="font-semibold text-notion-tagRedText dark:text-notion-tagRedDarkText" data-i18n="breach_warn_title">Password Pernah Bocor</p>
+              <p class="text-[11px] text-slate-600 dark:text-[#BB8888] mt-0.5 leading-relaxed" data-i18n="breach_warn_desc">
+                k-Anonymity audit mendeteksi kemunculan <strong>14.218 kali</strong> di kebocoran publik.
               </p>
             </div>
           </div>
 
-          <!-- Notion Properties List (Grid Style) -->
+          <!-- Properties Grid -->
           <div class="space-y-2.5 text-xs pt-1">
             
-            <!-- Property 1: Username -->
+            <!-- Username -->
             <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
               <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
-                <span>👤</span> Username
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <span data-i18n="prop_username">Username</span>
               </span>
               <div class="flex-1 flex justify-between items-center font-mono">
                 <input type="text" id="prop-email" value="farras@github.com" class="bg-transparent border-none text-xs text-black dark:text-white focus:outline-none w-full">
-                <button onclick="copyText('prop-email', this)" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded">Salin</button>
+                <button onclick="copyText('prop-email', this)" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded" data-i18n="copy">Salin</button>
               </div>
             </div>
 
-            <!-- Property 2: Password -->
+            <!-- Password -->
             <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
               <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
-                <span>🔑</span> Password
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+                <span data-i18n="prop_password">Password</span>
               </span>
               <div class="flex-1 flex items-center gap-1 font-mono">
                 <input type="password" id="prop-pass" value="P@ssw0rdGithub123" class="bg-transparent border-none text-xs text-black dark:text-white focus:outline-none w-full">
-                <button onclick="togglePassword('prop-pass')" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded">Lihat</button>
-                <button onclick="copyText('prop-pass', this)" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded">Salin</button>
+                <button onclick="togglePassword('prop-pass')" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded" data-i18n="reveal">Lihat</button>
+                <button onclick="copyText('prop-pass', this)" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded" data-i18n="copy">Salin</button>
               </div>
             </div>
 
-            <!-- Property 3: Security Status (Pill) -->
+            <!-- Security Status -->
             <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
               <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
-                <span>🛡️</span> Status
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <span data-i18n="prop_status">Status</span>
               </span>
               <div class="flex-1">
                 <span class="text-[10px] px-2 py-0.5 rounded bg-notion-tagRedBg text-notion-tagRedText dark:bg-notion-tagRedDarkBg dark:text-notion-tagRedDarkText font-medium">
@@ -386,10 +523,11 @@
               </div>
             </div>
 
-            <!-- Property 4: Website URL -->
+            <!-- Website URL -->
             <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
               <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
-                <span>🔗</span> URL
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                <span data-i18n="prop_url">URL</span>
               </span>
               <div class="flex-1 font-mono text-slate-500 dark:text-[#999999] truncate">
                 https://github.com/login
@@ -398,22 +536,21 @@
 
           </div>
 
-          <!-- Obsidian Style Markdown Notes Body -->
+          <!-- Obsidian Markdown Notes -->
           <div class="pt-2">
-            <span class="block text-[11px] font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-1.5">
+            <span class="block text-[11px] font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-1.5" data-i18n="markdown_notes_title">
               Encrypted Markdown Note
             </span>
             <div class="p-3 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] text-xs font-mono text-slate-700 dark:text-[#CCCCCC] leading-relaxed">
               ## Backup 2FA Codes<br>
               - `1A2B-3C4D`<br>
               - `5E6F-7G8H`<br>
-              <span class="text-slate-400 dark:text-[#666666]"># Terenkripsi lokal dengan AES-256-GCM</span>
+              <span class="text-slate-400 dark:text-[#666666]"># Local AES-256-GCM Encrypted</span>
             </div>
           </div>
 
-          <!-- Delete Row -->
           <div class="pt-4 text-center">
-            <button onclick="alert('Item dihapus'); setScreen('vault');" class="text-xs text-red-500 hover:text-red-700 dark:text-red-400 transition">
+            <button onclick="alert('Item dihapus'); setScreen('vault');" class="text-xs text-red-500 hover:text-red-700 dark:text-red-400 transition" data-i18n="delete_btn">
               Hapus dari Brankas
             </button>
           </div>
@@ -426,42 +563,42 @@
       <!-- ========================================== -->
       <div id="screen-breach" class="screen-content hidden flex-1 flex flex-col overflow-hidden">
         
-        <!-- Header -->
         <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
           <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#888888]">
             <span>Ravalt</span>
             <span>/</span>
-            <span class="font-semibold text-black dark:text-white flex items-center gap-1">
-              <span>🛡️</span> Breach Audit
+            <span class="font-semibold text-black dark:text-white flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span data-i18n="breach_title">Breach Audit</span>
             </span>
           </div>
-          <button onclick="alert('Memindai ulang...');" class="text-xs text-blue-600 dark:text-blue-400 font-medium">
+          <button onclick="alert('Memindai ulang...');" class="text-xs text-blue-600 dark:text-blue-400 font-medium" data-i18n="rescan_btn">
             Scan Ulang
           </button>
         </div>
 
         <div class="flex-1 overflow-y-auto p-5 space-y-4">
           
-          <!-- Audit Summary Block (Notion Callout) -->
           <div class="p-4 rounded-xl border border-red-200 dark:border-[#382628] bg-notion-tagRedBg/40 dark:bg-[#241A1C] space-y-1">
             <div class="flex justify-between items-center text-xs">
-              <span class="font-semibold text-notion-tagRedText dark:text-notion-tagRedDarkText">1 Password Berisiko</span>
+              <span class="font-semibold text-notion-tagRedText dark:text-notion-tagRedDarkText" data-i18n="breach_summary_title">1 Password Berisiko</span>
               <span class="text-[10px] font-mono text-slate-400">k-Anonymity Verified</span>
             </div>
-            <p class="text-xs text-slate-600 dark:text-[#BB8888] leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-[#BB8888] leading-relaxed" data-i18n="breach_summary_desc">
               Kata sandi akun GitHub Anda terdaftar dalam database kebocoran publik. Server Ravalt tidak pernah melihat password asli Anda selama pengecekan.
             </p>
           </div>
 
-          <!-- List of Items To Change -->
           <div>
-            <h4 class="text-xs font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-2">
+            <h4 class="text-xs font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-2" data-i18n="breach_action_required">
               Perlu Diganti Segera
             </h4>
             <div class="p-3.5 rounded-lg border border-slate-200 dark:border-[#2E2E2E] bg-white dark:bg-[#202020] space-y-2">
               <div class="flex justify-between items-start">
                 <div class="flex items-center gap-2">
-                  <span class="text-sm">🐙</span>
+                  <div class="w-6 h-6 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-xs">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                  </div>
                   <div>
                     <h5 class="text-xs font-semibold text-black dark:text-white">GitHub</h5>
                     <p class="text-[11px] font-mono text-slate-400">farras@github.com</p>
@@ -472,31 +609,32 @@
                 </span>
               </div>
               <div class="pt-2 border-t border-slate-100 dark:border-[#2A2A2A] flex gap-2">
-                <button onclick="setScreen('generator')" class="flex-1 py-1.5 bg-slate-900 hover:bg-black dark:bg-[#333333] dark:hover:bg-[#444444] text-white text-xs rounded font-medium transition">
+                <button onclick="setScreen('generator')" class="flex-1 py-1.5 bg-slate-900 hover:bg-black dark:bg-[#333333] dark:hover:bg-[#444444] text-white text-xs rounded font-medium transition" data-i18n="create_new_pass_btn">
                   Buat Sandi Baru
                 </button>
-                <button onclick="setScreen('detail')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] text-slate-700 dark:text-slate-300 text-xs rounded transition">
+                <button onclick="setScreen('detail')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] text-slate-700 dark:text-slate-300 text-xs rounded transition" data-i18n="open_btn">
                   Buka
                 </button>
               </div>
             </div>
           </div>
 
-          <!-- Safe Items List -->
           <div>
-            <h4 class="text-xs font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-2">
+            <h4 class="text-xs font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-2" data-i18n="safe_passwords_title">
               Kata Sandi Aman (3)
             </h4>
             <div class="space-y-1.5 text-xs">
               <div class="p-2.5 rounded-lg border border-slate-100 dark:border-[#262626] bg-white dark:bg-[#202020] flex justify-between items-center">
                 <span class="flex items-center gap-2">
-                  <span>🌐</span> Google Workspace
+                  <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                  Google Workspace
                 </span>
                 <span class="text-[10px] text-notion-tagGreenText dark:text-notion-tagGreenDarkText font-medium">✓ 0 Breach</span>
               </div>
               <div class="p-2.5 rounded-lg border border-slate-100 dark:border-[#262626] bg-white dark:bg-[#202020] flex justify-between items-center">
                 <span class="flex items-center gap-2">
-                  <span>☁️</span> AWS Console
+                  <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                  AWS Console
                 </span>
                 <span class="text-[10px] text-notion-tagGreenText dark:text-notion-tagGreenDarkText font-medium">✓ 0 Breach</span>
               </div>
@@ -505,19 +643,18 @@
 
         </div>
 
-        <!-- Bottom Navigation Bar -->
         <div class="border-t border-slate-200 dark:border-[#2A2A2A] bg-white/95 dark:bg-[#191919]/95 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
           <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
-            <span class="text-sm">🔑</span>
-            <span>Brankas</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span data-i18n="nav_vault">Brankas</span>
           </button>
           <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
-            <span class="text-sm">🎲</span>
-            <span>Generator</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span data-i18n="nav_generator">Generator</span>
           </button>
           <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
-            <span class="text-sm">🛡️</span>
-            <span>Breach</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span data-i18n="nav_breach">Breach</span>
           </button>
         </div>
       </div>
@@ -527,13 +664,13 @@
       <!-- ========================================== -->
       <div id="screen-generator" class="screen-content hidden flex-1 flex flex-col overflow-hidden">
         
-        <!-- Header -->
         <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
           <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#888888]">
             <span>Ravalt</span>
             <span>/</span>
-            <span class="font-semibold text-black dark:text-white flex items-center gap-1">
-              <span>🎲</span> Generator
+            <span class="font-semibold text-black dark:text-white flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span data-i18n="gen_title">Generator</span>
             </span>
           </div>
           <span class="text-[10px] font-mono text-slate-400">128-bit CSPRNG</span>
@@ -541,26 +678,24 @@
 
         <div class="flex-1 overflow-y-auto p-5 space-y-4">
           
-          <!-- Generator Display Box (Obsidian Code Block Style) -->
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] space-y-3">
             <div class="text-sm font-mono text-black dark:text-[#4ECA81] break-all leading-relaxed font-semibold tracking-wider" id="generated-pwd-text">
               k9$mX7#qL!2zV@8w
             </div>
             <div class="flex gap-2">
-              <button onclick="generateRandomPass()" class="flex-1 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-[#2D2D2D] dark:hover:bg-[#383838] text-xs font-medium rounded transition text-black dark:text-white">
+              <button onclick="generateRandomPass()" class="flex-1 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-[#2D2D2D] dark:hover:bg-[#383838] text-xs font-medium rounded transition text-black dark:text-white" data-i18n="gen_reroll">
                 Acak Ulang
               </button>
-              <button onclick="copyGeneratedPass(this)" class="px-4 py-1.5 bg-[#37352F] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black text-xs font-medium rounded transition">
+              <button onclick="copyGeneratedPass(this)" class="px-4 py-1.5 bg-[#37352F] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black text-xs font-medium rounded transition" data-i18n="copy">
                 Salin
               </button>
             </div>
           </div>
 
-          <!-- Controls (Notion Properties Style) -->
           <div class="p-3.5 rounded-lg border border-slate-200 dark:border-[#2E2E2E] space-y-4 text-xs">
             <div>
               <div class="flex justify-between items-center mb-1.5">
-                <span class="text-slate-500 dark:text-[#888888]">Panjang Karakter</span>
+                <span class="text-slate-500 dark:text-[#888888]" data-i18n="gen_length">Panjang Karakter</span>
                 <span class="font-mono font-bold text-black dark:text-white" id="slider-val">16</span>
               </div>
               <input type="range" id="len-slider" min="8" max="64" value="16" oninput="updateLen(this.value)" class="w-full accent-[#37352F] dark:accent-white cursor-pointer">
@@ -568,19 +703,19 @@
 
             <div class="space-y-2.5 pt-2 border-t border-slate-100 dark:border-[#2A2A2A]">
               <label class="flex justify-between items-center cursor-pointer">
-                <span>Huruf Besar (A-Z)</span>
+                <span data-i18n="gen_upper">Huruf Besar (A-Z)</span>
                 <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
               <label class="flex justify-between items-center cursor-pointer">
-                <span>Huruf Kecil (a-z)</span>
+                <span data-i18n="gen_lower">Huruf Kecil (a-z)</span>
                 <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
               <label class="flex justify-between items-center cursor-pointer">
-                <span>Angka (0-9)</span>
+                <span data-i18n="gen_digits">Angka (0-9)</span>
                 <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
               <label class="flex justify-between items-center cursor-pointer">
-                <span>Simbol (!@#$%^&*)</span>
+                <span data-i18n="gen_symbols">Simbol (!@#$%^&*)</span>
                 <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
             </div>
@@ -588,19 +723,18 @@
 
         </div>
 
-        <!-- Bottom Navigation Bar -->
         <div class="border-t border-slate-200 dark:border-[#2A2A2A] bg-white/95 dark:bg-[#191919]/95 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
           <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
-            <span class="text-sm">🔑</span>
-            <span>Brankas</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span data-i18n="nav_vault">Brankas</span>
           </button>
           <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
-            <span class="text-sm">🎲</span>
-            <span>Generator</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span data-i18n="nav_generator">Generator</span>
           </button>
           <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
-            <span class="text-sm">🛡️</span>
-            <span>Breach</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span data-i18n="nav_breach">Breach</span>
           </button>
         </div>
       </div>
@@ -610,21 +744,217 @@
   </main>
 
   <script>
+    // Bilingual Dictionary
+    const i18n = {
+      id: {
+        skip: 'Lewati',
+        continue: 'Lanjutkan',
+        get_started: 'Mulai Sekarang',
+        s1_title: 'Arsitektur Zero-Knowledge Murni',
+        s1_desc: 'Master password Anda tidak pernah dikirim ke internet. Semua data dienkripsi langsung di perangkat menggunakan Argon2id dan AES-256-GCM.',
+        s2_title: 'Audit Kebocoran Tanpa Membocorkan Sandi',
+        s2_desc: 'Pemeriksaan k-Anonymity hanya mengirimkan 5 karakter pertama dari SHA-1 hash. Pihak ketiga maupun server Ravalt tidak pernah tahu kata sandi asli Anda.',
+        s3_title: 'Akses Offline & Produktivitas Cepat',
+        s3_desc: 'Brankas tersimpan dalam cache lokal terenkripsi. Anda dapat mengakses akun kapan pun tanpa internet, dilengkapi fitur pembersihan otomatis clipboard.',
+        unlock_title: 'Ravalt Vault',
+        master_pass_label: 'Master Password',
+        reveal: 'Intip',
+        unlock_hint: 'Kunci diderivasi secara lokal melalui Argon2id.',
+        open_vault_btn: 'Buka Brankas',
+        unlock_footer: 'Data hanya didekripsi di perangkat Anda.',
+        vault_title: 'Brankas Utama',
+        new_btn: 'Baru',
+        search_placeholder: 'Cari akun atau URL...',
+        tab_all: 'Semua (4)',
+        tab_logins: 'Logins (3)',
+        tab_notes: 'Notes (1)',
+        badge_breached: 'Bocor (14k+)',
+        badge_safe: 'Aman',
+        copy: 'Salin',
+        copied: 'Tersalin!',
+        nav_vault: 'Brankas',
+        nav_generator: 'Generator',
+        nav_breach: 'Breach',
+        back: 'Kembali',
+        properties_title: 'Properties',
+        done: 'Selesai',
+        breach_warn_title: 'Password Pernah Bocor',
+        breach_warn_desc: 'k-Anonymity audit mendeteksi kemunculan 14.218 kali di kebocoran publik.',
+        prop_username: 'Username',
+        prop_password: 'Password',
+        prop_status: 'Status',
+        prop_url: 'URL',
+        markdown_notes_title: 'Encrypted Markdown Note',
+        delete_btn: 'Hapus dari Brankas',
+        breach_title: 'Breach Audit',
+        rescan_btn: 'Scan Ulang',
+        breach_summary_title: '1 Password Berisiko',
+        breach_summary_desc: 'Kata sandi akun GitHub Anda terdaftar dalam database kebocoran publik. Server Ravalt tidak pernah melihat password asli Anda selama pengecekan.',
+        breach_action_required: 'Perlu Diganti Segera',
+        create_new_pass_btn: 'Buat Sandi Baru',
+        open_btn: 'Buka',
+        safe_passwords_title: 'Kata Sandi Aman (3)',
+        gen_title: 'Generator',
+        gen_reroll: 'Acak Ulang',
+        gen_length: 'Panjang Karakter',
+        gen_upper: 'Huruf Besar (A-Z)',
+        gen_lower: 'Huruf Kecil (a-z)',
+        gen_digits: 'Angka (0-9)',
+        gen_symbols: 'Simbol (!@#$%^&*)'
+      },
+      en: {
+        skip: 'Skip',
+        continue: 'Continue',
+        get_started: 'Get Started',
+        s1_title: 'True Zero-Knowledge Security',
+        s1_desc: 'Your master password never touches the network. All vault data is encrypted locally on your device with Argon2id and AES-256-GCM.',
+        s2_title: 'Anonymous Breach Detection',
+        s2_desc: 'Audit leaked credentials without exposing passwords. k-Anonymity queries only a 5-character SHA-1 prefix against global breach databases.',
+        s3_title: 'Offline-First & Fast Access',
+        s3_desc: 'Instant credential access even without internet. Secure local caching with automatic clipboard wiping protects your workflow.',
+        unlock_title: 'Ravalt Vault',
+        master_pass_label: 'Master Password',
+        reveal: 'Show',
+        unlock_hint: 'Keys are derived locally via Argon2id.',
+        open_vault_btn: 'Unlock Vault',
+        unlock_footer: 'Data is strictly decrypted on this device.',
+        vault_title: 'Main Vault',
+        new_btn: 'New',
+        search_placeholder: 'Search accounts or URLs...',
+        tab_all: 'All (4)',
+        tab_logins: 'Logins (3)',
+        tab_notes: 'Notes (1)',
+        badge_breached: 'Breached (14k+)',
+        badge_safe: 'Safe',
+        copy: 'Copy',
+        copied: 'Copied!',
+        nav_vault: 'Vault',
+        nav_generator: 'Generator',
+        nav_breach: 'Breach',
+        back: 'Back',
+        properties_title: 'Properties',
+        done: 'Done',
+        breach_warn_title: 'Password Has Been Breached',
+        breach_warn_desc: 'k-Anonymity audit detected 14,218 appearances in public data breaches.',
+        prop_username: 'Username',
+        prop_password: 'Password',
+        prop_status: 'Status',
+        prop_url: 'URL',
+        markdown_notes_title: 'Encrypted Markdown Note',
+        delete_btn: 'Delete from Vault',
+        breach_title: 'Breach Audit',
+        rescan_btn: 'Rescan',
+        breach_summary_title: '1 Password at Risk',
+        breach_summary_desc: 'Your GitHub credential appears in public breach records. Ravalt never sees your plaintext password.',
+        breach_action_required: 'Immediate Action Needed',
+        create_new_pass_btn: 'Generate New Password',
+        open_btn: 'Open',
+        safe_passwords_title: 'Safe Passwords (3)',
+        gen_title: 'Generator',
+        gen_reroll: 'Regenerate',
+        gen_length: 'Character Length',
+        gen_upper: 'Uppercase (A-Z)',
+        gen_lower: 'Lowercase (a-z)',
+        gen_digits: 'Numbers (0-9)',
+        gen_symbols: 'Symbols (!@#$%^&*)'
+      }
+    };
+
+    let currentLang = 'id';
+    let currentSlide = 1;
     let isDark = true;
+
+    function setLang(lang) {
+      currentLang = lang;
+      document.getElementById('lang-id').className = lang === 'id' 
+        ? 'px-2.5 py-1 rounded-md bg-slate-200 dark:bg-[#333333] font-semibold text-black dark:text-white transition'
+        : 'px-2.5 py-1 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition';
+      document.getElementById('lang-en').className = lang === 'en' 
+        ? 'px-2.5 py-1 rounded-md bg-slate-200 dark:bg-[#333333] font-semibold text-black dark:text-white transition'
+        : 'px-2.5 py-1 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition';
+
+      // Update all translated elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key]) {
+          el.innerText = i18n[lang][key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (i18n[lang][key]) {
+          el.placeholder = i18n[lang][key];
+        }
+      });
+
+      updateSlideUI();
+    }
+
+    // Carousel logic
+    function updateSlideUI() {
+      for (let i = 1; i <= 3; i++) {
+        const slide = document.getElementById('slide-' + i);
+        if (slide) {
+          if (i === currentSlide) {
+            slide.classList.remove('hidden');
+          } else {
+            slide.classList.add('hidden');
+          }
+        }
+      }
+
+      document.getElementById('slide-step-indicator').innerText = currentSlide + ' / 3';
+      document.getElementById('slide-progress').style.width = (currentSlide / 3 * 100) + '%';
+
+      const backBtn = document.getElementById('onboarding-back-btn');
+      if (currentSlide > 1) {
+        backBtn.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        backBtn.classList.add('opacity-0', 'pointer-events-none');
+      }
+
+      const nextText = document.getElementById('onboarding-btn-text');
+      if (currentSlide === 3) {
+        nextText.innerText = i18n[currentLang]['get_started'];
+      } else {
+        nextText.innerText = i18n[currentLang]['continue'];
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < 3) {
+        currentSlide++;
+        updateSlideUI();
+      } else {
+        setScreen('unlock');
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlideUI();
+      }
+    }
 
     function toggleTheme() {
       isDark = !isDark;
       const html = document.documentElement;
-      const btnIcon = document.getElementById('theme-icon');
+      const sun = document.getElementById('theme-icon-sun');
+      const moon = document.getElementById('theme-icon-moon');
+      const label = document.getElementById('theme-label');
 
       if (isDark) {
         html.classList.add('dark');
-        html.classList.remove('light');
-        btnIcon.innerText = '☀️ Light Mode';
+        sun.classList.add('hidden');
+        moon.classList.remove('hidden');
+        label.innerText = 'Light Mode';
       } else {
         html.classList.remove('dark');
-        html.classList.add('light');
-        btnIcon.innerText = '🌙 Dark Mode';
+        sun.classList.remove('hidden');
+        moon.classList.add('hidden');
+        label.innerText = 'Dark Mode';
       }
     }
 
@@ -651,7 +981,7 @@
 
     function copyText(id, btn) {
       const origText = btn.innerText;
-      btn.innerText = 'Tersalin!';
+      btn.innerText = i18n[currentLang]['copied'];
       setTimeout(() => {
         btn.innerText = origText;
       }, 1200);
