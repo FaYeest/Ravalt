@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Concept 1: Notion-Style Isometric Vault Box -->
+  <!-- Clean, flat, architectural isometric vector lines with zero AI artifacts -->
+  <defs>
+    <filter id="box-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Background Base Squircle (Optional Container) -->
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="#141416" stroke="#26262B" stroke-width="3"/>
+
+  <!-- Isometric Vault Cube Container -->
+  <g filter="url(#box-shadow)" transform="translate(0, 4)">
+    
+    <!-- Top Face (Light Plane) -->
+    <polygon points="256,96 384,170 256,244 128,170" 
+             fill="#2A2A30" 
+             stroke="#3E3E48" 
+             stroke-width="3" 
+             stroke-linejoin="round"/>
+
+    <!-- Left Face (Vault Door Face - Mid Plane) -->
+    <polygon points="128,170 256,244 256,392 128,318" 
+             fill="#1C1C20" 
+             stroke="#3E3E48" 
+             stroke-width="3" 
+             stroke-linejoin="round"/>
+
+    <!-- Right Face (Shadow Plane) -->
+    <polygon points="256,244 384,170 384,318 256,392" 
+             fill="#121215" 
+             stroke="#3E3E48" 
+             stroke-width="3" 
+             stroke-linejoin="round"/>
+
+    <!-- Top Face Graphic: Isometric Cube Lid Notch -->
+    <polygon points="256,128 328,170 256,212 184,170" 
+             fill="#222228" 
+             stroke="#363640" 
+             stroke-width="2"/>
+
+    <!-- Left Face: Isometric Geometric "R" Carved Into Vault Door -->
+    <!-- R Stem on Left Face -->
+    <polygon points="156,216 180,230 180,336 156,322" 
+             fill="#FFFFFF"/>
+
+    <!-- R Upper Loop on Left Face -->
+    <polygon points="180,230 228,258 228,290 180,262" 
+             fill="#FFFFFF"/>
+    <!-- Loop Inner Punchout -->
+    <polygon points="186,240 216,258 216,276 186,258" 
+             fill="#1C1C20"/>
+
+    <!-- R Leg on Left Face -->
+    <polygon points="196,271 232,336 212,342 180,285" 
+             fill="#FFFFFF"/>
+
+    <!-- Right Face: 3 Isometric Vault Security Deadbolts -->
+    <!-- Bolt 1 -->
+    <polygon points="276,260 364,210 364,222 276,272" fill="#2A2A32"/>
+    <!-- Bolt 2 -->
+    <polygon points="276,290 364,240 364,252 276,302" fill="#2A2A32"/>
+    <!-- Bolt 3 -->
+    <polygon points="276,320 364,270 364,282 276,332" fill="#2A2A32"/>
+
+    <!-- Zero-Knowledge Indicator at Vault Center Joint -->
+    <circle cx="256" cy="244" r="8" fill="#10B981" stroke="#047857" stroke-width="2"/>
+    <circle cx="256" cy="244" r="3" fill="#FFFFFF"/>
+  </g>
+</svg>

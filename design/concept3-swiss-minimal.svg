@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
-  <!-- Ravalt Official Scalable Vector App Icon (Pure Geometry - Zero AI Slop) -->
+  <!-- Concept 3: Swiss Minimalist Monolith "R-Vault" -->
+  <!-- Pure geometric minimalism inspired by Swiss typography & Dieter Rams -->
   <defs>
+    <!-- Subtle drop shadow on the white glyph -->
     <filter id="clean-shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
     </filter>
   </defs>
 
@@ -11,10 +13,12 @@
 
   <!-- Center Monolith Group -->
   <g filter="url(#clean-shadow)">
+    
     <!-- Left Pillar Stem -->
     <rect x="144" y="124" width="56" height="264" rx="8" fill="#FFFFFF"/>
 
     <!-- Upper Vault Arch (R Loop with Keyhole Aperture) -->
+    <!-- Outer Arch -->
     <path d="M 192 124
              H 292
              C 348 124, 384 156, 384 208
@@ -40,6 +44,7 @@
           fill="#FFFFFF"/>
 
     <!-- Zero-Knowledge Cryptographic Core (Circular Keyhole Aperture & Emerald Dot) -->
+    <!-- Circular Tumbler Cutout in the counter -->
     <circle cx="266" cy="208" r="18" fill="#121214"/>
     <circle cx="266" cy="208" r="8" fill="#10B981"/>
     <circle cx="266" cy="208" r="2.5" fill="#FFFFFF"/>

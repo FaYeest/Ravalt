@@ -1,57 +1,35 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120">
-  <defs>
-    <linearGradient id="h-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1B1B1F"/>
-      <stop offset="100%" stop-color="#0E0E10"/>
-    </linearGradient>
-    <linearGradient id="h-metal" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="50%" stop-color="#E2E2E8"/>
-      <stop offset="100%" stop-color="#A8A8B4"/>
-    </linearGradient>
-    <radialGradient id="h-optic" cx="40%" cy="40%" r="60%">
-      <stop offset="0%" stop-color="#34D399"/>
-      <stop offset="50%" stop-color="#10B981"/>
-      <stop offset="100%" stop-color="#047857"/>
-    </radialGradient>
-  </defs>
-
+  <!-- Ravalt Horizontal Brand Lockup (Pure Clean Vector) -->
   <!-- Left Icon Mark (76x76) -->
   <g transform="translate(22, 22)">
-    <!-- Base Squircle -->
-    <rect width="76" height="76" rx="18" fill="url(#h-bg)" stroke="#383842" stroke-width="1.5"/>
-    <circle cx="38" cy="38" r="26" fill="#10B981" opacity="0.12"/>
+    <rect width="76" height="76" rx="18" fill="#121214" stroke="#26262B" stroke-width="1.5"/>
     
-    <!-- Scaled R Vault Mark -->
-    <g transform="translate(14, 13) scale(0.1875)">
-      <!-- R Pillar -->
-      <path d="M 0 0 H 26 V 264 H 0 Z" fill="url(#h-metal)"/>
-      <!-- R Loop -->
-      <path d="M 26 0 H 76 C 106 0, 122 18, 122 46 C 122 72, 106 90, 76 90 H 26 V 64 H 74 C 90 64, 98 57, 98 46 C 98 35, 90 26, 74 26 H 26 Z" fill="url(#h-metal)"/>
-      <!-- R Leg -->
-      <path d="M 72 82 L 112 136 H 80 L 46 90 Z" fill="url(#h-metal)"/>
-
-      <!-- Center Vault Dial -->
-      <circle cx="56" cy="56" r="38" fill="#141418" stroke="#484856" stroke-width="2.5"/>
-      <circle cx="56" cy="56" r="30" fill="url(#h-metal)" stroke="#222228" stroke-width="2"/>
-      <circle cx="56" cy="56" r="18" fill="#101014" stroke="#33333E" stroke-width="2"/>
-      <circle cx="56" cy="56" r="10" fill="url(#h-optic)"/>
-      <circle cx="56" cy="56" r="2.5" fill="#FFFFFF"/>
+    <!-- Scaled R Vault Mark (Scale: 76/512 = ~0.1484) -->
+    <g transform="translate(4, 4) scale(0.133)">
+      <!-- Left Pillar -->
+      <rect x="144" y="124" width="56" height="264" rx="8" fill="#FFFFFF"/>
+      <!-- Loop -->
+      <path d="M 192 124 H 292 C 348 124, 384 156, 384 208 C 384 260, 348 292, 292 292 H 192 Z M 200 174 H 286 C 318 174, 334 188, 334 208 C 334 228, 318 242, 286 242 H 200 Z"
+            fill="#FFFFFF" fill-rule="evenodd"/>
+      <!-- Leg -->
+      <path d="M 264 256 L 356 380 C 362 388, 374 388, 380 380 C 386 372, 386 360, 380 352 L 298 244 Z" fill="#FFFFFF"/>
+      <!-- Core -->
+      <circle cx="266" cy="208" r="18" fill="#121214"/>
+      <circle cx="266" cy="208" r="8" fill="#10B981"/>
+      <rect x="144" y="205" width="16" height="6" rx="2" fill="#121214"/>
     </g>
   </g>
 
-  <!-- Brand Typography Lockup -->
-  <!-- Wordmark RAVALT -->
-  <text x="122" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="34" font-weight="800" letter-spacing="4" fill="#FFFFFF">
+  <!-- Typography -->
+  <text x="120" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="34" font-weight="800" letter-spacing="4" fill="#FFFFFF">
     RAVALT
   </text>
 
-  <!-- Tagline Subtitle -->
-  <text x="123" y="82" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, Menlo, Consolas, monospace" font-size="10.5" font-weight="600" letter-spacing="2.8" fill="#10B981">
+  <text x="121" y="82" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, Menlo, Consolas, monospace" font-size="10.5" font-weight="600" letter-spacing="2.8" fill="#10B981">
     ZERO-KNOWLEDGE VAULT
   </text>
 
-  <!-- Enterprise / Security Pill -->
+  <!-- Security Protocol Pill -->
   <g transform="translate(422, 42)">
     <rect width="72" height="22" rx="4" fill="#18181D" stroke="#2C2C36" stroke-width="1"/>
     <circle cx="12" cy="11" r="3" fill="#10B981"/>

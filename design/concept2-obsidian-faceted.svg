@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Concept 2: Obsidian-Style Faceted Geometric "R" Vault Shard -->
+  <!-- Pure mathematical polygonal planes with sharp vector hairlines -->
+  <defs>
+    <filter id="shard-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Deep Obsidian Canvas Squircle -->
+  <rect x="24" y="24" width="464" height="464" rx="108" fill="#111113" stroke="#222226" stroke-width="2.5"/>
+
+  <!-- Subtle Blueprint Grid Matrix (Obsidian Markdown aesthetic) -->
+  <g opacity="0.04" stroke="#FFFFFF" stroke-width="1">
+    <line x1="128" y1="64" x2="128" y2="448"/>
+    <line x1="256" y1="64" x2="256" y2="448"/>
+    <line x1="384" y1="64" x2="384" y2="448"/>
+    <line x1="64" y1="128" x2="448" y2="128"/>
+    <line x1="64" y1="256" x2="448" y2="256"/>
+    <line x1="64" y1="384" x2="448" y2="384"/>
+  </g>
+
+  <!-- Faceted R Polygon Group -->
+  <g filter="url(#shard-glow)">
+
+    <!-- Facet 1: Left Vertical Monolith Pillar (Main Spine) -->
+    <polygon points="144,116 208,116 208,396 144,396" 
+             fill="#E8E8EE" 
+             stroke="#111113" 
+             stroke-width="2"/>
+
+    <!-- Facet 2: Left Spine Bevel (Shadow plane) -->
+    <polygon points="144,116 168,140 168,372 144,396" 
+             fill="#C5C5CE"/>
+
+    <!-- Facet 3: Upper Vault Arch - Top Plane -->
+    <polygon points="208,116 328,116 296,176 208,176" 
+             fill="#F4F4F8" 
+             stroke="#111113" 
+             stroke-width="2"/>
+
+    <!-- Facet 4: Upper Vault Arch - Outer Bevel Facet -->
+    <polygon points="328,116 376,180 328,244 280,210 296,176" 
+             fill="#DCDCE4" 
+             stroke="#111113" 
+             stroke-width="2"/>
+
+    <!-- Facet 5: Upper Vault Arch - Lower Shelf -->
+    <polygon points="208,244 328,244 280,210 208,210" 
+             fill="#B2B2BC" 
+             stroke="#111113" 
+             stroke-width="2"/>
+
+    <!-- Facet 6: Center Keyhole Aperture (Obsidian Negative Void) -->
+    <polygon points="208,176 296,176 280,210 208,210" 
+             fill="#111113"/>
+
+    <!-- Facet 7: Diagonal Deadbolt Leg - Front Facet -->
+    <polygon points="248,244 296,244 380,396 324,396" 
+             fill="#FFFFFF" 
+             stroke="#111113" 
+             stroke-width="2"/>
+
+    <!-- Facet 8: Diagonal Deadbolt Leg - Under-Shadow Facet -->
+    <polygon points="208,244 248,244 324,396 288,396" 
+             fill="#8E8E98" 
+             stroke="#111113" 
+             stroke-width="2"/>
+
+    <!-- Cryptographic Vertex Dot (Zero-Knowledge Emerald Jewel) -->
+    <polygon points="280,210 290,224 280,238 270,224" 
+             fill="#10B981"/>
+    <circle cx="280" cy="224" r="3" fill="#FFFFFF"/>
+
+    <!-- Mathematical Coordinate Hairline Guides -->
+    <line x1="208" y1="116" x2="380" y2="396" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.6"/>
+  </g>
+</svg>
