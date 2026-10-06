@@ -16,12 +16,14 @@ import (
 type AuthService struct {
 	userRepo   domain.UserRepository
 	saltSecret string
+	jwtService *JWTService
 }
 
-func NewAuthService(userRepo domain.UserRepository, saltSecret string) *AuthService {
+func NewAuthService(userRepo domain.UserRepository, saltSecret string, jwtService *JWTService) *AuthService {
 	return &AuthService{
 		userRepo:   userRepo,
 		saltSecret: saltSecret,
+		jwtService: jwtService,
 	}
 }
 
@@ -96,4 +98,49 @@ func (s *AuthService) Register(ctx context.Context, input RegisterInput) (*domai
 	}
 
 	return user, nil
+}
+
+type LoginInput struct {
+	Email    string
+	AuthHash string
+}
+
+type LoginResult struct {
+	Token     string       `json:"token"`
+	TokenType string       `json:"token_type"`
+	ExpiresIn int64        `json:"expires_in"`
+	User      *domain.User `json:"user"`
+}
+
+func (s *AuthService) Login(ctx context.Context, input LoginInput) (*LoginResult, error) {
+	cleanEmail := strings.ToLower(strings.TrimSpace(input.Email))
+	cleanAuthHash := strings.TrimSpace(input.AuthHash)
+
+	if cleanEmail == "" || cleanAuthHash == "" {
+		return nil, domain.ErrInvalidCredentials
+	}
+
+	user, err := s.userRepo.GetByEmail(ctx, cleanEmail)
+	if err != nil {
+		if errors.Is(err, domain.ErrUserNotFound) {
+			return nil, domain.ErrInvalidCredentials
+		}
+		return nil, err
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(user.AuthHash), []byte(cleanAuthHash)); err != nil {
+		return nil, domain.ErrInvalidCredentials
+	}
+
+	token, err := s.jwtService.GenerateToken(user.ID, user.Email)
+	if err != nil {
+		return nil, err
+	}
+
+	return &LoginResult{
+		Token:     token,
+		TokenType: "Bearer",
+		ExpiresIn: int64(s.jwtService.Duration().Seconds()),
+		User:      user,
+	}, nil
 }

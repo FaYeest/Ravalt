@@ -34,7 +34,8 @@ func TestGetPreloginSalt_AntiEnumeration(t *testing.T) {
 		},
 	}
 
-	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length")
+	jwtService := service.NewJWTService("test-jwt-secret-key-at-least-32b-long", 24)
+	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length", jwtService)
 
 	ctx := context.Background()
 
@@ -85,7 +86,8 @@ func TestRegister(t *testing.T) {
 	repo := &mockUserRepo{
 		users: make(map[string]*domain.User),
 	}
-	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length")
+	jwtService := service.NewJWTService("test-jwt-secret-key-at-least-32b-long", 24)
+	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length", jwtService)
 	ctx := context.Background()
 
 	validSalt := "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" // 32 bytes base64 (44 chars)
@@ -135,5 +137,70 @@ func TestRegister(t *testing.T) {
 	})
 	if err != domain.ErrInvalidEmail {
 		t.Fatalf("expected ErrInvalidEmail, got %v", err)
+	}
+}
+
+func TestLogin(t *testing.T) {
+	repo := &mockUserRepo{
+		users: make(map[string]*domain.User),
+	}
+	jwtService := service.NewJWTService("test-jwt-secret-key-at-least-32b-long", 24)
+	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length", jwtService)
+	ctx := context.Background()
+
+	validSalt := "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+	correctAuthHash := "correct-client-derived-hash"
+	wrongAuthHash := "wrong-client-derived-hash"
+
+	// Register user first
+	_, err := authService.Register(ctx, service.RegisterInput{
+		Email:    "loginuser@example.com",
+		UserSalt: validSalt,
+		AuthHash: correctAuthHash,
+	})
+	if err != nil {
+		t.Fatalf("setup registration failed: %v", err)
+	}
+
+	// 1. Success login
+	res, err := authService.Login(ctx, service.LoginInput{
+		Email:    "loginuser@example.com",
+		AuthHash: correctAuthHash,
+	})
+	if err != nil {
+		t.Fatalf("expected login success, got error: %v", err)
+	}
+	if res.Token == "" {
+		t.Fatal("expected non-empty JWT token")
+	}
+	if res.TokenType != "Bearer" {
+		t.Fatalf("expected Bearer token type, got %s", res.TokenType)
+	}
+
+	// Validate the returned token
+	claims, err := jwtService.ValidateToken(res.Token)
+	if err != nil {
+		t.Fatalf("failed to validate returned token: %v", err)
+	}
+	if claims.Email != "loginuser@example.com" {
+		t.Fatalf("expected token email loginuser@example.com, got %s", claims.Email)
+	}
+
+	// 2. Login with wrong password/hash
+	_, err = authService.Login(ctx, service.LoginInput{
+		Email:    "loginuser@example.com",
+		AuthHash: wrongAuthHash,
+	})
+	if err != domain.ErrInvalidCredentials {
+		t.Fatalf("expected ErrInvalidCredentials for wrong hash, got %v", err)
+	}
+
+	// 3. Login with non-existing email
+	_, err = authService.Login(ctx, service.LoginInput{
+		Email:    "nobody@example.com",
+		AuthHash: correctAuthHash,
+	})
+	if err != domain.ErrInvalidCredentials {
+		t.Fatalf("expected ErrInvalidCredentials for non-existing user, got %v", err)
 	}
 }

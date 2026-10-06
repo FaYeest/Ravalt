@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/FaYeest/ravalt/backend/internal/domain"
+	"github.com/FaYeest/ravalt/backend/internal/middleware"
 	"github.com/FaYeest/ravalt/backend/internal/service"
 )
 
@@ -89,5 +90,68 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 		ID:        user.ID,
 		Email:     user.Email,
 		CreatedAt: user.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
+	})
+}
+
+type LoginRequest struct {
+	Email    string `json:"email"`
+	AuthHash string `json:"auth_hash"`
+}
+
+type UserSummary struct {
+	ID    string `json:"id"`
+	Email string `json:"email"`
+}
+
+type LoginResponse struct {
+	Token     string      `json:"token"`
+	TokenType string      `json:"token_type"`
+	ExpiresIn int64       `json:"expires_in"`
+	User      UserSummary `json:"user"`
+}
+
+func (h *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
+	var req LoginRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		respondError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	result, err := h.authService.Login(r.Context(), service.LoginInput{
+		Email:    req.Email,
+		AuthHash: req.AuthHash,
+	})
+	if err != nil {
+		if errors.Is(err, domain.ErrInvalidCredentials) {
+			respondError(w, http.StatusUnauthorized, "invalid email or master credentials")
+			return
+		}
+		respondError(w, http.StatusInternalServerError, "failed to authenticate")
+		return
+	}
+
+	respondJSON(w, http.StatusOK, LoginResponse{
+		Token:     result.Token,
+		TokenType: result.TokenType,
+		ExpiresIn: result.ExpiresIn,
+		User: UserSummary{
+			ID:    result.User.ID,
+			Email: result.User.Email,
+		},
+	})
+}
+
+func (h *AuthHandler) Me(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserIDFromContext(r.Context())
+	if !ok {
+		respondError(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	email, _ := middleware.GetEmailFromContext(r.Context())
+
+	respondJSON(w, http.StatusOK, map[string]string{
+		"id":    userID,
+		"email": email,
 	})
 }

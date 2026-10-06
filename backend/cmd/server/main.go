@@ -13,6 +13,7 @@ import (
 
 	"github.com/FaYeest/ravalt/backend/internal/config"
 	"github.com/FaYeest/ravalt/backend/internal/handler"
+	appMiddleware "github.com/FaYeest/ravalt/backend/internal/middleware"
 	repoPostgres "github.com/FaYeest/ravalt/backend/internal/repository/postgres"
 	"github.com/FaYeest/ravalt/backend/internal/service"
 	"github.com/FaYeest/ravalt/backend/internal/storage/postgres"
@@ -49,7 +50,8 @@ func main() {
 	userRepo := repoPostgres.NewUserRepository(dbPool)
 
 	// Services
-	authService := service.NewAuthService(userRepo, cfg.JWTSecret)
+	jwtService := service.NewJWTService(cfg.JWTSecret, cfg.JWTExpirationHours)
+	authService := service.NewAuthService(userRepo, cfg.JWTSecret, jwtService)
 
 	// Handlers
 	authHandler := handler.NewAuthHandler(authService)
@@ -78,6 +80,13 @@ func main() {
 		r.Route("/auth", func(r chi.Router) {
 			r.Get("/prelogin", authHandler.Prelogin)
 			r.Post("/register", authHandler.Register)
+			r.Post("/login", authHandler.Login)
+
+			// Protected routes
+			r.Group(func(r chi.Router) {
+				r.Use(appMiddleware.RequireAuth(jwtService))
+				r.Get("/me", authHandler.Me)
+			})
 		})
 	})
 
