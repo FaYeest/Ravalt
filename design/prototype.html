@@ -1041,12 +1041,11 @@
                   <p class="text-[10px] text-slate-500 dark:text-[#888888] mt-0.5" data-i18n="pref_biometric_desc">Buka cepat via sidik jari Android Keystore</p>
                 </div>
                 <div class="flex items-center gap-2">
-                  <span id="badge-toggle-bio" class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800">ON</span>
-                  <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" checked onchange="updateToggleBadge(this, 'badge-toggle-bio')" class="sr-only peer">
-                    <div class="w-10 h-5.5 bg-slate-300 dark:bg-[#383838] peer-focus:outline-none rounded-full peer peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-500 transition-colors duration-200"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4.5 h-4.5 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-4.5 shadow-sm pointer-events-none"></div>
-                  </label>
+                  <button type="button" onclick="toggleSetting('toggle-bio-btn', 'badge-toggle-bio')" id="badge-toggle-bio" class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800 cursor-pointer">ON</button>
+                  <button type="button" role="switch" aria-checked="true" id="toggle-bio-btn" onclick="toggleSetting('toggle-bio-btn', 'badge-toggle-bio')" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-emerald-600 dark:bg-emerald-500">
+                    <span class="sr-only">Toggle Biometric</span>
+                    <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-5"></span>
+                  </button>
                 </div>
               </div>
 
@@ -1082,12 +1081,11 @@
                   <p class="text-[10px] text-slate-500 dark:text-[#888888] mt-0.5" data-i18n="pref_auto_breach_desc">Audit k-Anonymity otomatis saat membuka brankas</p>
                 </div>
                 <div class="flex items-center gap-2">
-                  <span id="badge-toggle-breach" class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800">ON</span>
-                  <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" checked onchange="updateToggleBadge(this, 'badge-toggle-breach')" class="sr-only peer">
-                    <div class="w-10 h-5.5 bg-slate-300 dark:bg-[#383838] peer-focus:outline-none rounded-full peer peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-500 transition-colors duration-200"></div>
-                    <div class="absolute left-0.5 top-0.5 w-4.5 h-4.5 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-4.5 shadow-sm pointer-events-none"></div>
-                  </label>
+                  <button type="button" onclick="toggleSetting('toggle-breach-btn', 'badge-toggle-breach')" id="badge-toggle-breach" class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800 cursor-pointer">ON</button>
+                  <button type="button" role="switch" aria-checked="true" id="toggle-breach-btn" onclick="toggleSetting('toggle-breach-btn', 'badge-toggle-breach')" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-emerald-600 dark:bg-emerald-500">
+                    <span class="sr-only">Toggle Breach Audit</span>
+                    <span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-5"></span>
+                  </button>
                 </div>
               </div>
 
@@ -1639,15 +1637,29 @@
       setScreen('vault');
     }
 
-    function updateToggleBadge(checkbox, badgeId) {
+    function toggleSetting(btnId, badgeId) {
+      const btn = document.getElementById(btnId);
       const badge = document.getElementById(badgeId);
-      if (!badge) return;
-      if (checkbox.checked) {
-        badge.innerText = 'ON';
-        badge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800';
+      if (!btn) return;
+      const isChecked = btn.getAttribute('aria-checked') === 'true';
+      const newState = !isChecked;
+      btn.setAttribute('aria-checked', newState ? 'true' : 'false');
+      const knob = btn.querySelector('span:not(.sr-only)');
+
+      if (newState) {
+        btn.className = 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-emerald-600 dark:bg-emerald-500';
+        if (knob) knob.className = 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-5';
+        if (badge) {
+          badge.innerText = 'ON';
+          badge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800 cursor-pointer';
+        }
       } else {
-        badge.innerText = 'OFF';
-        badge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-slate-100 text-slate-400 border-slate-200 dark:bg-[#262626] dark:text-[#777777] dark:border-[#333333]';
+        btn.className = 'relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none bg-slate-300 dark:bg-[#383838]';
+        if (knob) knob.className = 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-0';
+        if (badge) {
+          badge.innerText = 'OFF';
+          badge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-slate-100 text-slate-400 border-slate-200 dark:bg-[#262626] dark:text-[#777777] dark:border-[#333333] cursor-pointer';
+        }
       }
     }
 
