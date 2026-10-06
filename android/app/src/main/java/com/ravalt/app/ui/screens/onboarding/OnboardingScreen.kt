@@ -64,7 +64,7 @@ fun OnboardingScreen(
                 Text(
                     text = "Selamat Datang di Ravalt",
                     style = MaterialTheme.typography.headlineLarge,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Text(

@@ -8,8 +8,13 @@ data class PreloginResponse(
 
 data class RegisterRequest(
     @SerializedName("email") val email: String,
-    @SerializedName("auth_hash") val authHash: String,
-    @SerializedName("user_salt") val userSalt: String
+    @SerializedName("salt") val salt: String,
+    @SerializedName("auth_hash") val authHash: String
+)
+
+data class RegisterResponse(
+    @SerializedName("id") val id: String,
+    @SerializedName("email") val email: String
 )
 
 data class LoginRequest(
@@ -17,15 +22,21 @@ data class LoginRequest(
     @SerializedName("auth_hash") val authHash: String
 )
 
-data class AuthResponse(
+data class UserSummary(
     @SerializedName("id") val id: String,
-    @SerializedName("email") val email: String,
-    @SerializedName("token") val token: String
+    @SerializedName("email") val email: String
+)
+
+data class LoginResponse(
+    @SerializedName("token") val token: String,
+    @SerializedName("token_type") val tokenType: String? = null,
+    @SerializedName("expires_in") val expiresIn: Long = 0L,
+    @SerializedName("user") val user: UserSummary
 )
 
 data class UpdatePasswordRequest(
     @SerializedName("new_auth_hash") val newAuthHash: String,
-    @SerializedName("new_user_salt") val newUserSalt: String
+    @SerializedName("new_salt") val newSalt: String
 )
 
 data class MessageResponse(

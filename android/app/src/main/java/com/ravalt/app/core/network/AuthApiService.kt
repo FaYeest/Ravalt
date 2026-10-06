@@ -1,10 +1,11 @@
 package com.ravalt.app.core.network
 
-import com.ravalt.app.core.network.dto.AuthResponse
 import com.ravalt.app.core.network.dto.LoginRequest
+import com.ravalt.app.core.network.dto.LoginResponse
 import com.ravalt.app.core.network.dto.MessageResponse
 import com.ravalt.app.core.network.dto.PreloginResponse
 import com.ravalt.app.core.network.dto.RegisterRequest
+import com.ravalt.app.core.network.dto.RegisterResponse
 import com.ravalt.app.core.network.dto.UpdatePasswordRequest
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,12 +25,12 @@ interface AuthApiService {
     @POST("auth/register")
     suspend fun register(
         @Body request: RegisterRequest
-    ): Response<AuthResponse>
+    ): Response<RegisterResponse>
 
     @POST("auth/login")
     suspend fun login(
         @Body request: LoginRequest
-    ): Response<AuthResponse>
+    ): Response<LoginResponse>
 
     @DELETE("auth/me")
     suspend fun deleteAccount(): Response<MessageResponse>

@@ -37,8 +37,8 @@ class AuthRepository(
             val response = apiClient.authService.register(
                 RegisterRequest(
                     email = cleanEmail,
-                    authHash = keys.authHash,
-                    userSalt = saltBase64
+                    salt = saltBase64,
+                    authHash = keys.authHash
                 )
             )
 
@@ -47,9 +47,19 @@ class AuthRepository(
                 return@withContext Result.failure(Exception(errBody))
             }
 
-            val authBody = response.body()!!
+            // 4. Auto-login immediately after registration to obtain session token
+            val loginResp = apiClient.authService.login(
+                LoginRequest(email = cleanEmail, authHash = keys.authHash)
+            )
+
+            if (!loginResp.isSuccessful || loginResp.body() == null) {
+                val err = loginResp.errorBody()?.string() ?: "Login otomatis gagal (${loginResp.code()})"
+                return@withContext Result.failure(Exception(err))
+            }
+
+            val authBody = loginResp.body()!!
             val profile = UserProfileEntity(
-                userId = authBody.id,
+                userId = authBody.user.id,
                 email = cleanEmail,
                 userSalt = saltBase64,
                 authToken = authBody.token
@@ -57,7 +67,7 @@ class AuthRepository(
             userProfileDao.insertOrUpdate(profile)
 
             SessionManager.setSession(
-                userId = authBody.id,
+                userId = authBody.user.id,
                 email = cleanEmail,
                 token = authBody.token,
                 userSalt = saltBase64,
@@ -66,7 +76,7 @@ class AuthRepository(
 
             Result.success(
                 UserSession(
-                    userId = authBody.id,
+                    userId = authBody.user.id,
                     email = cleanEmail,
                     token = authBody.token,
                     userSalt = saltBase64
@@ -107,7 +117,7 @@ class AuthRepository(
             val authBody = loginResp.body()!!
             val existing = userProfileDao.getProfileSync()
             val profile = UserProfileEntity(
-                userId = authBody.id,
+                userId = authBody.user.id,
                 email = cleanEmail,
                 userSalt = saltBase64,
                 authToken = authBody.token,
@@ -118,7 +128,7 @@ class AuthRepository(
             userProfileDao.insertOrUpdate(profile)
 
             SessionManager.setSession(
-                userId = authBody.id,
+                userId = authBody.user.id,
                 email = cleanEmail,
                 token = authBody.token,
                 userSalt = saltBase64,
@@ -127,7 +137,7 @@ class AuthRepository(
 
             Result.success(
                 UserSession(
-                    userId = authBody.id,
+                    userId = authBody.user.id,
                     email = cleanEmail,
                     token = authBody.token,
                     userSalt = saltBase64
@@ -176,7 +186,7 @@ class AuthRepository(
             val response = apiClient.authService.updatePassword(
                 UpdatePasswordRequest(
                     newAuthHash = newKeys.authHash,
-                    newUserSalt = newSaltBase64
+                    newSalt = newSaltBase64
                 )
             )
 
