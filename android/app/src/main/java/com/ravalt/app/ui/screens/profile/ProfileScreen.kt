@@ -33,14 +33,17 @@ import com.ravalt.app.ui.theme.TextMuted
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
+    onLock: () -> Unit = {},
     onLogout: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
+    val isLoggedOut by viewModel.isLoggedOut.collectAsState()
     val context = LocalContext.current
     var showDeleteConfirm by remember { mutableStateOf(false) }
 
-    LaunchedEffect(state.isLoggedOut) {
-        if (state.isLoggedOut) {
+    LaunchedEffect(isLoggedOut) {
+        if (isLoggedOut) {
+            viewModel.resetLoggedOutState()
             onLogout()
         }
     }
@@ -280,12 +283,28 @@ fun ProfileScreen(
                     }
 
                     OutlinedButton(
+                        onClick = {
+                            viewModel.lockVault()
+                            onLock()
+                        },
+                        modifier = Modifier.fillMaxWidth().height(44.dp),
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(imageVector = Icons.Default.Lock, contentDescription = null, tint = EmeraldPrimary, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(text = "Kunci Brankas Sekarang", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+
+                    OutlinedButton(
                         onClick = { viewModel.logout() },
                         modifier = Modifier.fillMaxWidth().height(44.dp),
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White)
                     ) {
-                        Text(text = "Kunci & Keluar dari Akun", fontSize = 12.sp)
+                        Text(text = "Keluar dari Akun", fontSize = 12.sp)
                     }
 
                     Button(

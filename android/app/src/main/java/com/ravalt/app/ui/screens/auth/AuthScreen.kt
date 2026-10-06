@@ -42,6 +42,7 @@ fun AuthScreen(
 
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
+            viewModel.resetAuthState()
             onAuthSuccess()
         }
     }

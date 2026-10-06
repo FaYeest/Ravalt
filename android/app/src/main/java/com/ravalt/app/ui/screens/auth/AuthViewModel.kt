@@ -33,6 +33,10 @@ class AuthViewModel(
         )
     }
 
+    fun resetAuthState() {
+        _uiState.value = AuthUiState()
+    }
+
     fun onEmailChanged(email: String) {
         _uiState.value = _uiState.value.copy(email = email, errorMessage = null)
     }

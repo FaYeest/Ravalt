@@ -2,6 +2,7 @@ package com.ravalt.app.ui.screens.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ravalt.app.core.session.SessionManager
 import com.ravalt.app.data.local.dao.UserProfileDao
 import com.ravalt.app.data.local.entity.UserProfileEntity
 import com.ravalt.app.data.repository.AuthRepository
@@ -18,7 +19,6 @@ data class ProfileUiState(
     val lastSyncTime: Long = 0L,
     val isSyncing: Boolean = false,
     val isDeleting: Boolean = false,
-    val isLoggedOut: Boolean = false,
     val toastMessage: String? = null
 )
 
@@ -33,13 +33,14 @@ class ProfileViewModel(
     private val _isLoggedOut = MutableStateFlow(false)
     private val _toastMessage = MutableStateFlow<String?>(null)
 
+    val isLoggedOut: StateFlow<Boolean> = _isLoggedOut.asStateFlow()
+
     val uiState: StateFlow<ProfileUiState> = combine(
         authRepository.userProfile,
         _isSyncing,
         _isDeleting,
-        _isLoggedOut,
         _toastMessage
-    ) { profile, syncing, deleting, loggedOut, toast ->
+    ) { profile, syncing, deleting, toast ->
         ProfileUiState(
             email = profile?.email ?: "farras@ravalt.id",
             userSalt = profile?.userSalt ?: "",
@@ -49,10 +50,17 @@ class ProfileViewModel(
             lastSyncTime = profile?.lastSyncTime ?: 0L,
             isSyncing = syncing,
             isDeleting = deleting,
-            isLoggedOut = loggedOut,
             toastMessage = toast
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProfileUiState())
+
+    fun lockVault() {
+        SessionManager.lock()
+    }
+
+    fun resetLoggedOutState() {
+        _isLoggedOut.value = false
+    }
 
     fun toggleBiometric(enabled: Boolean) {
         viewModelScope.launch {

@@ -42,6 +42,15 @@ class UnlockViewModel(
         _uiState.value = _uiState.value.copy(masterPassword = password, errorMessage = null)
     }
 
+    fun resetUnlockState() {
+        _uiState.value = _uiState.value.copy(
+            masterPassword = "",
+            isUnlocked = false,
+            errorMessage = null,
+            isLoading = false
+        )
+    }
+
     fun unlock() {
         val state = _uiState.value
         if (state.masterPassword.isEmpty()) {

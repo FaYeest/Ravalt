@@ -1,5 +1,6 @@
 package com.ravalt.app.ui.screens.main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ravalt.app.core.session.SessionManager
 import com.ravalt.app.domain.model.VaultItem
 import com.ravalt.app.ui.navigation.MainTab
 import com.ravalt.app.ui.screens.breach.BreachScreen
@@ -38,10 +40,22 @@ fun MainScreen(
     generatorViewModel: GeneratorViewModel,
     breachViewModel: BreachViewModel,
     profileViewModel: ProfileViewModel,
+    onLock: () -> Unit,
     onLogout: () -> Unit
 ) {
+    val isUnlocked by SessionManager.isUnlocked.collectAsState()
     var selectedTab by remember { mutableStateOf(MainTab.VAULT) }
     var selectedDetailItem by remember { mutableStateOf<VaultItem?>(null) }
+
+    LaunchedEffect(isUnlocked) {
+        if (!isUnlocked) {
+            onLock()
+        }
+    }
+
+    BackHandler(enabled = selectedDetailItem == null && selectedTab != MainTab.VAULT) {
+        selectedTab = MainTab.VAULT
+    }
 
     if (selectedDetailItem != null) {
         VaultDetailScreen(
@@ -159,6 +173,7 @@ fun MainScreen(
                     MainTab.BREACH -> BreachScreen(viewModel = breachViewModel)
                     MainTab.PROFILE -> ProfileScreen(
                         viewModel = profileViewModel,
+                        onLock = onLock,
                         onLogout = onLogout
                     )
                 }

@@ -1,6 +1,7 @@
 package com.ravalt.app.ui.screens.vault
 
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -42,6 +43,8 @@ fun VaultDetailScreen(
     var showDeleteConfirm by remember { mutableStateOf(false) }
     val context = LocalContext.current
     val clipboardManager = LocalClipboardManager.current
+
+    BackHandler { onBack() }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,

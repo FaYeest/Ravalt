@@ -36,6 +36,7 @@ fun UnlockScreen(
 
     LaunchedEffect(state.isUnlocked) {
         if (state.isUnlocked) {
+            viewModel.resetUnlockState()
             onUnlockSuccess()
         }
     }
