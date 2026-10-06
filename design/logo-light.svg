@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background: Crisp Minimalist Light Slate -->
+    <linearGradient id="light-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F4F6"/>
+    </linearGradient>
+
+    <!-- Deep Obsidian Charcoal for Mark -->
+    <linearGradient id="charcoal-mark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181B"/>
+      <stop offset="100%" stop-color="#09090B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect x="28" y="28" width="456" height="456" rx="108" fill="url(#light-bg)" stroke="#E4E4E7" stroke-width="3"/>
+  <rect x="40" y="40" width="432" height="432" rx="96" fill="none" stroke="#000000" stroke-opacity="0.03" stroke-width="1.5"/>
+
+  <!-- Unified Mathematical R Vault Glyph -->
+  <!-- Left Pillar -->
+  <rect x="144" y="128" width="56" height="256" rx="16" fill="url(#charcoal-mark)"/>
+
+  <!-- Upper Vault Arch -->
+  <path d="M 188 128
+           H 286
+           C 346 128, 384 158, 384 206
+           C 384 254, 346 284, 286 284
+           H 188
+           Z
+           M 200 176
+           H 282
+           C 316 176, 334 188, 334 206
+           C 334 224, 316 236, 282 236
+           H 200
+           Z"
+        fill="url(#charcoal-mark)"
+        fill-rule="evenodd"/>
+
+  <!-- Angular Vault Deadbolt Leg -->
+  <path d="M 260 254
+           L 352 370
+           C 358 378, 370 380, 378 374
+           C 386 368, 388 356, 382 348
+           L 298 240
+           Z"
+        fill="url(#charcoal-mark)"/>
+
+  <!-- Precision Notch -->
+  <line x1="144" y1="206" x2="162" y2="206" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Zero-Knowledge Cryptographic Core (Emerald Dot) -->
+  <circle cx="266" cy="206" r="9" fill="#059669"/>
+  <circle cx="266" cy="206" r="3.5" fill="#FFFFFF"/>
+</svg>

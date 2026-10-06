@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ravalt — Official Brand Logo & Design System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              950: '#09090B',
+              900: '#121214',
+              850: '#18181B',
+              800: '#222226',
+              700: '#2E2E34',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-obsidian-950 text-[#E4E4E7] min-h-screen font-sans selection:bg-emerald-500 selection:text-black">
+
+  <!-- Navigation Bar -->
+  <header class="border-b border-obsidian-800 bg-obsidian-900/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="logo-mark.svg" alt="Ravalt Logo" class="w-8 h-8 rounded-lg shadow-sm border border-obsidian-700">
+      <div>
+        <h1 class="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+          RAVALT
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/70 text-emerald-400 border border-emerald-800/60">
+            Brand Identity v1.0
+          </span>
+        </h1>
+        <p class="text-[11px] text-slate-400 font-mono">Zero-Knowledge Vault & Authenticator</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <a href="prototype.html" class="px-3 py-1.5 rounded-lg border border-obsidian-700 bg-obsidian-850 hover:bg-obsidian-800 text-xs text-slate-300 hover:text-white transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        <span>Lihat Prototype Mobile</span>
+      </a>
+      <a href="https://github.com/FaYeest/Ravalt" target="_blank" class="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-200 text-black font-semibold text-xs transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span>GitHub Repository</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Presentation Grid -->
+  <main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
+
+    <!-- Section 1: Hero & Primary Concept -->
+    <div class="space-y-6">
+      <div class="space-y-2">
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Brand Iconography</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          Ravalt Official App Icon & Symbol
+        </h2>
+        <p class="text-sm text-slate-400 max-w-2xl leading-relaxed">
+          Mengusung filosofi desain <strong>Notion & Obsidian</strong>: utilitarian, matematis, dan berfokus pada ketahanan kriptografi. Menggabungkan monogram huruf <strong>"R"</strong> dengan mekanisme brankas titanium <strong>(Vault Combination Dial)</strong> dan indikator aktif <strong>Zero-Knowledge Emerald</strong>.
+        </p>
+      </div>
+
+      <!-- Hero Gallery: 3D Render & Scalable Vector -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        
+        <!-- Card 1: 3D Render Presentation (Primary) -->
+        <div class="rounded-2xl border border-obsidian-800 bg-obsidian-900 p-6 space-y-4 shadow-2xl">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-white">Edisi 1: Titanium Vault Dial (Rekomendasi Utama)</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Hi-Res 3D Render</span>
+          </div>
+          <div class="relative rounded-xl overflow-hidden bg-obsidian-950 flex items-center justify-center p-4 border border-obsidian-800/80 group">
+            <img src="app-icon-primary.jpg" alt="Ravalt Titanium App Icon" class="w-80 h-80 object-contain rounded-3xl shadow-2xl transition duration-300 group-hover:scale-[1.02]">
+          </div>
+          <div class="text-xs text-slate-400 space-y-1">
+            <p><strong>Karakteristik:</strong> Finishing brushed titanium satin, dial kombinasi presisi mikro di bagian rongga counter R, serta inti optik hijau zamrud yang melambangkan status enkripsi lokal.</p>
+            <div class="pt-2 flex gap-2">
+              <a href="app-icon-primary.jpg" download class="text-[11px] font-mono text-slate-300 hover:text-white px-2.5 py-1 rounded border border-obsidian-700 bg-obsidian-850 hover:bg-obsidian-800 transition">Download JPG (1024x1024)</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: 3D Render Presentation (Heavy Architectural Edition) -->
+        <div class="rounded-2xl border border-obsidian-800 bg-obsidian-900 p-6 space-y-4 shadow-2xl">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-white">Edisi 2: Heavy Mechanical Vault Monolith</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">Detailed Vault</span>
+          </div>
+          <div class="relative rounded-xl overflow-hidden bg-obsidian-950 flex items-center justify-center p-4 border border-obsidian-800/80 group">
+            <img src="app-icon-vault.jpg" alt="Ravalt Heavy Architectural Vault Icon" class="w-80 h-80 object-contain rounded-3xl shadow-2xl transition duration-300 group-hover:scale-[1.02]">
+          </div>
+          <div class="text-xs text-slate-400 space-y-1">
+            <p><strong>Karakteristik:</strong> Desain pintu brankas bank industri berat dengan engsel pengunci ganda, tuas pemutar 4-arah, dan plat kode RVLT anti-penetrasi.</p>
+            <div class="pt-2 flex gap-2">
+              <a href="app-icon-vault.jpg" download class="text-[11px] font-mono text-slate-300 hover:text-white px-2.5 py-1 rounded border border-obsidian-700 bg-obsidian-850 hover:bg-obsidian-800 transition">Download JPG (1024x1024)</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 2: Production Vector Assets (SVG) -->
+    <div class="space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Scalable Production Vectors</span>
+        <h3 class="text-xl font-bold text-white tracking-tight">Format SVG Resmi (Android & Web UI)</h3>
+        <p class="text-xs text-slate-400">Aset vektor murni tanpa kehilangan ketajaman untuk Android Vector Drawable, launcher adaptive icon, dan web.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Dark Mode SVG -->
+        <div class="rounded-xl border border-obsidian-800 bg-obsidian-900 p-5 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-white">Dark Mode Mark</span>
+            <span class="text-[10px] font-mono text-slate-400">512x512 SVG</span>
+          </div>
+          <div class="h-56 rounded-lg bg-obsidian-950 border border-obsidian-800 flex items-center justify-center p-4">
+            <img src="logo-mark.svg" alt="Dark Mode SVG" class="w-40 h-40 object-contain">
+          </div>
+          <div class="flex items-center justify-between text-[11px] pt-1">
+            <span class="text-slate-400 font-mono">logo-mark.svg</span>
+            <a href="logo-mark.svg" download class="text-emerald-400 hover:underline font-mono">Unduh SVG</a>
+          </div>
+        </div>
+
+        <!-- Light Mode SVG -->
+        <div class="rounded-xl border border-obsidian-800 bg-obsidian-900 p-5 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-white">Light Mode Mark</span>
+            <span class="text-[10px] font-mono text-slate-400">512x512 SVG</span>
+          </div>
+          <div class="h-56 rounded-lg bg-white border border-slate-200 flex items-center justify-center p-4">
+            <img src="logo-light.svg" alt="Light Mode SVG" class="w-40 h-40 object-contain">
+          </div>
+          <div class="flex items-center justify-between text-[11px] pt-1">
+            <span class="text-slate-400 font-mono">logo-light.svg</span>
+            <a href="logo-light.svg" download class="text-emerald-400 hover:underline font-mono">Unduh SVG</a>
+          </div>
+        </div>
+
+        <!-- Horizontal Typography Lockup -->
+        <div class="rounded-xl border border-obsidian-800 bg-obsidian-900 p-5 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-semibold text-white">Horizontal Brand Lockup</span>
+            <span class="text-[10px] font-mono text-slate-400">520x120 SVG</span>
+          </div>
+          <div class="h-56 rounded-lg bg-obsidian-950 border border-obsidian-800 flex items-center justify-center p-4">
+            <img src="logo-horizontal.svg" alt="Horizontal Lockup SVG" class="w-full object-contain">
+          </div>
+          <div class="flex items-center justify-between text-[11px] pt-1">
+            <span class="text-slate-400 font-mono">logo-horizontal.svg</span>
+            <a href="logo-horizontal.svg" download class="text-emerald-400 hover:underline font-mono">Unduh SVG</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 3: Contextual Home Screen Mockup -->
+    <div class="space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Device Context</span>
+        <h3 class="text-xl font-bold text-white tracking-tight">Kesesuaian di Layar Utama Ponsel (Power User Grid)</h3>
+        <p class="text-xs text-slate-400">Melihat bagaimana icon Ravalt berdampingan dengan aplikasi produktivitas minimalis seperti Obsidian, Notion, dan GitHub.</p>
+      </div>
+
+      <div class="p-8 rounded-2xl border border-obsidian-800 bg-[#0C0C0E] shadow-xl">
+        <div class="flex flex-wrap items-center justify-center gap-8 sm:gap-12 py-6">
+          
+          <!-- App 1: Obsidian -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-16 h-16 rounded-2xl bg-[#1E172E] border border-[#3E2D60] flex items-center justify-center shadow-lg">
+              <svg class="w-9 h-9 text-[#8B5CF6]" viewBox="0 0 100 100" fill="currentColor">
+                <polygon points="50,15 80,45 65,85 35,85 20,45"/>
+              </svg>
+            </div>
+            <span class="text-xs font-medium text-slate-400">Obsidian</span>
+          </div>
+
+          <!-- App 2: Notion -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-16 h-16 rounded-2xl bg-white border border-slate-300 flex items-center justify-center shadow-lg">
+              <span class="text-black font-serif font-black text-3xl">N</span>
+            </div>
+            <span class="text-xs font-medium text-slate-400">Notion</span>
+          </div>
+
+          <!-- App 3: RAVALT (Hero Center Icon) -->
+          <div class="flex flex-col items-center gap-2 relative">
+            <div class="absolute -top-3 px-2 py-0.5 rounded-full bg-emerald-500 text-black text-[9px] font-bold font-mono tracking-wider shadow">
+              RAVALT
+            </div>
+            <div class="w-16 h-16 rounded-2xl shadow-2xl ring-2 ring-emerald-500/50 overflow-hidden">
+              <img src="app-icon-primary.jpg" alt="Ravalt App Icon" class="w-full h-full object-cover">
+            </div>
+            <span class="text-xs font-bold text-white">Ravalt</span>
+          </div>
+
+          <!-- App 4: GitHub -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-16 h-16 rounded-2xl bg-[#161B22] border border-[#30363D] flex items-center justify-center shadow-lg">
+              <svg class="w-9 h-9 text-white" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </div>
+            <span class="text-xs font-medium text-slate-400">GitHub</span>
+          </div>
+
+          <!-- App 5: Terminal / Termux -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-16 h-16 rounded-2xl bg-black border border-slate-700 flex items-center justify-center shadow-lg font-mono text-emerald-400 font-bold text-lg">
+              &gt;_
+            </div>
+            <span class="text-xs font-medium text-slate-400">Console</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Scalability Matrix -->
+    <div class="space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Icon Metrics</span>
+        <h3 class="text-xl font-bold text-white tracking-tight">Ketahanan Skala Resolusi (Scalability Matrix)</h3>
+        <p class="text-xs text-slate-400">Memastikan simbol tetap terbaca jelas mulai dari ukuran splash screen (256px) hingga ukuran favicon terkecil (16px).</p>
+      </div>
+
+      <div class="p-6 rounded-2xl border border-obsidian-800 bg-obsidian-900 flex flex-wrap items-end gap-10">
+        <div class="space-y-2 text-center">
+          <img src="logo-mark.svg" class="w-32 h-32 mx-auto rounded-2xl shadow">
+          <span class="text-[10px] font-mono text-slate-400">128 x 128 px</span>
+        </div>
+        <div class="space-y-2 text-center">
+          <img src="logo-mark.svg" class="w-16 h-16 mx-auto rounded-xl shadow">
+          <span class="text-[10px] font-mono text-slate-400">64 x 64 px</span>
+        </div>
+        <div class="space-y-2 text-center">
+          <img src="logo-mark.svg" class="w-12 h-12 mx-auto rounded-lg shadow">
+          <span class="text-[10px] font-mono text-slate-400">48 x 48 px (Android)</span>
+        </div>
+        <div class="space-y-2 text-center">
+          <img src="logo-mark.svg" class="w-8 h-8 mx-auto rounded-md shadow">
+          <span class="text-[10px] font-mono text-slate-400">32 x 32 px (Favicon)</span>
+        </div>
+        <div class="space-y-2 text-center">
+          <img src="logo-mark.svg" class="w-4 h-4 mx-auto rounded-xs shadow">
+          <span class="text-[10px] font-mono text-slate-400">16 x 16 px</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Design Rationale & Cryptographic Anatomy -->
+    <div class="space-y-6">
+      <div class="space-y-1">
+        <span class="text-xs font-mono text-emerald-400 uppercase tracking-widest">Anatomy</span>
+        <h3 class="text-xl font-bold text-white tracking-tight">Anatomi Desain & Makna Simbol</h3>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+        
+        <div class="p-4 rounded-xl border border-obsidian-800 bg-obsidian-900 space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-obsidian-800 flex items-center justify-center font-bold text-sm text-white">
+            R
+          </div>
+          <h4 class="font-bold text-white">1. Monogram 'R'</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Pilar vertikal dan lekukan monolitik mewakili kedaulatan data penuh penggunanya (Sovereignty & Security).
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-obsidian-800 bg-obsidian-900 space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-obsidian-800 flex items-center justify-center text-slate-300">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h4 class="font-bold text-white">2. Vault Combination Dial</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Piringan kombinasi brankas dengan kalibrasi mikro dan deadbolt diagonal melambangkan algoritma Argon2id dan AES-256-GCM.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-obsidian-800 bg-obsidian-900 space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-emerald-950 flex items-center justify-center text-emerald-400">
+            <div class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></div>
+          </div>
+          <h4 class="font-bold text-white">3. Zero-Knowledge Optic</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Titik hijau zamrud di pusat dial melambangkan brankas yang selalu aktif terenkripsi tanpa server melihat password plaintext.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl border border-obsidian-800 bg-obsidian-900 space-y-2">
+          <div class="w-8 h-8 rounded-lg bg-obsidian-800 flex items-center justify-center text-slate-300 font-mono text-[10px]">
+            #121214
+          </div>
+          <h4 class="font-bold text-white">4. Obsidian Titanium</h4>
+          <p class="text-slate-400 leading-relaxed">
+            Warna dasar matte black squircle berpadu satin titanium memberikan kesan hardware cyber-security kelas korporat.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-obsidian-800 py-8 text-center text-xs text-slate-500 font-mono">
+    Ravalt Design System • Zero-Knowledge Password Manager & 2FA Authenticator • 2026
+  </footer>
+
+</body>
+</html>

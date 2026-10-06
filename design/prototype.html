@@ -90,11 +90,7 @@
   <!-- Desktop Control Header -->
   <header class="border-b border-slate-200 dark:border-[#222222] bg-white/95 dark:bg-[#181818]/95 backdrop-blur px-6 py-3 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
     <div class="flex items-center gap-3">
-      <div class="w-7 h-7 rounded border border-slate-300 dark:border-[#333333] bg-slate-50 dark:bg-[#202020] flex items-center justify-center font-bold text-xs">
-        <svg class="w-4 h-4 text-slate-800 dark:text-slate-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-        </svg>
-      </div>
+      <img src="logo-mark.svg" alt="Ravalt Logo" class="w-8 h-8 rounded-lg border border-slate-300 dark:border-[#333333] shadow-xs">
       <div>
         <h1 class="text-sm font-semibold tracking-tight flex items-center gap-2">
           Ravalt Design Prototype
@@ -106,8 +102,13 @@
       </div>
     </div>
 
-    <!-- Controls: Screen Switcher + Language + Theme Toggle -->
+    <!-- Controls: Screen Switcher + Language + Theme Toggle + Logo Showcase -->
     <div class="flex items-center gap-2.5">
+      <!-- Logo Showcase Link -->
+      <a href="logo-showcase.html" target="_blank" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-[#333333] bg-white dark:bg-[#202020] text-xs font-medium hover:bg-slate-50 dark:hover:bg-[#282828] text-slate-700 dark:text-slate-200 transition">
+        <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span>Logo System</span>
+      </a>
       <!-- Screen Switcher -->
       <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#141414] p-1 rounded-lg border border-slate-200 dark:border-[#262626] text-xs">
         <button onclick="setScreen('onboarding')" id="btn-onboarding" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
@@ -368,11 +369,7 @@
         <!-- Top Brand Header -->
         <div class="pt-2">
           <div class="flex items-center justify-between mb-3">
-            <div class="w-10 h-10 rounded-xl border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#222222] flex items-center justify-center">
-              <svg class="w-5 h-5 text-slate-800 dark:text-slate-200" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-            </div>
+            <img src="logo-mark.svg" alt="Ravalt Logo" class="w-10 h-10 rounded-xl border border-slate-200 dark:border-[#333333] shadow-xs">
             <button onclick="setScreen('onboarding')" class="text-xs text-slate-400 hover:text-black dark:hover:text-white flex items-center gap-1 transition">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
               <span data-i18n="tour_btn">Tur</span>
@@ -456,11 +453,7 @@
       <!-- ========================================== -->
       <div id="screen-unlock" class="screen-content hidden flex-1 flex flex-col justify-between p-6">
         <div class="pt-8">
-          <div class="w-10 h-10 rounded-xl border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#222222] flex items-center justify-center mb-3">
-            <svg class="w-5 h-5 text-slate-800 dark:text-slate-200" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-            </svg>
-          </div>
+          <img src="logo-mark.svg" alt="Ravalt Logo" class="w-12 h-12 rounded-2xl border border-slate-200 dark:border-[#333333] shadow-md mb-3">
           <h2 class="text-lg font-bold tracking-tight text-black dark:text-white" data-i18n="unlock_title">Ravalt Vault</h2>
           <div class="flex items-center gap-2 mt-1">
             <span class="text-xs text-slate-500 dark:text-[#888888]">farras@ravalt.id</span>

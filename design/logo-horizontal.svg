@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120">
+  <defs>
+    <linearGradient id="h-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1B1B1F"/>
+      <stop offset="100%" stop-color="#0E0E10"/>
+    </linearGradient>
+    <linearGradient id="h-metal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#E2E2E8"/>
+      <stop offset="100%" stop-color="#A8A8B4"/>
+    </linearGradient>
+    <radialGradient id="h-optic" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="50%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Left Icon Mark (76x76) -->
+  <g transform="translate(22, 22)">
+    <!-- Base Squircle -->
+    <rect width="76" height="76" rx="18" fill="url(#h-bg)" stroke="#383842" stroke-width="1.5"/>
+    <circle cx="38" cy="38" r="26" fill="#10B981" opacity="0.12"/>
+    
+    <!-- Scaled R Vault Mark -->
+    <g transform="translate(14, 13) scale(0.1875)">
+      <!-- R Pillar -->
+      <path d="M 0 0 H 26 V 264 H 0 Z" fill="url(#h-metal)"/>
+      <!-- R Loop -->
+      <path d="M 26 0 H 76 C 106 0, 122 18, 122 46 C 122 72, 106 90, 76 90 H 26 V 64 H 74 C 90 64, 98 57, 98 46 C 98 35, 90 26, 74 26 H 26 Z" fill="url(#h-metal)"/>
+      <!-- R Leg -->
+      <path d="M 72 82 L 112 136 H 80 L 46 90 Z" fill="url(#h-metal)"/>
+
+      <!-- Center Vault Dial -->
+      <circle cx="56" cy="56" r="38" fill="#141418" stroke="#484856" stroke-width="2.5"/>
+      <circle cx="56" cy="56" r="30" fill="url(#h-metal)" stroke="#222228" stroke-width="2"/>
+      <circle cx="56" cy="56" r="18" fill="#101014" stroke="#33333E" stroke-width="2"/>
+      <circle cx="56" cy="56" r="10" fill="url(#h-optic)"/>
+      <circle cx="56" cy="56" r="2.5" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <!-- Brand Typography Lockup -->
+  <!-- Wordmark RAVALT -->
+  <text x="122" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="34" font-weight="800" letter-spacing="4" fill="#FFFFFF">
+    RAVALT
+  </text>
+
+  <!-- Tagline Subtitle -->
+  <text x="123" y="82" font-family="'JetBrains Mono', 'Fira Code', ui-monospace, Menlo, Consolas, monospace" font-size="10.5" font-weight="600" letter-spacing="2.8" fill="#10B981">
+    ZERO-KNOWLEDGE VAULT
+  </text>
+
+  <!-- Enterprise / Security Pill -->
+  <g transform="translate(422, 42)">
+    <rect width="72" height="22" rx="4" fill="#18181D" stroke="#2C2C36" stroke-width="1"/>
+    <circle cx="12" cy="11" r="3" fill="#10B981"/>
+    <text x="40" y="15" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9" font-weight="600" fill="#9999A5">ARGON2ID</text>
+  </g>
+</svg>
