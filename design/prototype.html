@@ -102,25 +102,28 @@
       <!-- Screen Switcher -->
       <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#141414] p-1 rounded-lg border border-slate-200 dark:border-[#262626] text-xs">
         <button onclick="setScreen('onboarding')" id="btn-onboarding" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          0. Onboarding
+          0. Tour
+        </button>
+        <button onclick="setScreen('auth')" id="btn-auth" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
+          1. Auth
         </button>
         <button onclick="setScreen('unlock')" id="btn-unlock" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          1. Unlock
+          2. Unlock
         </button>
         <button onclick="setScreen('vault')" id="btn-vault" class="screen-btn px-2.5 py-1.5 rounded transition bg-white dark:bg-[#262626] font-medium shadow-sm text-black dark:text-white">
-          2. Vault
+          3. Vault
         </button>
         <button onclick="setScreen('detail')" id="btn-detail" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          3. Properties
+          4. Detail
         </button>
         <button onclick="setScreen('breach')" id="btn-breach" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          4. Breach
+          5. Breach
         </button>
         <button onclick="setScreen('generator')" id="btn-generator" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          5. Generator
+          6. Generator
         </button>
         <button onclick="setScreen('profile')" id="btn-profile" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          6. Profile
+          7. Profile
         </button>
       </div>
 
@@ -168,7 +171,7 @@
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
             </button>
             <span class="font-mono text-[11px]" id="slide-step-indicator">1 / 3</span>
-            <button onclick="setScreen('unlock')" class="hover:text-black dark:hover:text-white transition text-[11px]" data-i18n="skip">
+            <button onclick="setScreen('auth')" class="hover:text-black dark:hover:text-white transition text-[11px]" data-i18n="skip">
               Lewati
             </button>
           </div>
@@ -346,7 +349,98 @@
       </div>
 
       <!-- ========================================== -->
-      <!-- SCREEN 1: UNLOCK SCREEN                    -->
+      <!-- SCREEN 1: AUTH (LOGIN & REGISTER)          -->
+      <!-- ========================================== -->
+      <div id="screen-auth" class="screen-content hidden flex-1 flex flex-col justify-between p-6 overflow-y-auto">
+        
+        <!-- Top Brand Header -->
+        <div class="pt-2">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 rounded-xl border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#222222] flex items-center justify-center">
+              <svg class="w-5 h-5 text-slate-800 dark:text-slate-200" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </div>
+            <button onclick="setScreen('onboarding')" class="text-xs text-slate-400 hover:text-black dark:hover:text-white flex items-center gap-1 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              <span data-i18n="tour_btn">Tur</span>
+            </button>
+          </div>
+          
+          <h2 class="text-lg font-bold tracking-tight text-black dark:text-white" id="auth-heading" data-i18n="auth_login_heading">Masuk ke Akun Anda</h2>
+          <p class="text-xs text-slate-500 dark:text-[#888888] mt-0.5" id="auth-subheading" data-i18n="auth_login_sub">Masukkan email dan master password untuk mendekripsi brankas.</p>
+
+          <!-- Tab Switcher: Masuk vs Daftar -->
+          <div class="grid grid-cols-2 p-1 bg-slate-100 dark:bg-[#202020] rounded-lg mt-3 text-xs font-medium border border-slate-200 dark:border-[#2C2C2C]">
+            <button type="button" onclick="setAuthTab('login')" id="tab-auth-login" class="py-1.5 rounded-md bg-white dark:bg-[#2C2C2C] text-black dark:text-white shadow-xs transition" data-i18n="auth_tab_login">
+              Masuk
+            </button>
+            <button type="button" onclick="setAuthTab('register')" id="tab-auth-register" class="py-1.5 rounded-md text-slate-500 dark:text-[#888888] hover:text-black dark:hover:text-white transition" data-i18n="auth_tab_register">
+              Daftar
+            </button>
+          </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="my-auto py-3 space-y-3">
+          
+          <!-- Email Input -->
+          <div>
+            <label class="block text-xs text-slate-500 dark:text-[#888888] mb-1 font-medium" data-i18n="auth_email_label">Email</label>
+            <input type="email" id="auth-email" placeholder="name@domain.com" value="farras@ravalt.id" class="w-full bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] rounded-lg px-3 py-2 text-xs font-mono text-black dark:text-white focus:outline-none focus:border-slate-400 dark:focus:border-[#555555]">
+          </div>
+
+          <!-- Master Password Input -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs text-slate-500 dark:text-[#888888] font-medium" data-i18n="auth_pass_label">Master Password</label>
+              <button type="button" onclick="togglePassword('auth-pass')" class="text-[11px] text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white" data-i18n="reveal">Intip</button>
+            </div>
+            <input type="password" id="auth-pass" placeholder="••••••••••••" value="p@ssword123" class="w-full bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] rounded-lg px-3 py-2 text-xs font-mono text-black dark:text-white focus:outline-none focus:border-slate-400 dark:focus:border-[#555555]">
+          </div>
+
+          <!-- Confirm Password Input (Hidden in Login tab) -->
+          <div id="auth-confirm-group" class="hidden">
+            <div class="flex items-center justify-between mb-1">
+              <label class="text-xs text-slate-500 dark:text-[#888888] font-medium" data-i18n="auth_confirm_label">Konfirmasi Master Password</label>
+              <button type="button" onclick="togglePassword('auth-confirm-pass')" class="text-[11px] text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white" data-i18n="reveal">Intip</button>
+            </div>
+            <input type="password" id="auth-confirm-pass" placeholder="••••••••••••" value="p@ssword123" class="w-full bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] rounded-lg px-3 py-2 text-xs font-mono text-black dark:text-white focus:outline-none focus:border-slate-400 dark:focus:border-[#555555]">
+          </div>
+
+          <!-- Password Hint Input (Hidden in Login tab) -->
+          <div id="auth-hint-group" class="hidden">
+            <label class="block text-xs text-slate-500 dark:text-[#888888] mb-1 font-medium" data-i18n="auth_hint_label">Petunjuk Kata Sandi (Opsional)</label>
+            <input type="text" id="auth-hint" placeholder="cth: nama kucing pertama" class="w-full bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] rounded-lg px-3 py-2 text-xs text-black dark:text-white focus:outline-none focus:border-slate-400 dark:focus:border-[#555555]">
+          </div>
+
+          <!-- Cryptographic Security Badge Notice -->
+          <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2A2A2A] text-[11px] text-slate-600 dark:text-[#888888] space-y-1">
+            <div class="flex items-center gap-1.5 font-medium text-black dark:text-white text-xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span id="auth-notice-title" data-i18n="auth_notice_title">Enkripsi Zero-Knowledge</span>
+            </div>
+            <p class="leading-relaxed" id="auth-notice-body" data-i18n="auth_notice_login_desc">
+              Master password diderivasi secara lokal di ponsel melalui Argon2id. Server backend kami tidak pernah mengetahui password Anda.
+            </p>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="button" onclick="submitAuth()" id="auth-submit-btn" class="w-full bg-[#37352F] hover:bg-black dark:bg-[#E6E6E6] dark:hover:bg-white text-white dark:text-[#191919] font-medium py-2.5 rounded-lg text-xs transition shadow-sm" data-i18n="auth_btn_login">
+            Masuk ke Brankas
+          </button>
+        </div>
+
+        <!-- Footer / Switch to Quick Unlock if active session exists -->
+        <div class="text-center pb-1 pt-2 border-t border-slate-100 dark:border-[#222222]">
+          <button onclick="setScreen('unlock')" class="text-xs text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white transition" data-i18n="auth_switch_unlock">
+            Sudah ada brankas aktif? <span class="underline">Buka Cepat</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 2: UNLOCK SCREEN (QUICK UNLOCK)     -->
       <!-- ========================================== -->
       <div id="screen-unlock" class="screen-content hidden flex-1 flex flex-col justify-between p-6">
         <div class="pt-8">
@@ -357,7 +451,7 @@
           </div>
           <h2 class="text-lg font-bold tracking-tight text-black dark:text-white" data-i18n="unlock_title">Ravalt Vault</h2>
           <div class="flex items-center gap-2 mt-1">
-            <span class="text-xs text-slate-500 dark:text-[#888888]">farras@ravalt.io</span>
+            <span class="text-xs text-slate-500 dark:text-[#888888]">farras@ravalt.id</span>
             <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 dark:bg-[#252525] text-slate-600 dark:text-[#999999] border border-slate-200 dark:border-[#333333]">
               Zero-Knowledge
             </span>
@@ -379,8 +473,11 @@
           </button>
         </div>
 
-        <div class="text-center pb-2">
+        <div class="text-center pb-2 space-y-1.5">
           <p class="text-[11px] text-slate-400 dark:text-[#666666]" data-i18n="unlock_footer">Data hanya didekripsi di perangkat Anda.</p>
+          <button onclick="setScreen('auth')" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white underline transition" data-i18n="unlock_other_acc">
+            Bukan Anda? Masuk dengan akun lain
+          </button>
         </div>
       </div>
 
@@ -943,10 +1040,14 @@
                   <h5 class="font-medium text-black dark:text-white text-xs" data-i18n="pref_biometric">Buka Kunci Biometrik</h5>
                   <p class="text-[10px] text-slate-500 dark:text-[#888888] mt-0.5" data-i18n="pref_biometric_desc">Buka cepat via sidik jari Android Keystore</p>
                 </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-8 h-4.5 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-[#333333] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all dark:border-gray-600 peer-checked:bg-slate-900 dark:peer-checked:bg-white dark:peer-checked:after:bg-[#1E1E1E]"></div>
-                </label>
+                <div class="flex items-center gap-2">
+                  <span id="badge-toggle-bio" class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800">ON</span>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked onchange="updateToggleBadge(this, 'badge-toggle-bio')" class="sr-only peer">
+                    <div class="w-10 h-5.5 bg-slate-300 dark:bg-[#383838] peer-focus:outline-none rounded-full peer peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-500 transition-colors duration-200"></div>
+                    <div class="absolute left-0.5 top-0.5 w-4.5 h-4.5 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-4.5 shadow-sm pointer-events-none"></div>
+                  </label>
+                </div>
               </div>
 
               <!-- Auto-Lock Selector -->
@@ -955,10 +1056,10 @@
                   <h5 class="font-medium text-black dark:text-white text-xs" data-i18n="pref_autolock">Kunci Otomatis</h5>
                   <p class="text-[10px] text-slate-500 dark:text-[#888888] mt-0.5">Waktu penguncian saat aplikasi diminimalkan</p>
                 </div>
-                <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#282828] p-0.5 rounded-md text-[11px] font-mono">
-                  <button class="px-2 py-0.5 rounded bg-white dark:bg-[#191919] text-black dark:text-white font-medium shadow-xs" data-i18n="pref_autolock_now">Segera</button>
-                  <button class="px-2 py-0.5 rounded text-slate-400 hover:text-black dark:hover:text-white">1m</button>
-                  <button class="px-2 py-0.5 rounded text-slate-400 hover:text-black dark:hover:text-white">5m</button>
+                <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#282828] p-0.5 rounded-md text-[11px] font-mono select-group">
+                  <button onclick="selectOption(this)" class="opt-btn px-2 py-0.5 rounded bg-white dark:bg-[#191919] text-black dark:text-white font-medium shadow-xs" data-i18n="pref_autolock_now">Segera</button>
+                  <button onclick="selectOption(this)" class="opt-btn px-2 py-0.5 rounded text-slate-400 hover:text-black dark:hover:text-white">1m</button>
+                  <button onclick="selectOption(this)" class="opt-btn px-2 py-0.5 rounded text-slate-400 hover:text-black dark:hover:text-white">5m</button>
                 </div>
               </div>
 
@@ -968,9 +1069,9 @@
                   <h5 class="font-medium text-black dark:text-white text-xs" data-i18n="pref_clipboard">Pembersihan Clipboard</h5>
                   <p class="text-[10px] text-slate-500 dark:text-[#888888] mt-0.5">Hapus otomatis sandi dari papan klip</p>
                 </div>
-                <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#282828] p-0.5 rounded-md text-[11px] font-mono">
-                  <button class="px-2 py-0.5 rounded bg-white dark:bg-[#191919] text-black dark:text-white font-medium shadow-xs">30s</button>
-                  <button class="px-2 py-0.5 rounded text-slate-400 hover:text-black dark:hover:text-white">60s</button>
+                <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#282828] p-0.5 rounded-md text-[11px] font-mono select-group">
+                  <button onclick="selectOption(this)" class="opt-btn px-2 py-0.5 rounded bg-white dark:bg-[#191919] text-black dark:text-white font-medium shadow-xs">30s</button>
+                  <button onclick="selectOption(this)" class="opt-btn px-2 py-0.5 rounded text-slate-400 hover:text-black dark:hover:text-white">60s</button>
                 </div>
               </div>
 
@@ -980,10 +1081,14 @@
                   <h5 class="font-medium text-black dark:text-white text-xs" data-i18n="pref_auto_breach">Audit Latar Belakang</h5>
                   <p class="text-[10px] text-slate-500 dark:text-[#888888] mt-0.5" data-i18n="pref_auto_breach_desc">Audit k-Anonymity otomatis saat membuka brankas</p>
                 </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-8 h-4.5 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-[#333333] peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all dark:border-gray-600 peer-checked:bg-slate-900 dark:peer-checked:bg-white dark:peer-checked:after:bg-[#1E1E1E]"></div>
-                </label>
+                <div class="flex items-center gap-2">
+                  <span id="badge-toggle-breach" class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800">ON</span>
+                  <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" checked onchange="updateToggleBadge(this, 'badge-toggle-breach')" class="sr-only peer">
+                    <div class="w-10 h-5.5 bg-slate-300 dark:bg-[#383838] peer-focus:outline-none rounded-full peer peer-checked:bg-emerald-600 dark:peer-checked:bg-emerald-500 transition-colors duration-200"></div>
+                    <div class="absolute left-0.5 top-0.5 w-4.5 h-4.5 bg-white rounded-full transition-transform duration-200 peer-checked:translate-x-4.5 shadow-sm pointer-events-none"></div>
+                  </label>
+                </div>
               </div>
 
             </div>
@@ -1188,7 +1293,26 @@
         sec_session: 'Sesi & Keamanan',
         action_lock_now: 'Kunci Brankas Sekarang',
         action_purge_cache: 'Hapus Cache SQLCipher Lokal',
-        action_logout: 'Keluar dari Akun'
+        action_logout: 'Keluar dari Akun',
+        auth_login_heading: 'Masuk ke Akun Anda',
+        auth_login_sub: 'Masukkan email dan master password untuk mendekripsi brankas.',
+        auth_register_heading: 'Buat Akun Baru',
+        auth_register_sub: 'Satu akun, satu master password, kendali penuh.',
+        auth_tab_login: 'Masuk',
+        auth_tab_register: 'Daftar',
+        auth_email_label: 'Email',
+        auth_pass_label: 'Master Password',
+        auth_confirm_label: 'Konfirmasi Master Password',
+        auth_hint_label: 'Petunjuk Kata Sandi (Opsional)',
+        auth_notice_title: 'Enkripsi Zero-Knowledge',
+        auth_notice_login_desc: 'Master password diderivasi secara lokal di ponsel melalui Argon2id. Server backend kami tidak pernah mengetahui password Anda.',
+        auth_warning_title: 'Peringatan Pemulihan Data',
+        auth_warning_register_desc: 'Ravalt tidak menyimpan master password Anda. Jika lupa, brankas tidak dapat dipulihkan oleh siapa pun termasuk tim pengembang.',
+        auth_btn_login: 'Masuk ke Brankas',
+        auth_btn_register: 'Buat Akun & Inisialisasi Kunci',
+        auth_switch_unlock: 'Sudah ada brankas aktif? Buka Cepat',
+        tour_btn: 'Tur',
+        unlock_other_acc: 'Bukan Anda? Masuk dengan akun lain'
       },
       en: {
         skip: 'Skip',
@@ -1286,7 +1410,26 @@
         sec_session: 'Session & Security',
         action_lock_now: 'Lock Vault Now',
         action_purge_cache: 'Purge Local SQLCipher Cache',
-        action_logout: 'Log Out'
+        action_logout: 'Log Out',
+        auth_login_heading: 'Log In to Your Account',
+        auth_login_sub: 'Enter your email and master password to decrypt your vault.',
+        auth_register_heading: 'Create New Account',
+        auth_register_sub: 'One account, one master password, total data sovereignty.',
+        auth_tab_login: 'Log In',
+        auth_tab_register: 'Register',
+        auth_email_label: 'Email',
+        auth_pass_label: 'Master Password',
+        auth_confirm_label: 'Confirm Master Password',
+        auth_hint_label: 'Password Hint (Optional)',
+        auth_notice_title: 'Zero-Knowledge Encryption',
+        auth_notice_login_desc: 'Keys are derived strictly on your device via Argon2id. Our backend server never sees your master password.',
+        auth_warning_title: 'Data Recovery Warning',
+        auth_warning_register_desc: 'Ravalt does not store your master password. If lost, your vault cannot be recovered by anyone including developers.',
+        auth_btn_login: 'Log In to Vault',
+        auth_btn_register: 'Create Account & Derive Keys',
+        auth_switch_unlock: 'Already unlocked on this device? Quick Unlock',
+        tour_btn: 'Tour',
+        unlock_other_acc: 'Not you? Sign in with another account'
       }
     };
 
@@ -1357,7 +1500,7 @@
         currentSlide++;
         updateSlideUI();
       } else {
-        setScreen('unlock');
+        setScreen('auth');
       }
     }
 
@@ -1454,6 +1597,67 @@
           label.innerText = 'Sync';
         }, 1500);
       }, 1000);
+    }
+
+    function setAuthTab(tab) {
+      const isLogin = tab === 'login';
+      const btnLogin = document.getElementById('tab-auth-login');
+      const btnReg = document.getElementById('tab-auth-register');
+      const confirmGroup = document.getElementById('auth-confirm-group');
+      const hintGroup = document.getElementById('auth-hint-group');
+      const heading = document.getElementById('auth-heading');
+      const subheading = document.getElementById('auth-subheading');
+      const submitBtn = document.getElementById('auth-submit-btn');
+      const noticeTitle = document.getElementById('auth-notice-title');
+      const noticeBody = document.getElementById('auth-notice-body');
+
+      if (isLogin) {
+        btnLogin.className = 'py-1.5 rounded-md bg-white dark:bg-[#2C2C2C] text-black dark:text-white shadow-xs transition';
+        btnReg.className = 'py-1.5 rounded-md text-slate-500 dark:text-[#888888] hover:text-black dark:hover:text-white transition';
+        confirmGroup.classList.add('hidden');
+        hintGroup.classList.add('hidden');
+        heading.innerText = i18n[currentLang]['auth_login_heading'];
+        subheading.innerText = i18n[currentLang]['auth_login_sub'];
+        submitBtn.innerText = i18n[currentLang]['auth_btn_login'];
+        noticeTitle.innerText = i18n[currentLang]['auth_notice_title'];
+        noticeBody.innerText = i18n[currentLang]['auth_notice_login_desc'];
+      } else {
+        btnReg.className = 'py-1.5 rounded-md bg-white dark:bg-[#2C2C2C] text-black dark:text-white shadow-xs transition';
+        btnLogin.className = 'py-1.5 rounded-md text-slate-500 dark:text-[#888888] hover:text-black dark:hover:text-white transition';
+        confirmGroup.classList.remove('hidden');
+        hintGroup.classList.remove('hidden');
+        heading.innerText = i18n[currentLang]['auth_register_heading'];
+        subheading.innerText = i18n[currentLang]['auth_register_sub'];
+        submitBtn.innerText = i18n[currentLang]['auth_btn_register'];
+        noticeTitle.innerText = i18n[currentLang]['auth_warning_title'];
+        noticeBody.innerText = i18n[currentLang]['auth_warning_register_desc'];
+      }
+    }
+
+    function submitAuth() {
+      // Simulate zero-knowledge client key derivation and navigation to vault
+      setScreen('vault');
+    }
+
+    function updateToggleBadge(checkbox, badgeId) {
+      const badge = document.getElementById(badgeId);
+      if (!badge) return;
+      if (checkbox.checked) {
+        badge.innerText = 'ON';
+        badge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-400 dark:border-emerald-800';
+      } else {
+        badge.innerText = 'OFF';
+        badge.className = 'text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border bg-slate-100 text-slate-400 border-slate-200 dark:bg-[#262626] dark:text-[#777777] dark:border-[#333333]';
+      }
+    }
+
+    function selectOption(btn) {
+      const parent = btn.closest('.select-group');
+      if (!parent) return;
+      parent.querySelectorAll('.opt-btn').forEach(b => {
+        b.className = 'opt-btn px-2 py-0.5 rounded text-slate-400 hover:text-black dark:hover:text-white';
+      });
+      btn.className = 'opt-btn px-2 py-0.5 rounded bg-white dark:bg-[#191919] text-black dark:text-white font-medium shadow-xs';
     }
   </script>
 </body>
