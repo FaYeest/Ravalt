@@ -126,17 +126,20 @@
         <button onclick="setScreen('totp')" id="btn-totp" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
           4. 2FA TOTP
         </button>
+        <button onclick="setScreen('ssh')" id="btn-ssh" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
+          5. SSH Keys
+        </button>
         <button onclick="setScreen('detail')" id="btn-detail" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          5. Detail
+          6. Detail
         </button>
         <button onclick="setScreen('breach')" id="btn-breach" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          6. Breach
+          7. Breach
         </button>
         <button onclick="setScreen('generator')" id="btn-generator" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          7. Generator
+          8. Generator
         </button>
         <button onclick="setScreen('profile')" id="btn-profile" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
-          8. Profile
+          9. Profile
         </button>
       </div>
 
@@ -502,6 +505,9 @@
             </span>
           </div>
           <div class="flex items-center gap-1.5">
+            <button onclick="setScreen('ssh')" title="Server & SSH Keys" class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-[#252525] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white transition">
+              <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </button>
             <button onclick="setScreen('profile')" title="Settings & Profile" class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-[#252525] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white transition">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
             </button>
@@ -530,6 +536,9 @@
           </span>
           <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer" data-i18n="tab_logins">
             Logins (3)
+          </span>
+          <span onclick="setScreen('ssh')" class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer flex items-center gap-1">
+            <span data-i18n="tab_ssh">SSH (3)</span>
           </span>
           <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer" data-i18n="tab_notes">
             Notes (1)
@@ -602,23 +611,23 @@
             </button>
           </div>
 
-          <!-- Row 4: Server Key Note -->
-          <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
+          <!-- Row 4: Server & SSH Keys -->
+          <div onclick="setScreen('ssh')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <div class="w-7 h-7 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-slate-700 dark:text-slate-300">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <div class="w-7 h-7 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <h3 class="text-xs font-semibold text-black dark:text-white">Server Recovery Key</h3>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGrayBg text-notion-tagGrayText dark:bg-notion-tagGrayDarkBg dark:text-notion-tagGrayDarkText font-medium">
-                    Note
+                  <h3 class="text-xs font-semibold text-black dark:text-white" data-i18n="prof_ssh_title">Server & SSH Keys</h3>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-500/20 font-medium">
+                    SSH (3)
                   </span>
                 </div>
-                <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">SSH & WireGuard Ed25519</p>
+                <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">Bastion, K8s & GitHub Ed25519</p>
               </div>
             </div>
-            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            <svg class="w-4 h-4 text-slate-400 group-hover:text-black dark:group-hover:text-white transition" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </div>
 
         </div>
@@ -1367,6 +1376,30 @@
             </div>
           </div>
 
+          <!-- Section 3.5: Developer Tools -->
+          <div class="space-y-2 pt-1">
+            <h4 class="text-[10px] font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider px-0.5" data-i18n="sec_dev_tools">
+              Developer & Server Tools
+            </h4>
+            <div class="rounded-lg border border-slate-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1E1E1E] divide-y divide-slate-100 dark:divide-[#262626] text-xs">
+              <button onclick="setScreen('ssh')" class="w-full p-3 flex items-center justify-between text-left hover:bg-slate-50 dark:hover:bg-[#242424] transition text-black dark:text-white">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-7 h-7 rounded border border-slate-200 dark:border-[#333333] flex items-center justify-center text-slate-700 dark:text-slate-300">
+                    <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-medium text-black dark:text-white" data-i18n="prof_ssh_title">Server & SSH Keys</h5>
+                    <p class="text-[10px] text-slate-400 dark:text-[#888888]" data-i18n="prof_ssh_desc">Kelola private key Ed25519, RSA, & kredensial host</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[#282828] text-slate-500 dark:text-slate-400">3 keys</span>
+                  <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </div>
+              </button>
+            </div>
+          </div>
+
           <!-- Section 4: Session & Danger Zone -->
           <div class="space-y-2 pt-1">
             <h4 class="text-[10px] font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider px-0.5" data-i18n="sec_session">
@@ -1421,6 +1454,223 @@
             <span data-i18n="nav_breach">Breach</span>
           </button>
           <button onclick="setScreen('profile')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <span data-i18n="nav_profile">Akun</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 9: SERVER & SSH KEYS                -->
+      <!-- ========================================== -->
+      <div id="screen-ssh" class="screen-content hidden flex-1 flex flex-col overflow-hidden relative">
+        
+        <!-- Header -->
+        <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <button onclick="setScreen('vault')" class="text-xs text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white flex items-center gap-1 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+              <span data-i18n="back">Kembali</span>
+            </button>
+            <span class="text-slate-300 dark:text-[#444444]">/</span>
+            <div class="flex items-center gap-1.5 text-xs font-bold text-black dark:text-white">
+              <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <span data-i18n="ssh_title">Server & SSH Keys</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="openAddSshModal()" id="btn-add-ssh" class="px-2.5 py-1 rounded bg-slate-900 hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black text-xs font-semibold transition flex items-center gap-1.5 shadow-xs">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              <span data-i18n="ssh_add_btn">Tambah</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Bar & Counter -->
+        <div class="px-5 py-2.5 border-b border-slate-100 dark:border-[#222222] flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 flex-1 bg-slate-50 dark:bg-[#202020] px-2.5 py-1.5 rounded-md border border-slate-200 dark:border-[#2A2A2A]">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" oninput="filterSsh(this.value)" placeholder="Cari server, host, atau fingerprint..." data-i18n-placeholder="ssh_search_placeholder" class="bg-transparent border-none text-xs text-black dark:text-white placeholder-slate-400 focus:outline-none w-full">
+          </div>
+          <span id="ssh-count-badge" class="text-[10px] text-slate-500 dark:text-[#777777] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[#202020]">
+            3 keys
+          </span>
+        </div>
+
+        <!-- Filter Chips Bar -->
+        <div class="px-5 pt-2 pb-1.5 flex gap-2 text-[11px] border-b border-slate-100 dark:border-[#222222] overflow-x-auto no-scrollbar">
+          <button onclick="filterSshByAlgo('all', this)" class="ssh-filter-chip px-2.5 py-0.5 rounded-md bg-slate-900 text-white dark:bg-white dark:text-black font-semibold shadow-xs">
+            Semua (3)
+          </button>
+          <button onclick="filterSshByAlgo('ed25519', this)" class="ssh-filter-chip px-2.5 py-0.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white">
+            Ed25519 (2)
+          </button>
+          <button onclick="filterSshByAlgo('rsa', this)" class="ssh-filter-chip px-2.5 py-0.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white">
+            RSA (1)
+          </button>
+        </div>
+
+        <!-- Scrollable Cards List -->
+        <div id="ssh-card-list" class="flex-1 overflow-y-auto p-4 space-y-3">
+
+          <!-- Card 1: Production Bastion (AWS EC2) -->
+          <div class="ssh-card p-3.5 rounded-xl border border-slate-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1E1E1E] hover:border-slate-300 dark:hover:border-[#383838] transition space-y-2.5" data-label="production bastion" data-host="bastion.ravalt.id" data-algo="ed25519">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg border border-slate-200 dark:border-[#333333] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-xs">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-black dark:text-white">Production Bastion</h4>
+                  <p class="text-[11px] font-mono text-slate-500 dark:text-[#888888]">ubuntu@bastion.ravalt.id:22</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-500/20 font-semibold" data-i18n="ssh_badge_ed25519">
+                Ed25519
+              </span>
+            </div>
+
+            <!-- Fingerprint & Public Key Snippet -->
+            <div class="p-2 rounded-lg bg-slate-50 dark:bg-[#242424] border border-slate-200/80 dark:border-[#2C2C2C] space-y-1">
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-[#888888]">
+                <span data-i18n="ssh_fingerprint">Fingerprint:</span>
+                <span class="text-slate-700 dark:text-slate-300 font-semibold">SHA256:4x9Km7Lp8rTnVw0qA12b</span>
+              </div>
+              <div class="text-[10px] font-mono text-slate-600 dark:text-slate-400 truncate">
+                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIn7Y2qK9v0... farras@bastion
+              </div>
+            </div>
+
+            <!-- Action Buttons Row -->
+            <div class="flex items-center gap-1.5 pt-0.5">
+              <button onclick="copySshPubkey(this, 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIn7Y2qK9v0w1PqZ7yR2bX8nKm4jLt9vQ0s1 farras@bastion')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-[#353535]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span data-i18n="ssh_copy_pubkey">Salin Pubkey</span>
+              </button>
+              <button onclick="copySshCommand(this, 'ssh ubuntu@bastion.ravalt.id')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-[#353535]">
+                <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span data-i18n="ssh_copy_cmd">Salin SSH Cmd</span>
+              </button>
+              <button onclick="openPrivKeyModal('Production Bastion', 'ed25519')" title="Lihat Private Key" class="p-1.5 rounded-lg border border-slate-200/80 dark:border-[#353535] bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Staging Kubernetes Node (Hetzner) -->
+          <div class="ssh-card p-3.5 rounded-xl border border-slate-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1E1E1E] hover:border-slate-300 dark:hover:border-[#383838] transition space-y-2.5" data-label="staging k8s node" data-host="159.69.120.45" data-algo="rsa">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg border border-slate-200 dark:border-[#333333] bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-xs">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-black dark:text-white">Staging K8s Node</h4>
+                  <p class="text-[11px] font-mono text-slate-500 dark:text-[#888888]">deploy@159.69.120.45:2222</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400 border border-blue-500/20 font-semibold" data-i18n="ssh_badge_rsa">
+                RSA-4096
+              </span>
+            </div>
+
+            <!-- Fingerprint & Security Tag -->
+            <div class="p-2 rounded-lg bg-slate-50 dark:bg-[#242424] border border-slate-200/80 dark:border-[#2C2C2C] space-y-1">
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-[#888888]">
+                <span data-i18n="ssh_fingerprint">Fingerprint:</span>
+                <span class="text-slate-700 dark:text-slate-300 font-semibold">SHA256:8bY0n2kP9sRtU4vW9qZ1</span>
+              </div>
+              <div class="flex items-center gap-1.5 text-[10px] text-amber-600 dark:text-amber-400 font-medium">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span data-i18n="ssh_passphrase_active">Passphrase Aktif</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons Row -->
+            <div class="flex items-center gap-1.5 pt-0.5">
+              <button onclick="copySshPubkey(this, 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDQ2j9K8p1m9z... deploy@k8s-node')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-[#353535]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span data-i18n="ssh_copy_pubkey">Salin Pubkey</span>
+              </button>
+              <button onclick="copySshCommand(this, 'ssh -p 2222 deploy@159.69.120.45')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-[#353535]">
+                <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span data-i18n="ssh_copy_cmd">Salin SSH Cmd</span>
+              </button>
+              <button onclick="openPrivKeyModal('Staging K8s Node', 'rsa')" title="Lihat Private Key" class="p-1.5 rounded-lg border border-slate-200/80 dark:border-[#353535] bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: GitHub Deploy Key (CI/CD) -->
+          <div class="ssh-card p-3.5 rounded-xl border border-slate-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1E1E1E] hover:border-slate-300 dark:hover:border-[#383838] transition space-y-2.5" data-label="github deploy key" data-host="github.com" data-algo="ed25519">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg border border-slate-200 dark:border-[#333333] bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-xs">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-black dark:text-white">GitHub Deploy Key</h4>
+                  <p class="text-[11px] font-mono text-slate-500 dark:text-[#888888]">git@github.com:FaYeest/Ravalt</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-400 border border-purple-500/20 font-semibold" data-i18n="ssh_deploy_key">
+                Deploy Key
+              </span>
+            </div>
+
+            <!-- Fingerprint & Permission -->
+            <div class="p-2 rounded-lg bg-slate-50 dark:bg-[#242424] border border-slate-200/80 dark:border-[#2C2C2C] space-y-1">
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-[#888888]">
+                <span data-i18n="ssh_fingerprint">Fingerprint:</span>
+                <span class="text-slate-700 dark:text-slate-300 font-semibold">SHA256:1mN7z5tX8rQ2p9sK6kQ2</span>
+              </div>
+              <div class="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                <span>✓</span>
+                <span data-i18n="ssh_rw_access">Akses Read / Write</span>
+              </div>
+            </div>
+
+            <!-- Action Buttons Row -->
+            <div class="flex items-center gap-1.5 pt-0.5">
+              <button onclick="copySshPubkey(this, 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5pQ8j4w0tXm1... deploy-key@ravalt-ci')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-[#353535]">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span data-i18n="ssh_copy_pubkey">Salin Pubkey</span>
+              </button>
+              <button onclick="openPrivKeyModal('GitHub Deploy Key', 'ed25519')" title="Lihat Private Key" class="px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-[#353535] bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                <span data-i18n="ssh_view_privkey">Kunci Privat</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Floating Action Button (+ Add) -->
+        <button onclick="openAddSshModal()" title="Tambah Kunci SSH" class="absolute bottom-14 right-4 w-11 h-11 rounded-full bg-slate-900 hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black shadow-xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-20 border border-slate-700/20 dark:border-white/20">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+        </button>
+
+        <!-- Bottom Navigation -->
+        <div class="border-t border-slate-200 dark:border-[#2A2A2A] bg-white/95 dark:bg-[#191919]/95 backdrop-blur px-3 py-2 flex justify-between items-center text-[10px]">
+          <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <span data-i18n="nav_vault">Brankas</span>
+          </button>
+          <button onclick="setScreen('totp')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span data-i18n="nav_totp">2FA</span>
+          </button>
+          <button onclick="setScreen('ssh')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
+            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span data-i18n="nav_ssh">SSH</span>
+          </button>
+          <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span data-i18n="nav_generator">Generator</span>
+          </button>
+          <button onclick="setScreen('profile')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
             <span data-i18n="nav_profile">Akun</span>
           </button>
@@ -1568,6 +1818,128 @@
             </button>
             <button onclick="submitManualKey()" class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition" data-i18n="manual_save_btn">
               Simpan Token
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- MODAL: ADD / GENERATE SSH KEY & SERVER     -->
+      <!-- ========================================== -->
+      <div id="modal-add-ssh" class="absolute inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4 hidden select-none">
+        <div class="w-full max-w-[330px] bg-white dark:bg-[#1E1E1E] rounded-2xl border border-slate-200 dark:border-[#2E2E2E] p-4 shadow-2xl space-y-3.5">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-[#282828]">
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <h3 class="text-xs font-bold text-black dark:text-white" data-i18n="ssh_add_modal_title">Tambah Server & Kunci SSH</h3>
+            </div>
+            <button onclick="closeAddSshModal()" class="text-slate-400 hover:text-black dark:hover:text-white transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Mode Selector Tabs -->
+          <div class="grid grid-cols-2 p-0.5 rounded-lg bg-slate-100 dark:bg-[#252525] text-[11px] font-medium">
+            <button onclick="setSshModalMode('generate')" id="tab-ssh-gen" class="py-1 rounded-md bg-white dark:bg-[#1E1E1E] text-black dark:text-white font-semibold shadow-xs transition" data-i18n="ssh_tab_generate">
+              Generate Key Baru
+            </button>
+            <button onclick="setSshModalMode('import')" id="tab-ssh-imp" class="py-1 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition" data-i18n="ssh_tab_import">
+              Impor Private Key
+            </button>
+          </div>
+
+          <!-- Mode 1: Generate Form -->
+          <div id="ssh-form-generate" class="space-y-2.5 text-xs">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-300 mb-1" data-i18n="ssh_input_label">Label / Nama Server</label>
+              <input type="text" id="ssh-gen-label" placeholder="Contoh: Production Bastion" data-i18n-placeholder="ssh_input_label_ph" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#252525] text-xs text-black dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-300 mb-1" data-i18n="ssh_input_host">Host / IP</label>
+                <input type="text" id="ssh-gen-host" placeholder="bastion.ravalt.id" data-i18n-placeholder="ssh_input_host_ph" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#252525] text-xs font-mono text-black dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-300 mb-1" data-i18n="ssh_input_user">Username</label>
+                <input type="text" id="ssh-gen-user" placeholder="ubuntu" data-i18n-placeholder="ssh_input_user_ph" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#252525] text-xs font-mono text-black dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-300 mb-1" data-i18n="ssh_algo_label">Algoritma Kriptografi</label>
+              <div class="grid grid-cols-2 gap-2 text-[11px]">
+                <button type="button" onclick="selectSshAlgo('ed25519', this)" id="btn-algo-ed25519" class="p-2 rounded-lg border border-emerald-500 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-center transition">
+                  Ed25519 (Modern)
+                </button>
+                <button type="button" onclick="selectSshAlgo('rsa', this)" id="btn-algo-rsa" class="p-2 rounded-lg border border-slate-200 dark:border-[#333333] text-slate-600 dark:text-slate-400 text-center transition hover:border-slate-400">
+                  RSA-4096 (Legacy)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode 2: Import Form -->
+          <div id="ssh-form-import" class="space-y-2.5 text-xs hidden">
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-300 mb-1" data-i18n="ssh_input_label">Label / Nama Kunci</label>
+              <input type="text" id="ssh-imp-label" placeholder="Contoh: Hetzner K8s Node" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#252525] text-xs text-black dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 dark:text-slate-300 mb-1">OpenSSH Private Key (PEM)</label>
+              <textarea id="ssh-imp-key" rows="4" placeholder="-----BEGIN OPENSSH PRIVATE KEY-----&#10;...&#10;-----END OPENSSH PRIVATE KEY-----" class="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-[#333333] bg-slate-50 dark:bg-[#252525] text-[10px] font-mono text-black dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500 resize-none"></textarea>
+            </div>
+          </div>
+
+          <div class="pt-1 flex gap-2">
+            <button onclick="closeAddSshModal()" class="flex-1 py-1.5 rounded-lg border border-slate-200 dark:border-[#333333] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#252525] transition" data-i18n="cancel_btn">
+              Batal
+            </button>
+            <button onclick="saveGeneratedSshKey()" class="flex-1 py-1.5 rounded-lg bg-slate-900 hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black text-xs font-semibold transition" data-i18n="ssh_generate_save_btn">
+              Generate & Enkripsi
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- MODAL: VIEW DECRYPTED PRIVATE KEY          -->
+      <!-- ========================================== -->
+      <div id="modal-view-privkey" class="absolute inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4 hidden select-none">
+        <div class="w-full max-w-[330px] bg-white dark:bg-[#1E1E1E] rounded-2xl border border-slate-200 dark:border-[#2E2E2E] p-4 shadow-2xl space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-[#282828]">
+            <div class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <h3 id="privkey-modal-title" class="text-xs font-bold text-black dark:text-white" data-i18n="ssh_privkey_modal_title">Private Key Terenkripsi</h3>
+            </div>
+            <button onclick="closePrivKeyModal()" class="text-slate-400 hover:text-black dark:hover:text-white transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Security Notice -->
+          <div class="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] text-emerald-700 dark:text-emerald-400 flex items-start gap-1.5 leading-snug">
+            <svg class="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span data-i18n="ssh_privkey_notice">Didekripsi sementara di memori RAM perangkat. Jangan bagikan kepada siapa pun.</span>
+          </div>
+
+          <!-- Monospace Key Display -->
+          <div class="p-2.5 rounded-lg bg-slate-900 text-slate-200 border border-slate-800 max-h-[160px] overflow-y-auto">
+            <pre id="privkey-content-display" class="font-mono text-[9px] leading-tight select-all whitespace-pre-wrap break-all">-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACDNW1b61K8R+8tV9n7yW9fK2k8g7G1m4zYx0vP9qL3kAAAAmICo2e8J
+gUq1q81j3kK+5n9q1lMnB6vO2yLt8aW01mW9fK2k8g7G1m4zYx0vP9qL3k8g7G1m4zYx
+0vP9qL3k8g7G1m4zYx0vP9qL3kAAAAtc3NoLWVkMjU1MTkAAAAgA83X7QkP1rTv
+-----END OPENSSH PRIVATE KEY-----</pre>
+          </div>
+
+          <div class="pt-1 flex gap-2">
+            <button onclick="closePrivKeyModal()" class="flex-1 py-1.5 rounded-lg border border-slate-200 dark:border-[#333333] text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-[#252525] transition" data-i18n="cancel_btn">
+              Tutup
+            </button>
+            <button onclick="copySshPrivkey(this)" class="flex-1 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition flex items-center justify-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span data-i18n="ssh_copy_privkey_btn">Salin Private Key</span>
             </button>
           </div>
         </div>
@@ -1729,7 +2101,42 @@
         menu_manual_key_desc: 'Ketik secret key Base32 secara manual',
         toast_token_added: 'Token 2FA Berhasil Ditambahkan!',
         toast_qr_detected: 'QR Terdeteksi: Cloudflare Access!',
-        toast_code_copied: 'Kode 2FA Disalin!'
+        toast_code_copied: 'Kode 2FA Disalin!',
+        tab_ssh: 'SSH (3)',
+        sec_dev_tools: 'Developer & Server Tools',
+        prof_ssh_title: 'Server & SSH Keys',
+        prof_ssh_desc: 'Kelola private key Ed25519, RSA, & kredensial host',
+        nav_ssh: 'SSH',
+        ssh_title: 'Server & SSH Keys',
+        ssh_search_placeholder: 'Cari server, host, atau fingerprint...',
+        ssh_add_btn: 'Tambah',
+        ssh_badge_ed25519: 'Ed25519',
+        ssh_badge_rsa: 'RSA-4096',
+        ssh_fingerprint: 'Fingerprint:',
+        ssh_copy_pubkey: 'Salin Pubkey',
+        ssh_copy_cmd: 'Salin SSH Cmd',
+        ssh_view_privkey: 'Kunci Privat',
+        ssh_passphrase_active: 'Passphrase Aktif',
+        ssh_deploy_key: 'Deploy Key',
+        ssh_rw_access: 'Akses Read / Write',
+        ssh_add_modal_title: 'Tambah Server & Kunci SSH',
+        ssh_tab_generate: 'Generate Key Baru',
+        ssh_tab_import: 'Impor Private Key',
+        ssh_input_label: 'Label / Nama Server',
+        ssh_input_label_ph: 'Contoh: Production Bastion',
+        ssh_input_host: 'Host / IP',
+        ssh_input_host_ph: 'bastion.ravalt.id',
+        ssh_input_user: 'Username',
+        ssh_input_user_ph: 'ubuntu',
+        ssh_algo_label: 'Algoritma Kriptografi',
+        ssh_generate_save_btn: 'Generate & Enkripsi',
+        ssh_privkey_modal_title: 'Private Key Terenkripsi',
+        ssh_privkey_notice: 'Didekripsi sementara di memori RAM perangkat. Jangan bagikan kepada siapa pun.',
+        ssh_copy_privkey_btn: 'Salin Private Key',
+        toast_pubkey_copied: 'SSH Public Key Berhasil Disalin!',
+        toast_cmd_copied: 'Perintah SSH Berhasil Disalin!',
+        toast_privkey_copied: 'SSH Private Key Berhasil Disalin!',
+        toast_key_generated: 'Kunci SSH Berhasil Dibuat & Disimpan!'
       },
       en: {
         skip: 'Skip',
@@ -1874,7 +2281,42 @@
         menu_manual_key_desc: 'Type Base32 secret key manually',
         toast_token_added: '2FA Token Added Successfully!',
         toast_qr_detected: 'QR Detected: Cloudflare Access!',
-        toast_code_copied: '2FA Code Copied!'
+        toast_code_copied: '2FA Code Copied!',
+        tab_ssh: 'SSH (3)',
+        sec_dev_tools: 'Developer & Server Tools',
+        prof_ssh_title: 'Server & SSH Keys',
+        prof_ssh_desc: 'Manage Ed25519, RSA private keys & host credentials',
+        nav_ssh: 'SSH',
+        ssh_title: 'Server & SSH Keys',
+        ssh_search_placeholder: 'Search servers, hosts, or fingerprints...',
+        ssh_add_btn: 'Add',
+        ssh_badge_ed25519: 'Ed25519',
+        ssh_badge_rsa: 'RSA-4096',
+        ssh_fingerprint: 'Fingerprint:',
+        ssh_copy_pubkey: 'Copy Pubkey',
+        ssh_copy_cmd: 'Copy SSH Cmd',
+        ssh_view_privkey: 'Private Key',
+        ssh_passphrase_active: 'Passphrase Active',
+        ssh_deploy_key: 'Deploy Key',
+        ssh_rw_access: 'Read / Write Access',
+        ssh_add_modal_title: 'Add Server & SSH Key',
+        ssh_tab_generate: 'Generate New Key',
+        ssh_tab_import: 'Import Private Key',
+        ssh_input_label: 'Server / Key Label',
+        ssh_input_label_ph: 'e.g. Production Bastion',
+        ssh_input_host: 'Host / IP',
+        ssh_input_host_ph: 'bastion.ravalt.id',
+        ssh_input_user: 'Username',
+        ssh_input_user_ph: 'ubuntu',
+        ssh_algo_label: 'Cryptographic Algorithm',
+        ssh_generate_save_btn: 'Generate & Encrypt',
+        ssh_privkey_modal_title: 'Encrypted Private Key',
+        ssh_privkey_notice: 'Temporarily decrypted in device RAM. Never share with anyone.',
+        ssh_copy_privkey_btn: 'Copy Private Key',
+        toast_pubkey_copied: 'SSH Public Key Copied!',
+        toast_cmd_copied: 'SSH Command Copied!',
+        toast_privkey_copied: 'SSH Private Key Copied!',
+        toast_key_generated: 'SSH Key Generated & Stored!'
       }
     };
 
@@ -2345,6 +2787,236 @@
     // Initialize TOTP countdown timer
     updateTotpCountdown();
     setInterval(updateTotpCountdown, 1000);
+
+    // ==========================================
+    // SERVER & SSH KEYS LOGIC
+    // ==========================================
+    let currentSshAlgo = 'ed25519';
+
+    function openAddSshModal() {
+      const modal = document.getElementById('modal-add-ssh');
+      if (modal) {
+        modal.classList.remove('hidden');
+        setSshModalMode('generate');
+        const l = document.getElementById('ssh-gen-label');
+        if (l) l.value = '';
+        const h = document.getElementById('ssh-gen-host');
+        if (h) h.value = '';
+        const u = document.getElementById('ssh-gen-user');
+        if (u) u.value = '';
+      }
+    }
+
+    function closeAddSshModal() {
+      const modal = document.getElementById('modal-add-ssh');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function setSshModalMode(mode) {
+      const formGen = document.getElementById('ssh-form-generate');
+      const formImp = document.getElementById('ssh-form-import');
+      const tabGen = document.getElementById('tab-ssh-gen');
+      const tabImp = document.getElementById('tab-ssh-imp');
+
+      if (mode === 'generate') {
+        formGen.classList.remove('hidden');
+        formImp.classList.add('hidden');
+        tabGen.className = 'py-1 rounded-md bg-white dark:bg-[#1E1E1E] text-black dark:text-white font-semibold shadow-xs transition';
+        tabImp.className = 'py-1 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition';
+      } else {
+        formGen.classList.add('hidden');
+        formImp.classList.remove('hidden');
+        tabImp.className = 'py-1 rounded-md bg-white dark:bg-[#1E1E1E] text-black dark:text-white font-semibold shadow-xs transition';
+        tabGen.className = 'py-1 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition';
+      }
+    }
+
+    function selectSshAlgo(algo, btn) {
+      currentSshAlgo = algo;
+      const bEd = document.getElementById('btn-algo-ed25519');
+      const bRsa = document.getElementById('btn-algo-rsa');
+      if (algo === 'ed25519') {
+        bEd.className = 'p-2 rounded-lg border border-emerald-500 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold text-center transition';
+        bRsa.className = 'p-2 rounded-lg border border-slate-200 dark:border-[#333333] text-slate-600 dark:text-slate-400 text-center transition hover:border-slate-400';
+      } else {
+        bRsa.className = 'p-2 rounded-lg border border-blue-500 bg-blue-500/10 text-blue-600 dark:text-blue-400 font-semibold text-center transition';
+        bEd.className = 'p-2 rounded-lg border border-slate-200 dark:border-[#333333] text-slate-600 dark:text-slate-400 text-center transition hover:border-slate-400';
+      }
+    }
+
+    function saveGeneratedSshKey() {
+      const isGen = !document.getElementById('ssh-form-generate').classList.contains('hidden');
+      let label = '';
+      let host = '127.0.0.1';
+      let user = 'root';
+      let algo = currentSshAlgo;
+
+      if (isGen) {
+        label = document.getElementById('ssh-gen-label').value.trim() || 'Custom Server';
+        host = document.getElementById('ssh-gen-host').value.trim() || 'server.cloud.id';
+        user = document.getElementById('ssh-gen-user').value.trim() || 'ubuntu';
+      } else {
+        label = document.getElementById('ssh-imp-label').value.trim() || 'Imported Private Key';
+      }
+
+      closeAddSshModal();
+      addSshCard(label, host, user, algo);
+      showToast(i18n[currentLang]['toast_key_generated']);
+    }
+
+    function addSshCard(label, host, user, algo) {
+      const list = document.getElementById('ssh-card-list');
+      if (!list) return;
+
+      const card = document.createElement('div');
+      const isEd = algo === 'ed25519';
+      const badgeText = isEd ? 'Ed25519' : 'RSA-4096';
+      const badgeClass = isEd 
+        ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-500/20'
+        : 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400 border border-blue-500/20';
+
+      const randomFp = 'SHA256:' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
+      const randomPub = (isEd ? 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI' : 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACA') + Math.random().toString(36).substring(2, 12) + '... ' + user + '@' + host;
+
+      card.className = 'ssh-card p-3.5 rounded-xl border border-slate-200 dark:border-[#2A2A2A] bg-white dark:bg-[#1E1E1E] hover:border-slate-300 dark:hover:border-[#383838] transition space-y-2.5';
+      card.setAttribute('data-label', label.toLowerCase());
+      card.setAttribute('data-host', host.toLowerCase());
+      card.setAttribute('data-algo', algo.toLowerCase());
+
+      card.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg border border-slate-200 dark:border-[#333333] ${isEd ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400'} flex items-center justify-center font-bold text-xs">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-black dark:text-white">${label}</h4>
+              <p class="text-[11px] font-mono text-slate-500 dark:text-[#888888]">${user}@${host}:22</p>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono px-1.5 py-0.5 rounded ${badgeClass} font-semibold">
+            ${badgeText}
+          </span>
+        </div>
+
+        <div class="p-2 rounded-lg bg-slate-50 dark:bg-[#242424] border border-slate-200/80 dark:border-[#2C2C2C] space-y-1">
+          <div class="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-[#888888]">
+            <span>${i18n[currentLang]['ssh_fingerprint']}</span>
+            <span class="text-slate-700 dark:text-slate-300 font-semibold">${randomFp}</span>
+          </div>
+          <div class="text-[10px] font-mono text-slate-600 dark:text-slate-400 truncate">
+            ${randomPub}
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 pt-0.5">
+          <button onclick="copySshPubkey(this, '${randomPub}')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-[#353535]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span>${i18n[currentLang]['ssh_copy_pubkey']}</span>
+          </button>
+          <button onclick="copySshCommand(this, 'ssh ${user}@${host}')" class="flex-1 py-1.5 px-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 text-[11px] font-medium transition flex items-center justify-center gap-1.5 border border-slate-200/80 dark:border-[#353535]">
+            <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>${i18n[currentLang]['ssh_copy_cmd']}</span>
+          </button>
+          <button onclick="openPrivKeyModal('${label}', '${algo}')" title="Lihat Private Key" class="p-1.5 rounded-lg border border-slate-200/80 dark:border-[#353535] bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] dark:hover:bg-[#333333] text-slate-700 dark:text-slate-200 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </button>
+        </div>
+      `;
+
+      list.prepend(card);
+      const countBadge = document.getElementById('ssh-count-badge');
+      const total = list.querySelectorAll('.ssh-card').length;
+      if (countBadge) countBadge.innerText = `${total} keys`;
+    }
+
+    function openPrivKeyModal(title, algo) {
+      const modal = document.getElementById('modal-view-privkey');
+      const titleEl = document.getElementById('privkey-modal-title');
+      const preEl = document.getElementById('privkey-content-display');
+      if (titleEl) titleEl.innerText = `${title} (Private Key)`;
+      if (preEl) {
+        if (algo === 'rsa') {
+          preEl.innerText = `-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
+NhAAAAAwEAAQAAAYEAz1q9K4vL3f4a8x9jTrL...
+-----END OPENSSH PRIVATE KEY-----`;
+        } else {
+          preEl.innerText = `-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACDNW1b61K8R+8tV9n7yW9fK2k8g7G1m4zYx0vP9qL3kAAAAmICo2e8J
+-----END OPENSSH PRIVATE KEY-----`;
+        }
+      }
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closePrivKeyModal() {
+      const modal = document.getElementById('modal-view-privkey');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function copySshPubkey(btn, pubkey) {
+      navigator.clipboard?.writeText(pubkey);
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="text-emerald-500 font-bold">${i18n[currentLang]['copied']}</span>`;
+      showToast(i18n[currentLang]['toast_pubkey_copied']);
+      setTimeout(() => btn.innerHTML = orig, 1200);
+    }
+
+    function copySshCommand(btn, cmd) {
+      navigator.clipboard?.writeText(cmd);
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span class="text-emerald-500 font-bold">${i18n[currentLang]['copied']}</span>`;
+      showToast(i18n[currentLang]['toast_cmd_copied']);
+      setTimeout(() => btn.innerHTML = orig, 1200);
+    }
+
+    function copySshPrivkey(btn) {
+      const preEl = document.getElementById('privkey-content-display');
+      if (preEl) navigator.clipboard?.writeText(preEl.innerText);
+      showToast(i18n[currentLang]['toast_privkey_copied']);
+    }
+
+    function filterSsh(query) {
+      const q = query.trim().toLowerCase();
+      const cards = document.querySelectorAll('.ssh-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const label = card.getAttribute('data-label') || '';
+        const host = card.getAttribute('data-host') || '';
+        const algo = card.getAttribute('data-algo') || '';
+        if (label.includes(q) || host.includes(q) || algo.includes(q)) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      const badge = document.getElementById('ssh-count-badge');
+      if (badge) badge.innerText = `${visible} keys`;
+    }
+
+    function filterSshByAlgo(algo, chipBtn) {
+      document.querySelectorAll('.ssh-filter-chip').forEach(c => {
+        c.className = 'ssh-filter-chip px-2.5 py-0.5 rounded-md text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white';
+      });
+      chipBtn.className = 'ssh-filter-chip px-2.5 py-0.5 rounded-md bg-slate-900 text-white dark:bg-white dark:text-black font-semibold shadow-xs';
+
+      const cards = document.querySelectorAll('.ssh-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const cardAlgo = card.getAttribute('data-algo') || '';
+        if (algo === 'all' || cardAlgo === algo) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      const badge = document.getElementById('ssh-count-badge');
+      if (badge) badge.innerText = `${visible} keys`;
+    }
   </script>
 </body>
 </html>
