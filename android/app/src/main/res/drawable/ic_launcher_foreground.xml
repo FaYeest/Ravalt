@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        android:translateX="21.6"
+        android:translateY="21.6">
+        <!-- Vault Outer Frame -->
+        <path
+            android:fillColor="#1E1E1E"
+            android:strokeColor="#333333"
+            android:strokeWidth="3"
+            android:pathData="M24,14 L84,14 A10,10 0 0 1 94,24 L94,84 A10,10 0 0 1 84,94 L24,94 A10,10 0 0 1 14,84 L14,24 A10,10 0 0 1 24,14 Z" />
+        <!-- Vault Stem / Pillar -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M32,28 L42,28 L42,80 L32,80 Z" />
+        <!-- Vault Upper Loop / Bow -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M42,28 L64,28 C73,28 78,34 78,43 C78,52 73,58 64,58 L42,58 Z M42,38 L42,48 L62,48 C66,48 68,46 68,43 C68,40 66,38 62,38 Z" />
+        <!-- Vault Leg / Diagonal -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M54,55 L78,80 L66,80 L44,57 Z" />
+        <!-- Emerald Keyhole Accent -->
+        <path
+            android:fillColor="#10B981"
+            android:pathData="M54,41 A2,2 0 1,1 54,45 A2,2 0 1,1 54,41 Z" />
+    </group>
+</vector>

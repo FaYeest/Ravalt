@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF141414</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="dark_surface">#FF1E1E1E</color>
+    <color name="dark_border">#FF2A2A2A</color>
+    <color name="emerald">#FF10B981</color>
+    <color name="emerald_dark">#FF059669</color>
+</resources>
