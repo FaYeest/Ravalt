@@ -3,33 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ravalt Mobile Design Prototype - Interactive Review</title>
+  <title>Ravalt Mobile - Notion & Obsidian Inspired Design</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            vault: {
-              950: '#07090E',
-              900: '#0D111A',
-              850: '#131926',
-              800: '#1A2234',
-              700: '#26334D',
-              border: '#1E293B',
-              brand: '#4F46E5',
-              brandHover: '#4338CA',
-              breach: '#EF4444',
-              safe: '#10B981',
-              warn: '#F59E0B'
+            // Notion & Obsidian Inspired Palette
+            notion: {
+              // Light mode
+              bg: '#FFFFFF',
+              subtle: '#F7F6F3',
+              card: '#FFFFFF',
+              border: '#E9E9E7',
+              borderStrong: '#D7D6D3',
+              text: '#37352F',
+              textMuted: '#787774',
+              hover: '#F1F0ED',
+              // Dark mode
+              darkBg: '#191919',
+              darkSubtle: '#202020',
+              darkCard: '#252525',
+              darkBorder: '#2E2E2E',
+              darkBorderStrong: '#3B3B3B',
+              darkText: '#E6E6E6',
+              darkTextMuted: '#8F8F8F',
+              darkHover: '#2A2A2A',
+              // Semantic Notion Tag Colors
+              tagRedBg: '#FDEBEC',
+              tagRedText: '#EB5757',
+              tagRedDarkBg: '#372426',
+              tagRedDarkText: '#FF7373',
+              tagGreenBg: '#EDF6EE',
+              tagGreenText: '#27AE60',
+              tagGreenDarkBg: '#1F2F23',
+              tagGreenDarkText: '#4ECA81',
+              tagGrayBg: '#F1F1EF',
+              tagGrayText: '#787774',
+              tagGrayDarkBg: '#2C2C2C',
+              tagGrayDarkText: '#9E9E9E',
             }
           }
         }
@@ -37,326 +58,366 @@
     }
   </script>
   <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 4px; }
+    /* Notion style thin hair-lines */
+    .notion-border-b {
+      border-bottom: 1px solid var(--border-color);
+    }
+    .light {
+      --border-color: #E9E9E7;
+    }
+    .dark {
+      --border-color: #2E2E2E;
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+<body class="bg-slate-100 dark:bg-[#111111] text-notion-text dark:text-notion-darkText min-h-screen flex flex-col font-sans transition-colors duration-200">
 
-  <!-- Desktop Control Bar -->
-  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur px-6 py-3 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
+  <!-- Desktop Control Header -->
+  <header class="border-b border-slate-200 dark:border-[#222222] bg-white/90 dark:bg-[#181818]/90 backdrop-blur px-6 py-3 flex flex-wrap items-center justify-between gap-4 sticky top-0 z-50">
     <div class="flex items-center gap-3">
-      <div class="w-7 h-7 rounded bg-indigo-600 flex items-center justify-center font-bold text-sm text-white">R</div>
+      <div class="w-7 h-7 rounded border border-slate-300 dark:border-[#333333] bg-slate-50 dark:bg-[#202020] flex items-center justify-center font-bold text-xs">
+        R
+      </div>
       <div>
-        <h1 class="text-sm font-semibold tracking-tight text-white flex items-center gap-2">
-          Ravalt Android Design Prototype
-          <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-indigo-950 text-indigo-400 border border-indigo-800">Anti-Slop Edition</span>
+        <h1 class="text-sm font-semibold tracking-tight flex items-center gap-2">
+          Ravalt Mobile Design
+          <span class="text-[11px] font-normal px-2 py-0.5 rounded bg-slate-100 dark:bg-[#252525] text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-[#333333]">
+            Notion & Obsidian Aesthetic
+          </span>
         </h1>
-        <p class="text-xs text-slate-400">Desain Native Android (Jetpack Compose) yang presisi & utilitarian</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Minimalis, zero-slop, berbasis properties & document hierarchy</p>
       </div>
     </div>
 
-    <!-- Screen Switcher Buttons -->
-    <div class="flex items-center gap-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800 text-xs">
-      <button onclick="setScreen('unlock')" id="btn-unlock" class="screen-btn px-3 py-1.5 rounded font-medium transition text-slate-400 hover:text-white">
-        1. Unlock Screen
-      </button>
-      <button onclick="setScreen('vault')" id="btn-vault" class="screen-btn px-3 py-1.5 rounded font-medium transition bg-indigo-600 text-white shadow-sm">
-        2. Vault List
-      </button>
-      <button onclick="setScreen('detail')" id="btn-detail" class="screen-btn px-3 py-1.5 rounded font-medium transition text-slate-400 hover:text-white">
-        3. Item Detail & Edit
-      </button>
-      <button onclick="setScreen('breach')" id="btn-breach" class="screen-btn px-3 py-1.5 rounded font-medium transition text-slate-400 hover:text-white">
-        4. Breach Audit
-      </button>
-      <button onclick="setScreen('generator')" id="btn-generator" class="screen-btn px-3 py-1.5 rounded font-medium transition text-slate-400 hover:text-white">
-        5. Generator
-      </button>
-    </div>
+    <!-- Controls: Screen Switcher + Light/Dark Toggle -->
+    <div class="flex items-center gap-3">
+      <!-- Screen Switcher -->
+      <div class="flex items-center gap-1 bg-slate-100 dark:bg-[#141414] p-1 rounded-lg border border-slate-200 dark:border-[#262626] text-xs">
+        <button onclick="setScreen('unlock')" id="btn-unlock" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
+          1. Unlock
+        </button>
+        <button onclick="setScreen('vault')" id="btn-vault" class="screen-btn px-2.5 py-1.5 rounded transition bg-white dark:bg-[#262626] font-medium shadow-sm text-black dark:text-white">
+          2. Vault Database
+        </button>
+        <button onclick="setScreen('detail')" id="btn-detail" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
+          3. Item Properties
+        </button>
+        <button onclick="setScreen('breach')" id="btn-breach" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
+          4. Breach Audit
+        </button>
+        <button onclick="setScreen('generator')" id="btn-generator" class="screen-btn px-2.5 py-1.5 rounded transition text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
+          5. Generator
+        </button>
+      </div>
 
-    <div class="text-xs text-slate-400 font-mono hidden md:block">
-      Resolusi Frame: 390 × 844 px
+      <!-- Light / Dark Mode Toggle Button -->
+      <button onclick="toggleTheme()" id="theme-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-[#333333] bg-white dark:bg-[#202020] text-xs font-medium hover:bg-slate-50 dark:hover:bg-[#282828] transition">
+        <span id="theme-icon">☀️ Light Mode</span>
+      </button>
     </div>
   </header>
 
-  <!-- Interactive Mockup Container -->
-  <main class="flex-1 flex items-center justify-center p-4 sm:p-8 bg-gradient-to-b from-slate-950 to-slate-900">
+  <!-- Interactive Mockup Screen Frame -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-8">
 
     <!-- Phone Frame -->
-    <div class="w-[390px] h-[820px] bg-vault-950 rounded-[48px] border-[10px] border-slate-800 shadow-2xl shadow-indigo-950/40 relative flex flex-col overflow-hidden ring-1 ring-slate-700/50">
+    <div id="phone-container" class="w-[385px] h-[810px] bg-white dark:bg-[#191919] text-[#37352F] dark:text-[#E6E6E6] rounded-[44px] border-[8px] border-slate-300 dark:border-[#2E2E2E] shadow-2xl relative flex flex-col overflow-hidden ring-1 ring-black/5 dark:ring-white/10 transition-colors duration-200">
       
-      <!-- Phone Speaker / Dynamic Island Notch -->
-      <div class="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-4 bg-slate-900 rounded-full z-40 flex items-center justify-center">
-        <div class="w-3 h-3 rounded-full bg-slate-950 ml-auto mr-2"></div>
-      </div>
+      <!-- Phone Top Pill Notch -->
+      <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-3.5 bg-slate-200 dark:bg-[#262626] rounded-full z-40"></div>
 
-      <!-- Android Status Bar -->
-      <div class="px-7 pt-4 pb-2 flex justify-between items-center text-[11px] font-mono text-slate-400 select-none z-30">
+      <!-- Android Top Status Bar -->
+      <div class="px-6 pt-3.5 pb-2 flex justify-between items-center text-[11px] font-mono text-slate-400 dark:text-[#777777] select-none z-30">
         <span>09:41</span>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5">
           <span>5G</span>
           <span>100%</span>
         </div>
       </div>
 
       <!-- ========================================== -->
-      <!-- SCREEN 1: UNLOCK SCREEN                    -->
+      <!-- SCREEN 1: UNLOCK SCREEN (Notion Style)     -->
       <!-- ========================================== -->
-      <div id="screen-unlock" class="screen-content hidden flex-1 flex flex-col justify-between p-6 overflow-y-auto">
-        <div class="pt-8 text-center">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center mb-4">
-            <svg class="w-7 h-7 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-            </svg>
-          </div>
-          <h2 class="text-xl font-bold tracking-tight text-white">Ravalt Vault</h2>
-          <p class="text-xs text-slate-400 mt-1">farras@ravalt.io</p>
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/60 text-emerald-300 text-[10px] font-mono mt-3">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            Zero-Knowledge Protected
+      <div id="screen-unlock" class="screen-content hidden flex-1 flex flex-col justify-between p-6">
+        <div class="pt-10">
+          <!-- Notion Style Page Icon & Title -->
+          <div class="text-3xl mb-3 select-none">🔒</div>
+          <h2 class="text-xl font-bold tracking-tight text-[#37352F] dark:text-[#F0F0F0]">Ravalt Vault</h2>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-xs text-slate-500 dark:text-[#888888]">farras@ravalt.io</span>
+            <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-100 dark:bg-[#252525] text-slate-600 dark:text-[#999999] border border-slate-200 dark:border-[#333333]">
+              Zero-Knowledge
+            </span>
           </div>
         </div>
 
         <div class="space-y-4 my-auto">
           <div>
-            <label class="block text-xs font-medium text-slate-300 mb-1.5">Master Password</label>
+            <label class="block text-xs text-slate-500 dark:text-[#888888] mb-1.5 font-medium">Master Password</label>
             <div class="relative">
-              <input type="password" id="unlock-pass" value="super-strong-master-pass" class="w-full bg-vault-900 border border-slate-700/80 rounded-xl px-4 py-3 text-sm font-mono text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="Masukkan Master Password">
-              <button onclick="togglePassword('unlock-pass')" class="absolute right-3 top-3 text-slate-400 hover:text-white text-xs">Intip</button>
+              <input type="password" id="unlock-pass" value="super-strong-master-pass" class="w-full bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] rounded-lg px-3.5 py-2.5 text-xs font-mono text-black dark:text-white focus:outline-none focus:border-slate-400 dark:focus:border-[#555555]">
+              <button onclick="togglePassword('unlock-pass')" class="absolute right-3 top-2.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white text-xs">Intip</button>
             </div>
-            <p class="text-[11px] text-slate-500 mt-1.5">Diderivasi lokal via Argon2id (Memory 64MB, 3 Passes)</p>
+            <p class="text-[11px] text-slate-400 dark:text-[#666666] mt-1.5">Kunci didekripsi lokal via Argon2id.</p>
           </div>
 
-          <button onclick="setScreen('vault')" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl text-sm transition shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2">
-            <span>Buka Brankas</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <button onclick="setScreen('vault')" class="w-full bg-[#37352F] hover:bg-[#252420] dark:bg-[#E6E6E6] dark:hover:bg-white text-white dark:text-[#191919] font-medium py-2.5 rounded-lg text-xs transition shadow-sm">
+            Buka Brankas
           </button>
         </div>
 
-        <div class="text-center pb-4">
-          <p class="text-[11px] text-slate-500">Lupa Master Password? Data tidak dapat dipulihkan oleh server.</p>
+        <div class="text-center pb-2">
+          <p class="text-[11px] text-slate-400 dark:text-[#666666]">Data hanya didekripsi di perangkat ini.</p>
         </div>
       </div>
 
       <!-- ========================================== -->
-      <!-- SCREEN 2: VAULT LIST SCREEN                -->
+      <!-- SCREEN 2: VAULT LIST (Notion Database Table) -->
       <!-- ========================================== -->
       <div id="screen-vault" class="screen-content flex-1 flex flex-col overflow-hidden">
-        <!-- Top App Bar -->
-        <div class="px-5 pt-2 pb-3 border-b border-slate-800/80 flex items-center justify-between">
-          <div>
-            <h2 class="text-lg font-bold text-white tracking-tight">Semua Item</h2>
-            <p class="text-[11px] font-mono text-slate-400">4 Kredensial Tersimpan</p>
+        
+        <!-- Notion-style Header with Breadcrumbs & Action -->
+        <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
+          <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#888888]">
+            <span>Ravalt</span>
+            <span>/</span>
+            <span class="font-semibold text-black dark:text-white flex items-center gap-1">
+              <span>🔑</span> Brankas Utama
+            </span>
           </div>
-          <button onclick="setScreen('detail')" class="w-8 h-8 rounded-lg bg-indigo-600 hover:bg-indigo-500 flex items-center justify-center text-white text-base font-bold shadow-md shadow-indigo-600/30">
-            +
+          <button onclick="setScreen('detail')" class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-[#252525] dark:hover:bg-[#303030] text-xs font-medium transition text-black dark:text-white border border-slate-200 dark:border-[#333333]">
+            + Baru
           </button>
         </div>
 
-        <!-- Search Bar -->
-        <div class="px-5 py-3">
-          <div class="relative">
-            <input type="text" placeholder="Cari akun, email, atau URL..." class="w-full bg-vault-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-            <svg class="w-3.5 h-3.5 text-slate-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <!-- Notion Search & View Bar -->
+        <div class="px-5 py-2.5 border-b border-slate-100 dark:border-[#222222] flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2 flex-1 bg-slate-50 dark:bg-[#202020] px-2.5 py-1.5 rounded-md border border-slate-200 dark:border-[#2A2A2A]">
+            <span class="text-xs text-slate-400">🔍</span>
+            <input type="text" placeholder="Cari data atau filter..." class="bg-transparent border-none text-xs text-black dark:text-white placeholder-slate-400 focus:outline-none w-full">
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-[#777777] font-mono px-2 py-1 rounded bg-slate-100 dark:bg-[#202020]">
+            4 items
           </div>
         </div>
 
-        <!-- Category Filter Pills -->
-        <div class="px-5 pb-2 flex gap-2 overflow-x-auto text-xs no-scrollbar">
-          <span class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-medium whitespace-nowrap cursor-pointer">Semua (4)</span>
-          <span class="px-3 py-1 rounded-lg bg-vault-900 text-slate-400 border border-slate-800 hover:text-white whitespace-nowrap cursor-pointer">Logins (3)</span>
-          <span class="px-3 py-1 rounded-lg bg-vault-900 text-slate-400 border border-slate-800 hover:text-white whitespace-nowrap cursor-pointer">Secure Notes (1)</span>
+        <!-- Database View Selector Tabs (Notion Table View Tab Style) -->
+        <div class="px-5 pt-2 pb-1 flex gap-3 text-xs border-b border-slate-100 dark:border-[#222222]">
+          <span class="pb-1.5 font-semibold text-black dark:text-white border-b-2 border-black dark:border-white cursor-pointer">
+            Semua Item
+          </span>
+          <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer">
+            Logins (3)
+          </span>
+          <span class="pb-1.5 text-slate-400 dark:text-[#777777] hover:text-black dark:hover:text-white cursor-pointer">
+            Notes (1)
+          </span>
         </div>
 
-        <!-- Vault Items List -->
-        <div class="flex-1 overflow-y-auto px-5 py-2 space-y-2.5">
+        <!-- Notion Database Rows List -->
+        <div class="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-[#242424]">
 
-          <!-- Item 1: Breached Item -->
-          <div onclick="setScreen('detail')" class="p-3.5 rounded-xl bg-vault-900 border border-red-500/30 hover:border-red-500/60 transition cursor-pointer flex items-center justify-between group">
+          <!-- Row 1: GitHub (Breached) -->
+          <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-red-950/60 border border-red-800/60 flex items-center justify-center font-bold text-red-400 text-sm">
-                GH
-              </div>
+              <span class="text-base select-none">🐙</span>
               <div>
-                <div class="flex items-center gap-1.5">
-                  <h3 class="text-xs font-semibold text-white group-hover:text-indigo-400 transition">GitHub</h3>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-red-950 text-red-400 border border-red-800 flex items-center gap-1">
-                    <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
-                    Breached
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xs font-semibold text-black dark:text-white">GitHub</h3>
+                  <!-- Notion Red Tag Pill -->
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagRedBg text-notion-tagRedText dark:bg-notion-tagRedDarkBg dark:text-notion-tagRedDarkText font-medium">
+                    Bocor (14k+)
                   </span>
                 </div>
-                <p class="text-[11px] font-mono text-slate-400 mt-0.5">farras@github.com</p>
+                <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">farras@github.com</p>
               </div>
             </div>
-            <button onclick="event.stopPropagation(); copyText('gh-pass', this)" class="p-2 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-300 text-xs">
-              Copy
+            <button onclick="event.stopPropagation(); copyText('gh', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition">
+              Salin
             </button>
           </div>
 
-          <!-- Item 2: Secure Item -->
-          <div onclick="setScreen('detail')" class="p-3.5 rounded-xl bg-vault-900 border border-slate-800 hover:border-slate-700 transition cursor-pointer flex items-center justify-between group">
+          <!-- Row 2: Google Account (Safe) -->
+          <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-indigo-950/60 border border-indigo-800/60 flex items-center justify-center font-bold text-indigo-400 text-sm">
-                GO
-              </div>
+              <span class="text-base select-none">🌐</span>
               <div>
-                <div class="flex items-center gap-1.5">
-                  <h3 class="text-xs font-semibold text-white group-hover:text-indigo-400 transition">Google Account</h3>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800">Safe</span>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xs font-semibold text-black dark:text-white">Google Workspace</h3>
+                  <!-- Notion Green Tag Pill -->
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGreenBg text-notion-tagGreenText dark:bg-notion-tagGreenDarkBg dark:text-notion-tagGreenDarkText font-medium">
+                    Aman
+                  </span>
                 </div>
-                <p class="text-[11px] font-mono text-slate-400 mt-0.5">farras@gmail.com</p>
+                <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">farras@gmail.com</p>
               </div>
             </div>
-            <button onclick="event.stopPropagation(); copyText('go-pass', this)" class="p-2 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-300 text-xs">
-              Copy
+            <button onclick="event.stopPropagation(); copyText('go', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition">
+              Salin
             </button>
           </div>
 
-          <!-- Item 3: AWS -->
-          <div onclick="setScreen('detail')" class="p-3.5 rounded-xl bg-vault-900 border border-slate-800 hover:border-slate-700 transition cursor-pointer flex items-center justify-between group">
+          <!-- Row 3: AWS Console (Safe) -->
+          <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-950/60 border border-amber-800/60 flex items-center justify-center font-bold text-amber-400 text-sm">
-                AW
-              </div>
+              <span class="text-base select-none">☁️</span>
               <div>
-                <div class="flex items-center gap-1.5">
-                  <h3 class="text-xs font-semibold text-white group-hover:text-indigo-400 transition">AWS Console</h3>
-                  <span class="px-1.5 py-0.2 rounded text-[9px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800">Safe</span>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xs font-semibold text-black dark:text-white">AWS Console</h3>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGreenBg text-notion-tagGreenText dark:bg-notion-tagGreenDarkBg dark:text-notion-tagGreenDarkText font-medium">
+                    Aman
+                  </span>
                 </div>
-                <p class="text-[11px] font-mono text-slate-400 mt-0.5">admin@ravalt.io</p>
+                <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">admin@ravalt.io</p>
               </div>
             </div>
-            <button onclick="event.stopPropagation(); copyText('aw-pass', this)" class="p-2 rounded-lg bg-slate-800/60 hover:bg-slate-700 text-slate-300 text-xs">
-              Copy
+            <button onclick="event.stopPropagation(); copyText('aw', this)" class="text-[11px] text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white px-2 py-1 rounded hover:bg-slate-200 dark:hover:bg-[#333333] transition">
+              Salin
             </button>
           </div>
 
-          <!-- Item 4: Secure Note -->
-          <div onclick="setScreen('detail')" class="p-3.5 rounded-xl bg-vault-900 border border-slate-800 hover:border-slate-700 transition cursor-pointer flex items-center justify-between group">
+          <!-- Row 4: Server Key (Secure Note) -->
+          <div onclick="setScreen('detail')" class="px-5 py-3 hover:bg-slate-50 dark:hover:bg-[#202020] cursor-pointer transition flex items-center justify-between group">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center font-bold text-slate-300 text-sm">
-                SN
-              </div>
+              <span class="text-base select-none">📝</span>
               <div>
-                <h3 class="text-xs font-semibold text-white group-hover:text-indigo-400 transition">Server Recovery Key</h3>
-                <p class="text-[11px] font-mono text-slate-500 mt-0.5">SSH & WireGuard Privkey</p>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-xs font-semibold text-black dark:text-white">Server Recovery Key</h3>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagGrayBg text-notion-tagGrayText dark:bg-notion-tagGrayDarkBg dark:text-notion-tagGrayDarkText font-medium">
+                    Note
+                  </span>
+                </div>
+                <p class="text-[11px] font-mono text-slate-400 dark:text-[#888888] mt-0.5">SSH & WireGuard Ed25519</p>
               </div>
             </div>
-            <span class="text-xs text-slate-500">Note</span>
+            <span class="text-xs text-slate-400">›</span>
           </div>
 
         </div>
 
-        <!-- Android Bottom Navigation Bar -->
-        <div class="border-t border-slate-800/80 bg-vault-950/90 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
-          <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-indigo-400 font-semibold">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <!-- Notion Style Bottom Navigation Bar -->
+        <div class="border-t border-slate-200 dark:border-[#2A2A2A] bg-white/95 dark:bg-[#191919]/95 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
+          <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
+            <span class="text-sm">🔑</span>
             <span>Brankas</span>
           </button>
-          <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <span class="text-sm">🎲</span>
             <span>Generator</span>
           </button>
-          <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white relative">
-            <span class="absolute -top-1 right-2 w-2 h-2 rounded-full bg-red-500"></span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white relative">
+            <span class="absolute top-0 right-2 w-1.5 h-1.5 rounded-full bg-red-500"></span>
+            <span class="text-sm">🛡️</span>
             <span>Breach</span>
           </button>
         </div>
       </div>
 
       <!-- ========================================== -->
-      <!-- SCREEN 3: ITEM DETAIL & EDITOR             -->
+      <!-- SCREEN 3: ITEM PROPERTIES & OBSIDIAN NOTE  -->
       <!-- ========================================== -->
       <div id="screen-detail" class="screen-content hidden flex-1 flex flex-col overflow-hidden">
-        <!-- Top App Bar -->
-        <div class="px-5 pt-2 pb-3 border-b border-slate-800 flex items-center justify-between">
-          <button onclick="setScreen('vault')" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+        
+        <!-- Header -->
+        <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
+          <button onclick="setScreen('vault')" class="text-xs text-slate-500 hover:text-black dark:text-[#888888] dark:hover:text-white">
             ← Kembali
           </button>
-          <h2 class="text-sm font-bold text-white">Detail Akun</h2>
-          <button onclick="setScreen('vault')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300">
-            Simpan
+          <span class="text-xs font-semibold text-black dark:text-white">Item Properties</span>
+          <button onclick="setScreen('vault')" class="text-xs font-medium text-blue-600 dark:text-blue-400">
+            Selesai
           </button>
         </div>
 
         <div class="flex-1 overflow-y-auto p-5 space-y-4">
-          <!-- Breach Warning Banner -->
-          <div class="p-3.5 rounded-xl bg-red-950/40 border border-red-800/80 text-xs text-red-200 flex gap-3 items-start">
-            <span class="text-base">⚠️</span>
+          
+          <!-- Notion Page Title & Icon -->
+          <div>
+            <span class="text-3xl select-none">🐙</span>
+            <h2 class="text-lg font-bold text-black dark:text-white mt-1">GitHub</h2>
+          </div>
+
+          <!-- Breach Warning Callout (Notion Callout Box Style) -->
+          <div class="p-3 rounded-lg bg-notion-tagRedBg/60 dark:bg-notion-tagRedDarkBg/70 border border-red-200 dark:border-red-900/60 text-xs flex gap-2.5 items-start">
+            <span class="text-sm">⚠️</span>
             <div>
-              <p class="font-semibold text-red-300">Kata Sandi Ini Telah Bocor!</p>
-              <p class="text-[11px] text-red-300/80 mt-0.5 leading-relaxed">
-                Pemeriksaan anonim (k-Anonymity) mendeteksi password ini muncul <strong>14.218 kali</strong> dalam database kebocoran data publik. Segera ganti kata sandi ini.
+              <p class="font-semibold text-notion-tagRedText dark:text-notion-tagRedDarkText">Password Pernah Bocor</p>
+              <p class="text-[11px] text-slate-600 dark:text-[#BB8888] mt-0.5 leading-relaxed">
+                k-Anonymity audit mendeteksi kemunculan <strong>14.218 kali</strong> di kebocoran HaveIBeenPwned.
               </p>
             </div>
           </div>
 
-          <!-- Field 1: Service Name -->
-          <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1">Nama Layanan</label>
-            <input type="text" value="GitHub" class="w-full bg-vault-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-indigo-500">
-          </div>
-
-          <!-- Field 2: Username / Email -->
-          <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1">Username / Email</label>
-            <div class="flex gap-2">
-              <input type="text" id="detail-email" value="farras@github.com" class="flex-1 bg-vault-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-indigo-500">
-              <button onclick="copyText('detail-email', this)" class="px-3 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs text-slate-300">Salin</button>
-            </div>
-          </div>
-
-          <!-- Field 3: Password -->
-          <div>
-            <div class="flex justify-between items-center mb-1">
-              <label class="text-[11px] font-medium text-slate-400">Kata Sandi</label>
-              <span class="text-[10px] font-mono text-red-400 font-semibold">Bocor (14k+)</span>
-            </div>
-            <div class="flex gap-2">
-              <div class="relative flex-1">
-                <input type="password" id="detail-pass" value="P@ssw0rdGithub123" class="w-full bg-vault-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-indigo-500">
-                <button onclick="togglePassword('detail-pass')" class="absolute right-3 top-2.5 text-slate-400 hover:text-white text-[10px]">Intip</button>
-              </div>
-              <button onclick="copyText('detail-pass', this)" class="px-3 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs text-slate-300">Salin</button>
-            </div>
+          <!-- Notion Properties List (Grid Style) -->
+          <div class="space-y-2.5 text-xs pt-1">
             
-            <!-- Entropy Bar -->
-            <div class="mt-2 flex items-center gap-2">
-              <div class="flex-1 h-1 bg-slate-800 rounded-full overflow-hidden flex gap-0.5">
-                <div class="w-1/3 bg-red-500 rounded-full"></div>
-                <div class="w-1/3 bg-slate-800"></div>
-                <div class="w-1/3 bg-slate-800"></div>
+            <!-- Property 1: Username -->
+            <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
+              <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
+                <span>👤</span> Username
+              </span>
+              <div class="flex-1 flex justify-between items-center font-mono">
+                <input type="text" id="prop-email" value="farras@github.com" class="bg-transparent border-none text-xs text-black dark:text-white focus:outline-none w-full">
+                <button onclick="copyText('prop-email', this)" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded">Salin</button>
               </div>
-              <span class="text-[10px] text-red-400 font-mono">Lemah</span>
+            </div>
+
+            <!-- Property 2: Password -->
+            <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
+              <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
+                <span>🔑</span> Password
+              </span>
+              <div class="flex-1 flex items-center gap-1 font-mono">
+                <input type="password" id="prop-pass" value="P@ssw0rdGithub123" class="bg-transparent border-none text-xs text-black dark:text-white focus:outline-none w-full">
+                <button onclick="togglePassword('prop-pass')" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded">Lihat</button>
+                <button onclick="copyText('prop-pass', this)" class="text-[10px] text-slate-400 hover:text-black dark:hover:text-white px-1.5 py-0.5 rounded">Salin</button>
+              </div>
+            </div>
+
+            <!-- Property 3: Security Status (Pill) -->
+            <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
+              <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
+                <span>🛡️</span> Status
+              </span>
+              <div class="flex-1">
+                <span class="text-[10px] px-2 py-0.5 rounded bg-notion-tagRedBg text-notion-tagRedText dark:bg-notion-tagRedDarkBg dark:text-notion-tagRedDarkText font-medium">
+                  Bocor 14.218x
+                </span>
+              </div>
+            </div>
+
+            <!-- Property 4: Website URL -->
+            <div class="flex items-center border-b border-slate-100 dark:border-[#262626] pb-2">
+              <span class="w-28 text-slate-400 dark:text-[#777777] flex items-center gap-1.5 text-[11px]">
+                <span>🔗</span> URL
+              </span>
+              <div class="flex-1 font-mono text-slate-500 dark:text-[#999999] truncate">
+                https://github.com/login
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Obsidian Style Markdown Notes Body -->
+          <div class="pt-2">
+            <span class="block text-[11px] font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-1.5">
+              Encrypted Markdown Note
+            </span>
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] text-xs font-mono text-slate-700 dark:text-[#CCCCCC] leading-relaxed">
+              ## Backup 2FA Codes<br>
+              - `1A2B-3C4D`<br>
+              - `5E6F-7G8H`<br>
+              <span class="text-slate-400 dark:text-[#666666]"># Terenkripsi lokal dengan AES-256-GCM</span>
             </div>
           </div>
 
-          <!-- Field 4: Website URL -->
-          <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1">Website URL</label>
-            <input type="text" value="https://github.com/login" class="w-full bg-vault-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-300 focus:outline-none focus:border-indigo-500">
+          <!-- Delete Row -->
+          <div class="pt-4 text-center">
+            <button onclick="alert('Item dihapus'); setScreen('vault');" class="text-xs text-red-500 hover:text-red-700 dark:text-red-400 transition">
+              Hapus dari Brankas
+            </button>
           </div>
 
-          <!-- Field 5: Secure Notes -->
-          <div>
-            <label class="block text-[11px] font-medium text-slate-400 mb-1">Catatan Terenkripsi</label>
-            <textarea rows="3" class="w-full bg-vault-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-indigo-500">2FA recovery codes: ABCD-1234, EFGH-5678</textarea>
-          </div>
-
-          <!-- Metadata info -->
-          <div class="pt-2 border-t border-slate-800/80 text-[10px] font-mono text-slate-500 space-y-1">
-            <p>Enkripsi: AES-256-GCM (Client-side)</p>
-            <p>Terakhir Diperbarui: 06 Okt 2026, 14:22 UTC</p>
-          </div>
-
-          <!-- Delete Item Button -->
-          <button onclick="alert('Item akan di-soft delete'); setScreen('vault');" class="w-full py-2.5 rounded-xl border border-red-500/30 text-red-400 hover:bg-red-950/30 text-xs font-semibold transition">
-            Hapus Item dari Brankas
-          </button>
         </div>
       </div>
 
@@ -364,49 +425,58 @@
       <!-- SCREEN 4: BREACH AUDIT CENTER              -->
       <!-- ========================================== -->
       <div id="screen-breach" class="screen-content hidden flex-1 flex flex-col overflow-hidden">
-        <!-- Top App Bar -->
-        <div class="px-5 pt-2 pb-3 border-b border-slate-800 flex items-center justify-between">
-          <div>
-            <h2 class="text-lg font-bold text-white tracking-tight">Breach Center</h2>
-            <p class="text-[11px] font-mono text-slate-400">k-Anonymity Privacy Audit</p>
+        
+        <!-- Header -->
+        <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
+          <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#888888]">
+            <span>Ravalt</span>
+            <span>/</span>
+            <span class="font-semibold text-black dark:text-white flex items-center gap-1">
+              <span>🛡️</span> Breach Audit
+            </span>
           </div>
-          <button onclick="alert('Memulai pemindaian anonim ulang...');" class="px-2.5 py-1 rounded-lg bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 text-[11px]">
+          <button onclick="alert('Memindai ulang...');" class="text-xs text-blue-600 dark:text-blue-400 font-medium">
             Scan Ulang
           </button>
         </div>
 
         <div class="flex-1 overflow-y-auto p-5 space-y-4">
-          <!-- Summary Card -->
-          <div class="p-4 rounded-2xl bg-gradient-to-br from-red-950/40 to-slate-900 border border-red-800/60">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-xs font-medium text-red-300">Status Keamanan Brankas</span>
-              <span class="px-2 py-0.5 rounded-full bg-red-950 text-red-400 border border-red-800 text-[10px] font-mono">1 Berisiko</span>
+          
+          <!-- Audit Summary Block (Notion Callout) -->
+          <div class="p-4 rounded-xl border border-red-200 dark:border-[#382628] bg-notion-tagRedBg/40 dark:bg-[#241A1C] space-y-1">
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-semibold text-notion-tagRedText dark:text-notion-tagRedDarkText">1 Password Berisiko</span>
+              <span class="text-[10px] font-mono text-slate-400">k-Anonymity Verified</span>
             </div>
-            <h3 class="text-2xl font-bold text-white tracking-tight">1 Kata Sandi Bocor</h3>
-            <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
-              Ditemukan dalam insiden kebocoran global HaveIBeenPwned tanpa membuka sandi Anda ke server.
+            <p class="text-xs text-slate-600 dark:text-[#BB8888] leading-relaxed">
+              Kata sandi akun GitHub Anda terdaftar dalam database kebocoran publik. Server Ravalt tidak pernah melihat password asli Anda selama pengecekan.
             </p>
           </div>
 
-          <!-- Breached Items List -->
+          <!-- List of Items To Change -->
           <div>
-            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Perlu Tindakan Segera</h4>
-            <div class="p-3.5 rounded-xl bg-vault-900 border border-red-800/70 space-y-2">
+            <h4 class="text-xs font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-2">
+              Perlu Diganti Segera
+            </h4>
+            <div class="p-3.5 rounded-lg border border-slate-200 dark:border-[#2E2E2E] bg-white dark:bg-[#202020] space-y-2">
               <div class="flex justify-between items-start">
-                <div>
-                  <h5 class="text-xs font-bold text-white">GitHub</h5>
-                  <p class="text-[11px] font-mono text-slate-400">farras@github.com</p>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm">🐙</span>
+                  <div>
+                    <h5 class="text-xs font-semibold text-black dark:text-white">GitHub</h5>
+                    <p class="text-[11px] font-mono text-slate-400">farras@github.com</p>
+                  </div>
                 </div>
-                <span class="text-[10px] font-mono font-bold text-red-400 bg-red-950 px-2 py-0.5 rounded border border-red-800">
-                  14.218 kali bocor
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-notion-tagRedBg text-notion-tagRedText dark:bg-notion-tagRedDarkBg dark:text-notion-tagRedDarkText font-mono font-medium">
+                  14.218x bocor
                 </span>
               </div>
-              <div class="pt-2 border-t border-slate-800 flex gap-2">
-                <button onclick="setScreen('generator')" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-1.5 rounded-lg text-xs transition">
+              <div class="pt-2 border-t border-slate-100 dark:border-[#2A2A2A] flex gap-2">
+                <button onclick="setScreen('generator')" class="flex-1 py-1.5 bg-slate-900 hover:bg-black dark:bg-[#333333] dark:hover:bg-[#444444] text-white text-xs rounded font-medium transition">
                   Buat Sandi Baru
                 </button>
-                <button onclick="setScreen('detail')" class="px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium py-1.5 rounded-lg text-xs transition">
-                  Lihat
+                <button onclick="setScreen('detail')" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-[#282828] text-slate-700 dark:text-slate-300 text-xs rounded transition">
+                  Buka
                 </button>
               </div>
             </div>
@@ -414,39 +484,39 @@
 
           <!-- Safe Items List -->
           <div>
-            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kata Sandi Aman (3)</h4>
-            <div class="space-y-2">
-              <div class="p-3 rounded-xl bg-vault-900 border border-slate-800 flex justify-between items-center">
-                <div>
-                  <p class="text-xs font-medium text-white">Google Account</p>
-                  <p class="text-[10px] font-mono text-slate-500">0 insiden kebocoran</p>
-                </div>
-                <span class="text-emerald-400 text-xs font-bold">✓ Aman</span>
+            <h4 class="text-xs font-semibold text-slate-400 dark:text-[#777777] uppercase tracking-wider mb-2">
+              Kata Sandi Aman (3)
+            </h4>
+            <div class="space-y-1.5 text-xs">
+              <div class="p-2.5 rounded-lg border border-slate-100 dark:border-[#262626] bg-white dark:bg-[#202020] flex justify-between items-center">
+                <span class="flex items-center gap-2">
+                  <span>🌐</span> Google Workspace
+                </span>
+                <span class="text-[10px] text-notion-tagGreenText dark:text-notion-tagGreenDarkText font-medium">✓ 0 Breach</span>
               </div>
-              <div class="p-3 rounded-xl bg-vault-900 border border-slate-800 flex justify-between items-center">
-                <div>
-                  <p class="text-xs font-medium text-white">AWS Console</p>
-                  <p class="text-[10px] font-mono text-slate-500">0 insiden kebocoran</p>
-                </div>
-                <span class="text-emerald-400 text-xs font-bold">✓ Aman</span>
+              <div class="p-2.5 rounded-lg border border-slate-100 dark:border-[#262626] bg-white dark:bg-[#202020] flex justify-between items-center">
+                <span class="flex items-center gap-2">
+                  <span>☁️</span> AWS Console
+                </span>
+                <span class="text-[10px] text-notion-tagGreenText dark:text-notion-tagGreenDarkText font-medium">✓ 0 Breach</span>
               </div>
             </div>
           </div>
 
         </div>
 
-        <!-- Android Bottom Navigation Bar -->
-        <div class="border-t border-slate-800/80 bg-vault-950/90 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
-          <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <!-- Bottom Navigation Bar -->
+        <div class="border-t border-slate-200 dark:border-[#2A2A2A] bg-white/95 dark:bg-[#191919]/95 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
+          <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <span class="text-sm">🔑</span>
             <span>Brankas</span>
           </button>
-          <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <span class="text-sm">🎲</span>
             <span>Generator</span>
           </button>
-          <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-red-400 font-semibold relative">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
+            <span class="text-sm">🛡️</span>
             <span>Breach</span>
           </button>
         </div>
@@ -456,74 +526,80 @@
       <!-- SCREEN 5: PASSWORD GENERATOR               -->
       <!-- ========================================== -->
       <div id="screen-generator" class="screen-content hidden flex-1 flex flex-col overflow-hidden">
-        <!-- Top App Bar -->
-        <div class="px-5 pt-2 pb-3 border-b border-slate-800 flex items-center justify-between">
-          <h2 class="text-lg font-bold text-white tracking-tight">Generator Sandi</h2>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Entropy: 128 bit</span>
+        
+        <!-- Header -->
+        <div class="px-5 pt-2 pb-3 border-b border-slate-200 dark:border-[#2A2A2A] flex items-center justify-between">
+          <div class="flex items-center gap-1.5 text-xs text-slate-500 dark:text-[#888888]">
+            <span>Ravalt</span>
+            <span>/</span>
+            <span class="font-semibold text-black dark:text-white flex items-center gap-1">
+              <span>🎲</span> Generator
+            </span>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400">128-bit CSPRNG</span>
         </div>
 
         <div class="flex-1 overflow-y-auto p-5 space-y-4">
-          <!-- Generated Password Display Box -->
-          <div class="p-4 rounded-2xl bg-vault-900 border border-slate-700 space-y-3">
-            <div class="text-sm font-mono text-emerald-400 break-all leading-relaxed font-semibold tracking-wider" id="generated-pwd-text">
+          
+          <!-- Generator Display Box (Obsidian Code Block Style) -->
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-[#202020] border border-slate-200 dark:border-[#2E2E2E] space-y-3">
+            <div class="text-sm font-mono text-black dark:text-[#4ECA81] break-all leading-relaxed font-semibold tracking-wider" id="generated-pwd-text">
               k9$mX7#qL!2zV@8w
             </div>
             <div class="flex gap-2">
-              <button onclick="generateRandomPass()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-medium flex items-center justify-center gap-1.5 transition">
-                <span>Acak Ulang</span>
+              <button onclick="generateRandomPass()" class="flex-1 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-[#2D2D2D] dark:hover:bg-[#383838] text-xs font-medium rounded transition text-black dark:text-white">
+                Acak Ulang
               </button>
-              <button onclick="copyGeneratedPass(this)" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold transition">
+              <button onclick="copyGeneratedPass(this)" class="px-4 py-1.5 bg-[#37352F] hover:bg-black dark:bg-white dark:hover:bg-slate-200 text-white dark:text-black text-xs font-medium rounded transition">
                 Salin
               </button>
             </div>
           </div>
 
-          <!-- Configuration Controls -->
-          <div class="p-4 rounded-2xl bg-vault-900 border border-slate-800 space-y-4">
-            <!-- Length Slider -->
+          <!-- Controls (Notion Properties Style) -->
+          <div class="p-3.5 rounded-lg border border-slate-200 dark:border-[#2E2E2E] space-y-4 text-xs">
             <div>
-              <div class="flex justify-between items-center text-xs mb-2">
-                <span class="font-medium text-slate-300">Panjang Karakter</span>
-                <span class="font-mono text-indigo-400 font-bold" id="slider-val">16 Karakter</span>
+              <div class="flex justify-between items-center mb-1.5">
+                <span class="text-slate-500 dark:text-[#888888]">Panjang Karakter</span>
+                <span class="font-mono font-bold text-black dark:text-white" id="slider-val">16</span>
               </div>
-              <input type="range" id="len-slider" min="8" max="64" value="16" oninput="updateLen(this.value)" class="w-full accent-indigo-600 cursor-pointer">
+              <input type="range" id="len-slider" min="8" max="64" value="16" oninput="updateLen(this.value)" class="w-full accent-[#37352F] dark:accent-white cursor-pointer">
             </div>
 
-            <!-- Toggles -->
-            <div class="space-y-3 pt-2 border-t border-slate-800/80 text-xs">
+            <div class="space-y-2.5 pt-2 border-t border-slate-100 dark:border-[#2A2A2A]">
               <label class="flex justify-between items-center cursor-pointer">
-                <span class="text-slate-300">Huruf Besar (A-Z)</span>
-                <input type="checkbox" checked class="w-4 h-4 accent-indigo-600 rounded">
+                <span>Huruf Besar (A-Z)</span>
+                <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
               <label class="flex justify-between items-center cursor-pointer">
-                <span class="text-slate-300">Huruf Kecil (a-z)</span>
-                <input type="checkbox" checked class="w-4 h-4 accent-indigo-600 rounded">
+                <span>Huruf Kecil (a-z)</span>
+                <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
               <label class="flex justify-between items-center cursor-pointer">
-                <span class="text-slate-300">Angka (0-9)</span>
-                <input type="checkbox" checked class="w-4 h-4 accent-indigo-600 rounded">
+                <span>Angka (0-9)</span>
+                <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
               <label class="flex justify-between items-center cursor-pointer">
-                <span class="text-slate-300">Simbol Karakter (!@#$%^&*)</span>
-                <input type="checkbox" checked class="w-4 h-4 accent-indigo-600 rounded">
+                <span>Simbol (!@#$%^&*)</span>
+                <input type="checkbox" checked class="accent-[#37352F] dark:accent-white">
               </label>
             </div>
           </div>
+
         </div>
 
-        <!-- Android Bottom Navigation Bar -->
-        <div class="border-t border-slate-800/80 bg-vault-950/90 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
-          <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <!-- Bottom Navigation Bar -->
+        <div class="border-t border-slate-200 dark:border-[#2A2A2A] bg-white/95 dark:bg-[#191919]/95 backdrop-blur px-6 py-2.5 flex justify-between items-center text-[10px]">
+          <button onclick="setScreen('vault')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <span class="text-sm">🔑</span>
             <span>Brankas</span>
           </button>
-          <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-indigo-400 font-semibold">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <button onclick="setScreen('generator')" class="flex flex-col items-center gap-1 text-black dark:text-white font-semibold">
+            <span class="text-sm">🎲</span>
             <span>Generator</span>
           </button>
-          <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-slate-400 hover:text-white relative">
-            <span class="absolute -top-1 right-2 w-2 h-2 rounded-full bg-red-500"></span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <button onclick="setScreen('breach')" class="flex flex-col items-center gap-1 text-slate-400 dark:text-[#888888] hover:text-black dark:hover:text-white">
+            <span class="text-sm">🛡️</span>
             <span>Breach</span>
           </button>
         </div>
@@ -534,38 +610,50 @@
   </main>
 
   <script>
+    let isDark = true;
+
+    function toggleTheme() {
+      isDark = !isDark;
+      const html = document.documentElement;
+      const btnIcon = document.getElementById('theme-icon');
+
+      if (isDark) {
+        html.classList.add('dark');
+        html.classList.remove('light');
+        btnIcon.innerText = '☀️ Light Mode';
+      } else {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        btnIcon.innerText = '🌙 Dark Mode';
+      }
+    }
+
     function setScreen(screenName) {
       document.querySelectorAll('.screen-content').forEach(el => el.classList.add('hidden'));
       document.getElementById('screen-' + screenName).classList.remove('hidden');
 
       // Update control buttons
       document.querySelectorAll('.screen-btn').forEach(btn => {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-sm');
-        btn.classList.add('text-slate-400');
+        btn.classList.remove('bg-white', 'dark:bg-[#262626]', 'shadow-sm', 'font-medium', 'text-black', 'dark:text-white');
+        btn.classList.add('text-slate-600', 'dark:text-slate-400');
       });
       const activeBtn = document.getElementById('btn-' + screenName);
       if (activeBtn) {
-        activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-sm');
-        activeBtn.classList.remove('text-slate-400');
+        activeBtn.classList.add('bg-white', 'dark:bg-[#262626]', 'shadow-sm', 'font-medium', 'text-black', 'dark:text-white');
+        activeBtn.classList.remove('text-slate-600', 'dark:text-slate-400');
       }
     }
 
     function togglePassword(inputId) {
       const input = document.getElementById(inputId);
-      if (input.type === 'password') {
-        input.type = 'text';
-      } else {
-        input.type = 'password';
-      }
+      input.type = input.type === 'password' ? 'text' : 'password';
     }
 
     function copyText(id, btn) {
       const origText = btn.innerText;
       btn.innerText = 'Tersalin!';
-      btn.classList.add('bg-emerald-600', 'text-white');
       setTimeout(() => {
         btn.innerText = origText;
-        btn.classList.remove('bg-emerald-600', 'text-white');
       }, 1200);
     }
 
@@ -576,7 +664,7 @@
     }
 
     function updateLen(val) {
-      document.getElementById('slider-val').innerText = val + ' Karakter';
+      document.getElementById('slider-val').innerText = val;
       generateRandomPass(val);
     }
 
