@@ -144,3 +144,37 @@ func (s *AuthService) Login(ctx context.Context, input LoginInput) (*LoginResult
 		User:      user,
 	}, nil
 }
+
+func (s *AuthService) DeleteAccount(ctx context.Context, userID string) error {
+	cleanID := strings.TrimSpace(userID)
+	if cleanID == "" {
+		return errors.New("user id is required")
+	}
+	return s.userRepo.Delete(ctx, cleanID)
+}
+
+type UpdatePasswordInput struct {
+	UserID      string
+	NewUserSalt string
+	NewAuthHash string
+}
+
+func (s *AuthService) UpdateMasterPassword(ctx context.Context, input UpdatePasswordInput) error {
+	cleanSalt := strings.TrimSpace(input.NewUserSalt)
+	saltBytes, err := base64.StdEncoding.DecodeString(cleanSalt)
+	if err != nil || len(saltBytes) != 32 {
+		return domain.ErrInvalidSalt
+	}
+
+	cleanAuthHash := strings.TrimSpace(input.NewAuthHash)
+	if cleanAuthHash == "" || len(cleanAuthHash) < 16 {
+		return domain.ErrInvalidAuthHash
+	}
+
+	serverHashedAuth, err := bcrypt.GenerateFromPassword([]byte(cleanAuthHash), bcrypt.DefaultCost)
+	if err != nil {
+		return fmt.Errorf("failed to hash new auth credentials: %w", err)
+	}
+
+	return s.userRepo.UpdateCredentials(ctx, input.UserID, cleanSalt, string(serverHashedAuth))
+}

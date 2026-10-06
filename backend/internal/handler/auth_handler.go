@@ -155,3 +155,66 @@ func (h *AuthHandler) Me(w http.ResponseWriter, r *http.Request) {
 		"email": email,
 	})
 }
+
+func (h *AuthHandler) DeleteMe(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserIDFromContext(r.Context())
+	if !ok {
+		respondError(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	if err := h.authService.DeleteAccount(r.Context(), userID); err != nil {
+		if errors.Is(err, domain.ErrUserNotFound) {
+			respondError(w, http.StatusNotFound, "user not found")
+			return
+		}
+		respondError(w, http.StatusInternalServerError, "failed to delete account")
+		return
+	}
+
+	respondJSON(w, http.StatusOK, map[string]string{
+		"message": "account and all vault data successfully deleted",
+	})
+}
+
+type UpdatePasswordRequest struct {
+	NewSalt     string `json:"new_salt"`
+	NewAuthHash string `json:"new_auth_hash"`
+}
+
+func (h *AuthHandler) UpdatePassword(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserIDFromContext(r.Context())
+	if !ok {
+		respondError(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	var req UpdatePasswordRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		respondError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	err := h.authService.UpdateMasterPassword(r.Context(), service.UpdatePasswordInput{
+		UserID:      userID,
+		NewUserSalt: req.NewSalt,
+		NewAuthHash: req.NewAuthHash,
+	})
+	if err != nil {
+		switch {
+		case errors.Is(err, domain.ErrInvalidSalt):
+			respondError(w, http.StatusBadRequest, "invalid salt format (must be 32-byte base64)")
+		case errors.Is(err, domain.ErrInvalidAuthHash):
+			respondError(w, http.StatusBadRequest, "invalid auth hash")
+		case errors.Is(err, domain.ErrUserNotFound):
+			respondError(w, http.StatusNotFound, "user not found")
+		default:
+			respondError(w, http.StatusInternalServerError, "failed to update master credentials")
+		}
+		return
+	}
+
+	respondJSON(w, http.StatusOK, map[string]string{
+		"message": "master credentials successfully updated",
+	})
+}

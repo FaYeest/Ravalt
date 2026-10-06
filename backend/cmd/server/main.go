@@ -89,12 +89,15 @@ func main() {
 			r.Group(func(r chi.Router) {
 				r.Use(appMiddleware.RequireAuth(jwtService))
 				r.Get("/me", authHandler.Me)
+				r.Delete("/me", authHandler.DeleteMe)
+				r.Put("/password", authHandler.UpdatePassword)
 			})
 		})
 
 		// Protected Vault routes
 		r.Route("/vault", func(r chi.Router) {
 			r.Use(appMiddleware.RequireAuth(jwtService))
+			r.Post("/sync", vaultHandler.Sync)
 			r.Route("/items", func(r chi.Router) {
 				r.Get("/", vaultHandler.ListItems)
 				r.Post("/", vaultHandler.CreateItem)

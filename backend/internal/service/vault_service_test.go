@@ -155,3 +155,47 @@ func TestVaultService_CRUD(t *testing.T) {
 		t.Fatalf("expected ErrVaultItemNotFound, got %v", err)
 	}
 }
+
+func TestVaultService_Sync(t *testing.T) {
+	repo := &mockVaultRepo{
+		items: make(map[string]*domain.VaultItem),
+	}
+	vaultService := service.NewVaultService(repo)
+	ctx := context.Background()
+
+	validNonce := "MDEyMzQ1Njc4OWFi"
+	validCiphertext := "SGVsbG8sIFplcm8tS25vd2xlZGdlIQ=="
+
+	// 1. Initial Sync with new items from client
+	syncRes, err := vaultService.Sync(ctx, service.SyncInput{
+		UserID: "user-sync-1",
+		Items: []service.SyncItemInput{
+			{
+				EncryptedData: validCiphertext,
+				Nonce:         validNonce,
+			},
+		},
+		DeletedIDs: nil,
+	})
+	if err != nil {
+		t.Fatalf("unexpected sync error: %v", err)
+	}
+	if len(syncRes.ServerItems) != 1 {
+		t.Fatalf("expected 1 item synced, got %d", len(syncRes.ServerItems))
+	}
+
+	itemID := syncRes.ServerItems[0].ID
+
+	// 2. Sync with client deletion
+	syncRes2, err := vaultService.Sync(ctx, service.SyncInput{
+		UserID:     "user-sync-1",
+		Items:      nil,
+		DeletedIDs: []string{itemID},
+	})
+	if err != nil {
+		t.Fatalf("unexpected sync error on delete: %v", err)
+	}
+	if len(syncRes2.ServerItems) != 0 {
+		t.Fatalf("expected 0 items after deletion, got %d", len(syncRes2.ServerItems))
+	}
+}

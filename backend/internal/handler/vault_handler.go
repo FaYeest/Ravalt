@@ -186,3 +186,46 @@ func (h *VaultHandler) DeleteItem(w http.ResponseWriter, r *http.Request) {
 		"message": "vault item deleted successfully",
 	})
 }
+
+type SyncRequest struct {
+	Since      *string                 `json:"since"`
+	Items      []service.SyncItemInput `json:"items"`
+	DeletedIDs []string                `json:"deleted_ids"`
+}
+
+func (h *VaultHandler) Sync(w http.ResponseWriter, r *http.Request) {
+	userID, ok := middleware.GetUserIDFromContext(r.Context())
+	if !ok {
+		respondError(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	var req SyncRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		respondError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	var sincePtr *time.Time
+	if req.Since != nil && *req.Since != "" {
+		parsedTime, err := time.Parse(time.RFC3339, *req.Since)
+		if err != nil {
+			respondError(w, http.StatusBadRequest, "invalid since parameter format (expected RFC3339)")
+			return
+		}
+		sincePtr = &parsedTime
+	}
+
+	result, err := h.vaultService.Sync(r.Context(), service.SyncInput{
+		UserID:     userID,
+		Since:      sincePtr,
+		Items:      req.Items,
+		DeletedIDs: req.DeletedIDs,
+	})
+	if err != nil {
+		respondError(w, http.StatusInternalServerError, "failed to sync vault items")
+		return
+	}
+
+	respondJSON(w, http.StatusOK, result)
+}

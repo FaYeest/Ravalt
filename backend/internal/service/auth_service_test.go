@@ -24,6 +24,36 @@ func (m *mockUserRepo) Create(ctx context.Context, user *domain.User) error {
 	return nil
 }
 
+func (m *mockUserRepo) GetByID(ctx context.Context, id string) (*domain.User, error) {
+	for _, u := range m.users {
+		if u.ID == id {
+			return u, nil
+		}
+	}
+	return nil, domain.ErrUserNotFound
+}
+
+func (m *mockUserRepo) UpdateCredentials(ctx context.Context, id, newUserSalt, newAuthHash string) error {
+	for _, u := range m.users {
+		if u.ID == id {
+			u.UserSalt = newUserSalt
+			u.AuthHash = newAuthHash
+			return nil
+		}
+	}
+	return domain.ErrUserNotFound
+}
+
+func (m *mockUserRepo) Delete(ctx context.Context, id string) error {
+	for email, u := range m.users {
+		if u.ID == id {
+			delete(m.users, email)
+			return nil
+		}
+	}
+	return domain.ErrUserNotFound
+}
+
 func TestGetPreloginSalt_AntiEnumeration(t *testing.T) {
 	repo := &mockUserRepo{
 		users: map[string]*domain.User{
@@ -202,5 +232,90 @@ func TestLogin(t *testing.T) {
 	})
 	if err != domain.ErrInvalidCredentials {
 		t.Fatalf("expected ErrInvalidCredentials for non-existing user, got %v", err)
+	}
+}
+
+func TestAuthService_DeleteAccount(t *testing.T) {
+	repo := &mockUserRepo{
+		users: map[string]*domain.User{
+			"del@example.com": {
+				ID:    "user-to-del-123",
+				Email: "del@example.com",
+			},
+		},
+	}
+
+	jwtService := service.NewJWTService("test-jwt-secret-key-at-least-32b-long", 24)
+	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length", jwtService)
+	ctx := context.Background()
+
+	// 1. Delete existing account
+	err := authService.DeleteAccount(ctx, "user-to-del-123")
+	if err != nil {
+		t.Fatalf("unexpected error deleting user: %v", err)
+	}
+
+	// Verify user is gone
+	_, err = repo.GetByEmail(ctx, "del@example.com")
+	if err != domain.ErrUserNotFound {
+		t.Fatalf("expected user to be deleted, got: %v", err)
+	}
+
+	// 2. Delete non-existing account
+	err = authService.DeleteAccount(ctx, "non-existent-user")
+	if err != domain.ErrUserNotFound {
+		t.Fatalf("expected ErrUserNotFound, got %v", err)
+	}
+}
+
+func TestAuthService_UpdateMasterPassword(t *testing.T) {
+	repo := &mockUserRepo{
+		users: map[string]*domain.User{
+			"pass@example.com": {
+				ID:       "user-pass-123",
+				Email:    "pass@example.com",
+				UserSalt: "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+				AuthHash: "old-hash",
+			},
+		},
+	}
+
+	jwtService := service.NewJWTService("test-jwt-secret-key-at-least-32b-long", 24)
+	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length", jwtService)
+	ctx := context.Background()
+
+	newSalt := "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB="
+	newAuthHash := "new-client-auth-hash-minimum-16ch"
+
+	// 1. Update with valid parameters
+	err := authService.UpdateMasterPassword(ctx, service.UpdatePasswordInput{
+		UserID:      "user-pass-123",
+		NewUserSalt: newSalt,
+		NewAuthHash: newAuthHash,
+	})
+	if err != nil {
+		t.Fatalf("unexpected error updating master password: %v", err)
+	}
+
+	// 2. Verify login with new hash
+	res, err := authService.Login(ctx, service.LoginInput{
+		Email:    "pass@example.com",
+		AuthHash: newAuthHash,
+	})
+	if err != nil {
+		t.Fatalf("expected login with new password to succeed, got %v", err)
+	}
+	if res.Token == "" {
+		t.Fatal("expected JWT token after update")
+	}
+
+	// 3. Update with invalid salt format
+	err = authService.UpdateMasterPassword(ctx, service.UpdatePasswordInput{
+		UserID:      "user-pass-123",
+		NewUserSalt: "invalid-salt",
+		NewAuthHash: newAuthHash,
+	})
+	if err != domain.ErrInvalidSalt {
+		t.Fatalf("expected ErrInvalidSalt, got %v", err)
 	}
 }
