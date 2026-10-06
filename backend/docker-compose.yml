@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ravalt-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ravalt_user
+      POSTGRES_PASSWORD: ravalt_password
+      POSTGRES_DB: ravalt_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./migrations/000001_init_schema.up.sql:/docker-entrypoint-initdb.d/01_init.sql:ro
+
+volumes:
+  pgdata:
+    name: ravalt_pgdata

@@ -1,0 +1,12 @@
+{
+  "name": "ravalt-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page for Ravalt Password Manager",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/css/styles.css -o ./public/css/styles.css --minify",
+    "watch:css": "tailwindcss -i ./src/css/styles.css -o ./public/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

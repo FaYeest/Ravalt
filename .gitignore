@@ -1,0 +1,50 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE & Editors
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# Environment & Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Go
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+
+# Android & Gradle
+.gradle/
+build/
+*/build/
+local.properties
+*.apk
+*.ap_
+*.aab
+.navigation/
+captures/
+output.json
+
+# Web & Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+
+# Database & Docker local volumes
+pgdata/
