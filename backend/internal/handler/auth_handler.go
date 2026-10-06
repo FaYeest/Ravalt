@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 
@@ -41,5 +42,52 @@ func (h *AuthHandler) Prelogin(w http.ResponseWriter, r *http.Request) {
 
 	respondJSON(w, http.StatusOK, PreloginResponse{
 		Salt: salt,
+	})
+}
+
+type RegisterRequest struct {
+	Email    string `json:"email"`
+	Salt     string `json:"salt"`
+	AuthHash string `json:"auth_hash"`
+}
+
+type RegisterResponse struct {
+	ID        string    `json:"id"`
+	Email     string    `json:"email"`
+	CreatedAt string    `json:"created_at"`
+}
+
+func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
+	var req RegisterRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		respondError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	user, err := h.authService.Register(r.Context(), service.RegisterInput{
+		Email:    req.Email,
+		UserSalt: req.Salt,
+		AuthHash: req.AuthHash,
+	})
+	if err != nil {
+		switch {
+		case errors.Is(err, domain.ErrInvalidEmail):
+			respondError(w, http.StatusBadRequest, "invalid email address")
+		case errors.Is(err, domain.ErrInvalidSalt):
+			respondError(w, http.StatusBadRequest, "invalid salt format (must be 32-byte base64)")
+		case errors.Is(err, domain.ErrInvalidAuthHash):
+			respondError(w, http.StatusBadRequest, "invalid auth hash")
+		case errors.Is(err, domain.ErrUserAlreadyExists):
+			respondError(w, http.StatusConflict, "user with this email already exists")
+		default:
+			respondError(w, http.StatusInternalServerError, "failed to register user")
+		}
+		return
+	}
+
+	respondJSON(w, http.StatusCreated, RegisterResponse{
+		ID:        user.ID,
+		Email:     user.Email,
+		CreatedAt: user.CreatedAt.Format("2006-01-02T15:04:05Z07:00"),
 	})
 }

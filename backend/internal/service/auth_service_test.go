@@ -80,3 +80,60 @@ func TestGetPreloginSalt_AntiEnumeration(t *testing.T) {
 		t.Fatalf("expected ErrInvalidEmail, got %v", err)
 	}
 }
+
+func TestRegister(t *testing.T) {
+	repo := &mockUserRepo{
+		users: make(map[string]*domain.User),
+	}
+	authService := service.NewAuthService(repo, "test-server-secret-key-32b-length")
+	ctx := context.Background()
+
+	validSalt := "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=" // 32 bytes base64 (44 chars)
+	validAuthHash := "client-derived-auth-hash-minimum-length-ok"
+
+	// 1. Success registration
+	user, err := authService.Register(ctx, service.RegisterInput{
+		Email:    "newuser@example.com",
+		UserSalt: validSalt,
+		AuthHash: validAuthHash,
+	})
+	if err != nil {
+		t.Fatalf("unexpected register error: %v", err)
+	}
+	if user.Email != "newuser@example.com" {
+		t.Fatalf("expected email newuser@example.com, got %s", user.Email)
+	}
+	if len(user.AuthHash) != 60 {
+		t.Fatalf("expected 60-char bcrypt hash, got %d chars: %s", len(user.AuthHash), user.AuthHash)
+	}
+
+	// 2. Duplicate registration fails
+	_, err = authService.Register(ctx, service.RegisterInput{
+		Email:    "newuser@example.com",
+		UserSalt: validSalt,
+		AuthHash: validAuthHash,
+	})
+	if err != domain.ErrUserAlreadyExists {
+		t.Fatalf("expected ErrUserAlreadyExists, got %v", err)
+	}
+
+	// 3. Invalid salt length fails
+	_, err = authService.Register(ctx, service.RegisterInput{
+		Email:    "user2@example.com",
+		UserSalt: "short-invalid-salt",
+		AuthHash: validAuthHash,
+	})
+	if err != domain.ErrInvalidSalt {
+		t.Fatalf("expected ErrInvalidSalt, got %v", err)
+	}
+
+	// 4. Invalid email fails
+	_, err = authService.Register(ctx, service.RegisterInput{
+		Email:    "notanemail",
+		UserSalt: validSalt,
+		AuthHash: validAuthHash,
+	})
+	if err != domain.ErrInvalidEmail {
+		t.Fatalf("expected ErrInvalidEmail, got %v", err)
+	}
+}

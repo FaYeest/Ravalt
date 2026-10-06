@@ -77,6 +77,7 @@ func main() {
 	r.Route("/api/v1", func(r chi.Router) {
 		r.Route("/auth", func(r chi.Router) {
 			r.Get("/prelogin", authHandler.Prelogin)
+			r.Post("/register", authHandler.Register)
 		})
 	})
 
