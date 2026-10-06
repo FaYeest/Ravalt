@@ -12,6 +12,9 @@ import (
 	"time"
 
 	"github.com/FaYeest/ravalt/backend/internal/config"
+	"github.com/FaYeest/ravalt/backend/internal/handler"
+	repoPostgres "github.com/FaYeest/ravalt/backend/internal/repository/postgres"
+	"github.com/FaYeest/ravalt/backend/internal/service"
 	"github.com/FaYeest/ravalt/backend/internal/storage/postgres"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -42,6 +45,15 @@ func main() {
 
 	log.Printf("Successfully connected to PostgreSQL at %s:%s/%s", cfg.DBHost, cfg.DBPort, cfg.DBName)
 
+	// Repositories
+	userRepo := repoPostgres.NewUserRepository(dbPool)
+
+	// Services
+	authService := service.NewAuthService(userRepo, cfg.JWTSecret)
+
+	// Handlers
+	authHandler := handler.NewAuthHandler(authService)
+
 	r := chi.NewRouter()
 
 	// Global Middlewares
@@ -60,6 +72,13 @@ func main() {
 		AllowCredentials: true,
 		MaxAge:           300,
 	}))
+
+	// API Routes
+	r.Route("/api/v1", func(r chi.Router) {
+		r.Route("/auth", func(r chi.Router) {
+			r.Get("/prelogin", authHandler.Prelogin)
+		})
+	})
 
 	// Health Check Route
 	r.Get("/healthz", func(w http.ResponseWriter, r *http.Request) {

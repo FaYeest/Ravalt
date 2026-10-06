@@ -1,0 +1,27 @@
+package domain
+
+import (
+	"context"
+	"errors"
+	"time"
+)
+
+var (
+	ErrUserNotFound      = errors.New("user not found")
+	ErrUserAlreadyExists = errors.New("user already exists")
+	ErrInvalidEmail      = errors.New("invalid email address")
+)
+
+type User struct {
+	ID        string    `json:"id"`
+	Email     string    `json:"email"`
+	UserSalt  string    `json:"user_salt"`
+	AuthHash  string    `json:"-"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UserRepository interface {
+	GetByEmail(ctx context.Context, email string) (*User, error)
+	Create(ctx context.Context, user *User) error
+}
