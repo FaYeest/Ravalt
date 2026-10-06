@@ -48,13 +48,16 @@ func main() {
 
 	// Repositories
 	userRepo := repoPostgres.NewUserRepository(dbPool)
+	vaultRepo := repoPostgres.NewVaultRepository(dbPool)
 
 	// Services
 	jwtService := service.NewJWTService(cfg.JWTSecret, cfg.JWTExpirationHours)
 	authService := service.NewAuthService(userRepo, cfg.JWTSecret, jwtService)
+	vaultService := service.NewVaultService(vaultRepo)
 
 	// Handlers
 	authHandler := handler.NewAuthHandler(authService)
+	vaultHandler := handler.NewVaultHandler(vaultService)
 
 	r := chi.NewRouter()
 
@@ -82,10 +85,22 @@ func main() {
 			r.Post("/register", authHandler.Register)
 			r.Post("/login", authHandler.Login)
 
-			// Protected routes
+			// Protected auth routes
 			r.Group(func(r chi.Router) {
 				r.Use(appMiddleware.RequireAuth(jwtService))
 				r.Get("/me", authHandler.Me)
+			})
+		})
+
+		// Protected Vault routes
+		r.Route("/vault", func(r chi.Router) {
+			r.Use(appMiddleware.RequireAuth(jwtService))
+			r.Route("/items", func(r chi.Router) {
+				r.Get("/", vaultHandler.ListItems)
+				r.Post("/", vaultHandler.CreateItem)
+				r.Get("/{id}", vaultHandler.GetItem)
+				r.Put("/{id}", vaultHandler.UpdateItem)
+				r.Delete("/{id}", vaultHandler.DeleteItem)
 			})
 		})
 	})
