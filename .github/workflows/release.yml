@@ -1,24 +1,50 @@
-name: Release APK
+name: Release Pipeline
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
   workflow_dispatch:
     inputs:
       version_tag:
-        description: 'Release version tag (e.g. v1.0.0)'
+        description: 'Manual release version tag (e.g. v1.0.1)'
         required: false
-        default: 'v1.0.0'
+        default: ''
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
-  release:
-    name: Build & Publish APK Release
+  release-please:
+    name: Manage Release PR & Tags
     runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - name: Run Google Release Please
+        id: release
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: simple
 
+  build-and-publish-apk:
+    name: Build, Sign & Attach APK
+    runs-on: ubuntu-latest
+    needs: [release-please]
+    if: |
+      always() &&
+      (
+        needs.release-please.outputs.releases_created == 'true' ||
+        startsWith(github.ref, 'refs/tags/v') ||
+        github.event_name == 'workflow_dispatch'
+      )
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -34,22 +60,38 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Resolve Version Information
-        id: version
+      - name: Resolve Target Version & Tag
+        id: target
         shell: bash
         run: |
-          RAW_TAG="${{ github.event.inputs.version_tag || github.ref_name }}"
-          # Ensure tag starts with 'v' for standard release tagging
-          if [[ "$RAW_TAG" =~ ^v ]]; then
-            TAG="$RAW_TAG"
-            CLEAN_VERSION="${RAW_TAG#v}"
+          if [ "${{ needs.release-please.outputs.releases_created }}" = "true" ]; then
+            TAG="${{ needs.release-please.outputs.tag_name }}"
+            CLEAN_VERSION="${{ needs.release-please.outputs.version }}"
+          elif [[ "${{ github.ref }}" =~ ^refs/tags/v ]]; then
+            TAG="${GITHUB_REF#refs/tags/}"
+            CLEAN_VERSION="${TAG#v}"
+          elif [ -n "${{ github.event.inputs.version_tag }}" ]; then
+            RAW_TAG="${{ github.event.inputs.version_tag }}"
+            if [[ "$RAW_TAG" =~ ^v ]]; then
+              TAG="$RAW_TAG"
+              CLEAN_VERSION="${RAW_TAG#v}"
+            else
+              TAG="v$RAW_TAG"
+              CLEAN_VERSION="$RAW_TAG"
+            fi
           else
-            TAG="v$RAW_TAG"
-            CLEAN_VERSION="$RAW_TAG"
+            # Fallback to version.txt or default
+            if [ -f "version.txt" ]; then
+              CLEAN_VERSION=$(cat version.txt | tr -d '[:space:]')
+            else
+              CLEAN_VERSION="1.0.0"
+            fi
+            TAG="v$CLEAN_VERSION"
           fi
+
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "clean_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
-          echo "Building Ravalt Release: Tag=$TAG, VersionName=$CLEAN_VERSION"
+          echo "Target Release: Tag=$TAG, Version=$CLEAN_VERSION"
 
       - name: Grant Execute Permission for Gradlew
         run: chmod +x android/gradlew
@@ -62,13 +104,13 @@ jobs:
         working-directory: android
         run: |
           ./gradlew assembleRelease \
-            -PVERSION_NAME="${{ steps.version.outputs.clean_version }}" \
+            -PVERSION_NAME="${{ steps.target.outputs.clean_version }}" \
             --no-daemon
 
-      - name: Sign & Package APK
+      - name: Sign & Prepare APK
         shell: bash
         run: |
-          TAG="${{ steps.version.outputs.tag }}"
+          TAG="${{ steps.target.outputs.tag }}"
           APK_DIR="android/app/build/outputs/apk/release"
           UNSIGNED_APK="$APK_DIR/app-release-unsigned.apk"
           SIGNED_APK="$APK_DIR/Ravalt-${TAG}.apk"
@@ -78,12 +120,11 @@ jobs:
             exit 1
           fi
 
-          # Locate apksigner from Android SDK build tools
           APKSIGNER=$(find $ANDROID_HOME/build-tools -name apksigner | sort -V | tail -n 1)
           echo "Using apksigner at: $APKSIGNER"
 
           if [ -n "${{ secrets.KEYSTORE_BASE64 }}" ]; then
-            echo "Signing with repository secret release keystore..."
+            echo "Signing with repository secret keystore..."
             echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > release.keystore
             $APKSIGNER sign --ks release.keystore \
               --ks-key-alias "${{ secrets.KEY_ALIAS }}" \
@@ -92,7 +133,7 @@ jobs:
               --out "$SIGNED_APK" "$UNSIGNED_APK"
             rm -f release.keystore
           else
-            echo "No custom keystore secrets found. Generating self-signed release key..."
+            echo "Signing with self-signed release keystore..."
             keytool -genkeypair -v \
               -keystore temp-release.keystore \
               -alias ravalt \
@@ -119,16 +160,23 @@ jobs:
           sha256sum "Ravalt-${TAG}.apk" > "Ravalt-${TAG}.apk.sha256"
           echo "Checksum generated: $(cat Ravalt-${TAG}.apk.sha256)"
 
-      - name: Publish GitHub Release with Changelog
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          name: "Ravalt ${{ steps.version.outputs.tag }}"
-          draft: false
-          prerelease: false
-          generate_release_notes: true
-          files: |
-            android/app/build/outputs/apk/release/Ravalt-${{ steps.version.outputs.tag }}.apk
-            android/app/build/outputs/apk/release/Ravalt-${{ steps.version.outputs.tag }}.apk.sha256
+      - name: Publish Release Assets to GitHub
+        shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ steps.target.outputs.tag }}"
+          APK_FILE="android/app/build/outputs/apk/release/Ravalt-${TAG}.apk"
+          SHA_FILE="android/app/build/outputs/apk/release/Ravalt-${TAG}.apk.sha256"
+
+          # Check if GitHub Release already exists (e.g. created by Release-Please)
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG exists. Uploading APK and checksum assets..."
+            gh release upload "$TAG" "$APK_FILE" "$SHA_FILE" --clobber
+          else
+            echo "Release $TAG does not exist. Creating release and uploading assets..."
+            gh release create "$TAG" "$APK_FILE" "$SHA_FILE" \
+              --title "Ravalt $TAG" \
+              --generate-notes
+          fi
+          echo "Release assets successfully published for $TAG!"
