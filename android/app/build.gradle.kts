@@ -13,15 +13,21 @@ android {
         applicationId = "com.ravalt.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0.0"
+        val appVersionName = (project.findProperty("VERSION_NAME") as? String) ?: "1.0.0"
+        val appVersionCode = (project.findProperty("VERSION_CODE") as? String)?.toIntOrNull() ?: 1
+        val apiBaseUrl = (project.findProperty("API_BASE_URL") as? String)
+            ?: System.getenv("API_BASE_URL")
+            ?: "http://10.0.2.2:8080/api/v1/"
+
+        versionCode = appVersionCode
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
 
-        buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:8080/api/v1/\"")
+        buildConfigField("String", "BASE_URL", "\"$apiBaseUrl\"")
     }
 
     buildTypes {

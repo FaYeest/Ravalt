@@ -73,5 +73,18 @@ curl http://localhost:8080/healthz
 
 ---
 
+## Distribusi & Rilis Otomatis (CI/CD)
+
+Ravalt menggunakan GitHub Actions untuk pengujian otomatis dan penerbitan rilis APK:
+
+- **Unduh APK Rilis Publik**: Tersedia langsung di tab [GitHub Releases](https://github.com/FaYeest/Ravalt/releases) untuk setiap rilis stabil. Setiap berkas rilis disertai dengan checksum SHA-256 (`.sha256`) untuk memvalidasi integritas paket.
+- **Penerbitan Rilis Otomatis**:
+  - Dijalankan otomatis saat pembuatan tag rilis Git (contoh: `git tag v1.0.0 && git push origin v1.0.0`).
+  - Mendukung eksekusi manual via menu **Actions -> Release APK (Run workflow)**.
+  - Alur CI/CD melakukan build Gradle `assembleRelease`, penandatanganan paket APK (V2/V3 signing), verifikasi tanda tangan via `apksigner`, pembuatan changelog otomatis dari riwayat commit, dan pengunggahan aset rilis secara publik.
+- **Verifikasi Berkelanjutan (CI)**: Setiap `push` dan `pull request` ke branch `main` diverifikasi secara otomatis melalui unit test Go dan unit test Android.
+
+---
+
 ## Lisensi
 Proyek ini didistribusikan di bawah lisensi MIT.
